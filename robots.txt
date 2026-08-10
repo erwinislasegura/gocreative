@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /includes/
+Disallow: /contacto/enviar.php
+
+Sitemap: https://gocreative.cl/sitemap.xml
