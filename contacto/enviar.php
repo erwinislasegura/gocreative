@@ -8,7 +8,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
 function fail(): void
 {
-    header('Location: /contacto/?estado=error');
+    header('Location: ' . site_path('/contacto/?estado=error'));
     exit;
 }
 
@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 if (!empty($_POST['website'])) {
-    header('Location: /contacto/?estado=ok');
+    header('Location: ' . site_path('/contacto/?estado=ok'));
     exit;
 }
 
@@ -58,5 +58,5 @@ if (!mail(SITE_EMAIL, $subject, $body, implode("\r\n", $headers))) {
 }
 
 unset($_SESSION['csrf_token']);
-header('Location: /contacto/?estado=ok');
+header('Location: ' . site_path('/contacto/?estado=ok'));
 exit;
