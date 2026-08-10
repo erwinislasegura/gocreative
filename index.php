@@ -107,9 +107,9 @@ require __DIR__ . '/includes/header.php';
             <p>Cada proyecto combina una navegación simple, mensajes concretos y una identidad visual pensada para el mercado de cada cliente.</p>
         </div>
         <div class="portfolio-grid">
-            <?php foreach (array_slice($portfolioItems, 0, 4) as $index => $item): ?>
+            <?php foreach (array_slice($portfolioItems, 0, 6) as $index => $item): ?>
             <article class="portfolio-card <?= $index === 0 ? 'portfolio-card--wide' : '' ?>" data-reveal>
-                <div class="portfolio-card__image"><img src="/assets/img/portfolio/<?= e($item['image']) ?>" alt="Proyecto web <?= e($item['name']) ?>" width="960" height="515" loading="lazy"></div>
+                <div class="portfolio-card__image"><img src="/assets/img/portfolio/<?= e($item['image']) ?>" alt="Proyecto web <?= e($item['name']) ?>" width="960" height="515" loading="lazy" decoding="async"></div>
                 <div class="portfolio-card__body"><div><span><?= e($item['type']) ?></span><h3><?= e($item['name']) ?></h3></div><span class="portfolio-card__arrow">↗</span></div>
             </article>
             <?php endforeach; ?>
