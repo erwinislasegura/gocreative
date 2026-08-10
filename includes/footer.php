@@ -1,3 +1,38 @@
+<?php
+$showProjectStrip = !in_array(
+    $meta['path'],
+    ['/', '/portafolio/', '/politica-de-privacidad/', '/404'],
+    true
+);
+?>
+<?php if ($showProjectStrip): ?>
+<section class="project-strip" aria-labelledby="project-strip-title">
+    <div class="container">
+        <div class="project-strip__head" data-reveal>
+            <div>
+                <p class="eyebrow eyebrow--dark"><span></span> Experiencia comprobable</p>
+                <h2 id="project-strip-title">Proyectos digitales creados para empresas reales.</h2>
+            </div>
+            <a class="text-link text-link--dark" href="/portafolio/">Explorar portafolio <span>→</span></a>
+        </div>
+        <div class="project-strip__grid">
+            <?php foreach (array_slice($portfolioItems, 0, 3) as $item): ?>
+            <a class="project-strip__item" href="/portafolio/" aria-label="Ver proyecto <?= e($item['name']) ?> en el portafolio" data-reveal>
+                <figure>
+                    <img src="/assets/img/portfolio/<?= e($item['image']) ?>"
+                         alt="Proyecto de <?= e($item['type']) ?> para <?= e($item['name']) ?> desarrollado por Go Creative"
+                         width="960"
+                         height="515"
+                         loading="lazy"
+                         decoding="async">
+                    <figcaption><span><?= e($item['type']) ?></span><strong><?= e($item['name']) ?></strong></figcaption>
+                </figure>
+            </a>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</section>
+<?php endif; ?>
 </main>
 <footer class="site-footer">
     <div class="container footer__grid">
@@ -48,6 +83,6 @@
     <span>WhatsApp</span>
     <strong>Conversemos</strong>
 </a>
-<script src="/assets/js/main.js?v=1.0.0" defer></script>
+<script src="/assets/js/main.js?v=1.1.0" defer></script>
 </body>
 </html>
