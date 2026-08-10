@@ -109,3 +109,100 @@ $portfolioItems = [
     ['image' => '7.webp', 'name' => 'Solución Emprendedor', 'type' => 'Servicios profesionales', 'description' => 'Sitio enfocado en servicios contables y tributarios para emprendedores.'],
     ['image' => '8.webp', 'name' => 'SURMA', 'type' => 'Ecommerce', 'description' => 'Tienda online de electrodomésticos con catálogo y experiencia comercial ordenada.'],
 ];
+
+$seoBreadcrumbs = [
+    '/servicios/' => [
+        ['name' => 'Inicio', 'path' => '/'],
+        ['name' => 'Servicios', 'path' => '/servicios/'],
+    ],
+    '/diseno-web-chile/' => [
+        ['name' => 'Inicio', 'path' => '/'],
+        ['name' => 'Servicios', 'path' => '/servicios/'],
+        ['name' => 'Diseño web', 'path' => '/diseno-web-chile/'],
+    ],
+    '/tiendas-online/' => [
+        ['name' => 'Inicio', 'path' => '/'],
+        ['name' => 'Servicios', 'path' => '/servicios/'],
+        ['name' => 'Tiendas online', 'path' => '/tiendas-online/'],
+    ],
+    '/software-a-medida/' => [
+        ['name' => 'Inicio', 'path' => '/'],
+        ['name' => 'Servicios', 'path' => '/servicios/'],
+        ['name' => 'Software a medida', 'path' => '/software-a-medida/'],
+    ],
+    '/automatizacion/' => [
+        ['name' => 'Inicio', 'path' => '/'],
+        ['name' => 'Servicios', 'path' => '/servicios/'],
+        ['name' => 'Automatización', 'path' => '/automatizacion/'],
+    ],
+    '/meta-ads/' => [
+        ['name' => 'Inicio', 'path' => '/'],
+        ['name' => 'Servicios', 'path' => '/servicios/'],
+        ['name' => 'Meta Ads', 'path' => '/meta-ads/'],
+    ],
+    '/diseno-creativo-digital/' => [
+        ['name' => 'Inicio', 'path' => '/'],
+        ['name' => 'Servicios', 'path' => '/servicios/'],
+        ['name' => 'Diseño creativo digital', 'path' => '/diseno-creativo-digital/'],
+    ],
+    '/soporte-tecnico/' => [
+        ['name' => 'Inicio', 'path' => '/'],
+        ['name' => 'Servicios', 'path' => '/servicios/'],
+        ['name' => 'Soporte técnico', 'path' => '/soporte-tecnico/'],
+    ],
+    '/portafolio/' => [
+        ['name' => 'Inicio', 'path' => '/'],
+        ['name' => 'Portafolio', 'path' => '/portafolio/'],
+    ],
+    '/nosotros/' => [
+        ['name' => 'Inicio', 'path' => '/'],
+        ['name' => 'Nosotros', 'path' => '/nosotros/'],
+    ],
+    '/contacto/' => [
+        ['name' => 'Inicio', 'path' => '/'],
+        ['name' => 'Contacto', 'path' => '/contacto/'],
+    ],
+    '/politica-de-privacidad/' => [
+        ['name' => 'Inicio', 'path' => '/'],
+        ['name' => 'Política de privacidad', 'path' => '/politica-de-privacidad/'],
+    ],
+];
+
+$seoServices = [
+    '/diseno-web-chile/' => [
+        'name' => 'Diseño y desarrollo web en Chile',
+        'serviceType' => 'Diseño y desarrollo de sitios web',
+        'description' => 'Sitios corporativos, landing pages y páginas autoadministrables con diseño responsive, SEO técnico y orientación comercial.',
+    ],
+    '/tiendas-online/' => [
+        'name' => 'Diseño de tiendas online en Chile',
+        'serviceType' => 'Desarrollo de ecommerce',
+        'description' => 'Tiendas online con catálogo, carrito, pagos, envíos, inventario, pedidos y capacitación.',
+    ],
+    '/software-a-medida/' => [
+        'name' => 'Desarrollo de software a medida en Chile',
+        'serviceType' => 'Desarrollo de sistemas web a medida',
+        'description' => 'Plataformas para operaciones, inventario, ventas, reservas, documentos, usuarios, permisos, reportes e indicadores.',
+    ],
+    '/automatizacion/' => [
+        'name' => 'Automatización de procesos empresariales',
+        'serviceType' => 'Automatización de procesos digitales',
+        'description' => 'Automatización de formularios, alertas, asignaciones, documentos, correos e integraciones para empresas.',
+    ],
+    '/meta-ads/' => [
+        'name' => 'Gestión de campañas Meta Ads',
+        'serviceType' => 'Publicidad en Facebook e Instagram',
+        'description' => 'Campañas Meta Ads orientadas a consultas, WhatsApp, oportunidades comerciales y medición de resultados.',
+    ],
+    '/diseno-creativo-digital/' => [
+        'name' => 'Diseño creativo digital para empresas',
+        'serviceType' => 'Diseño gráfico y contenido digital',
+        'description' => 'Identidad visual, piezas para redes sociales, banners y recursos gráficos coherentes con cada marca.',
+    ],
+    '/soporte-tecnico/' => [
+        'name' => 'Soporte técnico y mantenimiento web',
+        'serviceType' => 'Soporte, mantenimiento y migración web',
+        'description' => 'Diagnóstico, recuperación, optimización, seguridad y migración de sitios y sistemas web.',
+    ],
+];
+
