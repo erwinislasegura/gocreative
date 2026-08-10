@@ -14,6 +14,12 @@ header('X-Frame-Options: SAMEORIGIN');
 header('Referrer-Policy: strict-origin-when-cross-origin');
 header('Permissions-Policy: geolocation=(), microphone=(), camera=()');
 
+
+if (!defined('SITE_URL_REWRITE_BUFFER_STARTED')) {
+    define('SITE_URL_REWRITE_BUFFER_STARTED', true);
+    ob_start('rewrite_site_urls');
+}
+
 $meta = array_merge([
     'title' => 'Go Creative | Desarrollo web y soluciones digitales',
     'description' => 'Diseño web, tiendas online, software a medida, automatización, Meta Ads y soporte técnico para empresas en Chile.',
