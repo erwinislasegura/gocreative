@@ -26,6 +26,8 @@ function recaptcha_config(): array
     }
 
     $config = array_replace([
+        'protect_login' => true,
+        'protect_contact' => true,
         'site_key' => '',
         'secret_key' => '',
         'allowed_hosts' => ['gocreative.cl', 'www.gocreative.cl', 'localhost', '127.0.0.1'],
@@ -43,6 +45,8 @@ function recaptcha_config(): array
 
     $config['site_key'] = trim((string) $config['site_key']);
     $config['secret_key'] = trim((string) $config['secret_key']);
+    $config['protect_login'] = (bool) $config['protect_login'];
+    $config['protect_contact'] = (bool) $config['protect_contact'];
     $config['timeout'] = max(2, min(15, (int) $config['timeout']));
     $config['allowed_hosts'] = array_values(array_unique(array_filter(array_map(
         static fn ($host): string => strtolower(trim((string) $host)),
@@ -50,6 +54,31 @@ function recaptcha_config(): array
     ))));
 
     return $config;
+}
+
+function recaptcha_login_enabled(): bool
+{
+    $config = recaptcha_config();
+    return $config['protect_login'] && recaptcha_is_configured();
+}
+
+function recaptcha_contact_enabled(): bool
+{
+    $config = recaptcha_config();
+    return $config['protect_contact'] && recaptcha_is_configured();
+}
+
+function recaptcha_environment_overrides(): array
+{
+    $overrides = [];
+    foreach (['GC_RECAPTCHA_SITE_KEY', 'GC_RECAPTCHA_SECRET_KEY'] as $name) {
+        $value = getenv($name);
+        if (is_string($value) && trim($value) !== '') {
+            $overrides[] = $name;
+        }
+    }
+
+    return $overrides;
 }
 
 function recaptcha_is_configured(): bool

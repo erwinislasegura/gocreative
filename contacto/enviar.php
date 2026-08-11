@@ -27,9 +27,12 @@ if (empty($_SESSION['csrf_token']) || !hash_equals($_SESSION['csrf_token'], $tok
     fail();
 }
 
-$recaptchaToken = (string) ($_POST['g-recaptcha-response'] ?? '');
-if (!recaptcha_verify($recaptchaToken, (string) ($_SERVER['REMOTE_ADDR'] ?? ''))) {
-    fail('captcha');
+$recaptchaConfiguration = recaptcha_config();
+if ((bool) $recaptchaConfiguration['protect_contact']) {
+    $recaptchaToken = (string) ($_POST['g-recaptcha-response'] ?? '');
+    if (!recaptcha_verify($recaptchaToken, (string) ($_SERVER['REMOTE_ADDR'] ?? ''))) {
+        fail('captcha');
+    }
 }
 
 $nombre = trim(strip_tags((string) ($_POST['nombre'] ?? '')));

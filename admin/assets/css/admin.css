@@ -44,8 +44,10 @@ a { color: inherit; }
 .admin-sidebar__inner {
   display: flex;
   flex-direction: column;
+  height: 100vh;
   min-height: 100%;
   padding: 28px 20px 22px;
+  overflow-y: auto;
 }
 
 .admin-brand {
@@ -440,6 +442,41 @@ a { color: inherit; }
 .form-section__heading { margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--gc-line); }
 .form-section__heading h2 { margin: 0; font-size: .88rem; font-weight: 800; }
 .form-section__heading p { margin: 4px 0 0; color: var(--gc-muted); font-size: .7rem; }
+
+.settings-state {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 34px;
+  padding: 7px 11px;
+  font-size: .62rem;
+  font-weight: 850;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  border: 1px solid;
+}
+.settings-state::before { width: 7px; height: 7px; content: ""; background: currentColor; border-radius: 50%; }
+.settings-state.is-active { color: #237c51; background: #e8f5eb; border-color: #b9ddc4; }
+.settings-state.is-inactive { color: #895b22; background: #fff5e4; border-color: #e6cea5; }
+.settings-side-card { height: 100%; border-top: 3px solid var(--gc-lime); }
+.settings-switch {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 64px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--gc-line);
+  cursor: pointer;
+}
+.settings-switch > span { display: grid; gap: 3px; }
+.settings-switch strong { font-size: .76rem; }
+.settings-switch small { color: var(--gc-muted); font-size: .66rem; line-height: 1.4; }
+.settings-switch .form-check-input { flex: 0 0 auto; width: 2.25rem; height: 1.15rem; margin: 0; cursor: pointer; }
+.settings-switch .form-check-input:checked { background-color: var(--gc-green); border-color: var(--gc-green); }
+.settings-note { margin-top: 14px; padding: 13px 14px; background: #eef4f0; border-left: 3px solid var(--gc-cyan); }
+.settings-note strong { color: #31535c; font-size: .63rem; letter-spacing: .07em; text-transform: uppercase; }
+.settings-note p { margin: 5px 0 0; color: var(--gc-muted); font-size: .68rem; line-height: 1.55; }
 
 .permission-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
 .permission-item { display: flex; align-items: flex-start; gap: 9px; min-height: 60px; padding: 10px; background: #f6f8f5; border: 1px solid #dce3df; cursor: pointer; }

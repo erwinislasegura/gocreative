@@ -21,8 +21,7 @@ Instalación
 8. Copia config/database/database.example.php como config/database/database.local.php y completa los datos MySQL, o configura las variables GC_DB_*.
 9. Copia config/flow/flow.example.php como config/flow/flow.local.php y agrega
    tus credenciales. Comienza siempre con environment = sandbox.
-10. Copia config/recaptcha/recaptcha.example.php como
-    config/recaptcha/recaptcha.local.php y agrega las claves reCAPTCHA v2.
+10. Ingresa al panel y configura Google Analytics y reCAPTCHA desde sus módulos.
 11. Prueba la portada, todas las páginas, /admin/ y el formulario de contacto.
 
 Configuración central
@@ -44,29 +43,37 @@ Si el servidor no entrega correos usando mail(), configura un buzón del mismo d
 
 Google Analytics
 ----------------
-La etiqueta pública verificada directamente en gocreative.cl es GT-TXZH8NNL.
+El menú del panel incluye un módulo Google Analytics. La etiqueta pública
+verificada directamente en gocreative.cl es GT-TXZH8NNL.
 La captura de Google Analytics identifica la cuenta 161497159 y la propiedad
-490278227. La etiqueta se configura centralmente en includes/config.php y se
+490278227. La etiqueta se configura desde el panel, se guarda en
+config/analytics/analytics.local.php y se
 carga en todas las páginas públicas que usan includes/header.php. El panel y
 las cotizaciones privadas no se miden.
 
+También puedes usar las variables GC_ANALYTICS_ENABLED, GC_ANALYTICS_TAG_ID,
+GC_ANALYTICS_ACCOUNT_ID y GC_ANALYTICS_PROPERTY_ID. Si existen, tienen
+prioridad sobre lo guardado desde el panel.
+
 reCAPTCHA v2
 ------------
-Configuración privada:
-config/recaptcha/recaptcha.local.php
+Configuración desde el panel:
+/admin/configuracion/recaptcha.php
 
-Copia el archivo de ejemplo y escribe donde está comentado:
+El módulo guarda de forma privada:
 - site_key: clave pública del widget;
 - secret_key: clave secreta para la verificación del servidor.
 
-Nunca subas recaptcha.local.php a GitHub. También puedes configurar:
+La clave secreta permanece oculta después de guardarla. Nunca subas
+recaptcha.local.php a GitHub. También puedes configurar:
 GC_RECAPTCHA_SITE_KEY
 GC_RECAPTCHA_SECRET_KEY
 
 Al registrar las claves en Google agrega gocreative.cl. Para probar la misma
-integración en XAMPP agrega también localhost. Sin ambas claves, el contacto y
-el login se mantienen deshabilitados para no dejar los formularios sin
-protección.
+integración en XAMPP agrega también localhost. Sin ambas claves, el contacto se
+mantiene bloqueado si su protección está activa. El login permite el acceso
+temporal del superadministrador para completar la configuración y luego activa
+la casilla automáticamente.
 
 Panel de control
 ----------------
@@ -76,7 +83,8 @@ Después de importar la base, abre /admin/instalar.php y crea el primer
 superadministrador con tus propios datos. No existen credenciales
 predeterminadas en el código. El instalador queda bloqueado automáticamente.
 
-El panel incluye usuarios, roles, permisos, control de intentos, protección
+El panel incluye usuarios, roles, permisos, módulos Google Analytics y
+reCAPTCHA v2, control de intentos, protección
 CSRF, auditoría, renovaciones de hosting con checkout Flow y cotizaciones con
 PDF. Flow no agrega un módulo separado al menú. Revisa
 database/README-INSTALACION-BD.txt antes de importar.
@@ -116,6 +124,7 @@ y en este orden:
 
 1. database/migrations/2026_08_11_flow.sql
 2. database/migrations/2026_08_11_comercial.sql
+3. database/migrations/2026_08_11_settings.sql
 
 La segunda migración crea clientes, hosting, avisos, catálogo y cotizaciones.
 No guarda datos de tarjetas. El botón de cada aviso lleva al checkout seguro
@@ -160,4 +169,4 @@ Después de publicar
 8. Envía un aviso de prueba y una cotización a un correo controlado por ti.
 9. Vacía caché de LiteSpeed/cPanel si todavía aparece la versión anterior.
 
-Versión: 3.4.0 — agosto de 2026
+Versión: 3.5.0 — agosto de 2026

@@ -269,7 +269,7 @@ $navItems = [
     gtag('config', <?= json_encode(GOOGLE_TAG_ID, JSON_UNESCAPED_SLASHES) ?>);
     </script>
     <?php endif; ?>
-    <?php if (($loadRecaptcha ?? false) && recaptcha_is_configured()): ?>
+    <?php if (($loadRecaptcha ?? false) && recaptcha_contact_enabled()): ?>
     <link rel="preconnect" href="https://www.google.com">
     <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
     <script src="https://www.google.com/recaptcha/api.js?hl=es-419" async defer></script>

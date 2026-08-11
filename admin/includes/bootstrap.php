@@ -168,6 +168,11 @@ function user_permissions(?array $user = null): array
 
 function can(string $permission): bool
 {
+    $user = current_user();
+    if ($user !== null && $user['role_slug'] === 'superadministrador') {
+        return true;
+    }
+
     return in_array($permission, user_permissions(), true);
 }
 

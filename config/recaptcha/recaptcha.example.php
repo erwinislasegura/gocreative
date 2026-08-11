@@ -2,6 +2,10 @@
 declare(strict_types=1);
 
 return [
+    // Puedes activar cada formulario por separado desde el panel.
+    'protect_login' => true,
+    'protect_contact' => true,
+
     // CLAVE PÚBLICA: se muestra en el navegador dentro del widget.
     'site_key' => '',
 

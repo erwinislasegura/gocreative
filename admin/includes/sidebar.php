@@ -24,6 +24,10 @@
             <?php if (can('quotes.view')): ?>
                 <a class="<?= $activeMenu === 'quotes' ? 'is-active' : '' ?>" href="<?= e(admin_url('cotizaciones/')) ?>"><span>05</span>Cotizaciones</a>
             <?php endif; ?>
+            <?php if (can('settings.manage')): ?>
+                <a class="<?= $activeMenu === 'analytics' ? 'is-active' : '' ?>" href="<?= e(admin_url('configuracion/analytics.php')) ?>"><span>06</span>Google Analytics</a>
+                <a class="<?= $activeMenu === 'recaptcha' ? 'is-active' : '' ?>" href="<?= e(admin_url('configuracion/recaptcha.php')) ?>"><span>07</span>reCAPTCHA v2</a>
+            <?php endif; ?>
         </nav>
         <div class="admin-sidebar__footer">
             <span class="admin-status"><i></i> Sistema protegido</span>

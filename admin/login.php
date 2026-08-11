@@ -6,7 +6,9 @@ require_once __DIR__ . '/includes/bootstrap.php';
 $error = '';
 $databaseError = false;
 $email = '';
+$recaptchaConfiguration = recaptcha_config();
 $recaptchaConfigured = recaptcha_is_configured();
+$recaptchaRequired = (bool) $recaptchaConfiguration['protect_login'] && $recaptchaConfigured;
 
 try {
     if (current_user() !== null) {
@@ -27,9 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$databaseError) {
     $email = trim((string) ($_POST['email'] ?? ''));
     $password = (string) ($_POST['password'] ?? '');
 
-    if (!$recaptchaConfigured) {
-        $error = 'reCAPTCHA todavía no está configurado. Revisa config/recaptcha/recaptcha.local.php.';
-    } elseif (!recaptcha_verify((string) ($_POST['g-recaptcha-response'] ?? ''), client_ip())) {
+    if ($recaptchaRequired && !recaptcha_verify((string) ($_POST['g-recaptcha-response'] ?? ''), client_ip())) {
         $error = 'Confirma que no eres un robot e intenta nuevamente.';
     } else {
         try {
@@ -60,8 +60,8 @@ $flashes = pull_flashes();
     <link rel="icon" href="<?= e(site_path('/assets/img/favicon.svg')) ?>" type="image/svg+xml">
     <link rel="shortcut icon" href="<?= e(site_path('/favicon.ico')) ?>">
     <link rel="stylesheet" href="<?= e(admin_url('assets/vendor/bootstrap/css/bootstrap.min.css')) ?>">
-    <link rel="stylesheet" href="<?= e(admin_url('assets/css/admin.css?v=1.5.0')) ?>">
-    <?php if ($recaptchaConfigured): ?>
+    <link rel="stylesheet" href="<?= e(admin_url('assets/css/admin.css?v=1.6.0')) ?>">
+    <?php if ($recaptchaRequired): ?>
         <link rel="preconnect" href="https://www.google.com">
         <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
         <script src="https://www.google.com/recaptcha/api.js?hl=es-419" async defer></script>
@@ -98,12 +98,12 @@ $flashes = pull_flashes();
                         <button class="password-toggle" type="button" data-password-toggle="password">Ver</button>
                     </div>
                 </div>
-                <?php if ($recaptchaConfigured): ?>
+                <?php if ($recaptchaRequired): ?>
                     <div class="login-recaptcha"><div class="g-recaptcha" data-sitekey="<?= e(recaptcha_site_key()) ?>" data-theme="light"></div></div>
-                <?php else: ?>
-                    <div class="alert alert-warning small" role="alert">Configura las claves reCAPTCHA para habilitar el acceso.</div>
+                <?php elseif ((bool) $recaptchaConfiguration['protect_login']): ?>
+                    <div class="alert alert-warning small" role="alert">Acceso temporal sin reCAPTCHA. Al ingresar, completa el módulo reCAPTCHA v2 del menú.</div>
                 <?php endif; ?>
-                <button class="btn btn-primary w-100" type="submit"<?= ($databaseError || !$recaptchaConfigured) ? ' disabled' : '' ?>>Ingresar al panel →</button>
+                <button class="btn btn-primary w-100" type="submit"<?= $databaseError ? ' disabled' : '' ?>>Ingresar al panel →</button>
             </form>
             <a class="d-inline-block mt-4 text-secondary small text-decoration-none" href="<?= e(site_path('/')) ?>">← Volver al sitio público</a>
         </div>
