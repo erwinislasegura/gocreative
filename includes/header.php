@@ -48,6 +48,17 @@ $robotsDirective = ($meta['index'] ?? true)
     : 'noindex, follow';
 $breadcrumbs = $seoBreadcrumbs[$meta['path']] ?? [];
 $serviceSeo = $seoServices[$meta['path']] ?? null;
+$pageSlug = trim($meta['path'], '/');
+$pageSlug = $pageSlug === '' ? 'home' : preg_replace('/[^a-z0-9-]+/', '-', strtolower($pageSlug));
+$bodyClasses = ['page-' . $pageSlug];
+
+if ($visualScene !== null) {
+    $bodyClasses[] = 'page-hero--' . ($visualScene['hero_copy'] ?? 'left');
+}
+
+if ($serviceSeo !== null) {
+    $bodyClasses[] = 'page-service-detail';
+}
 
 $organizationId = rtrim(SITE_URL, '/') . '/#organization';
 $websiteId = rtrim(SITE_URL, '/') . '/#website';
@@ -197,13 +208,13 @@ $navItems = [
     <link rel="alternate" hreflang="es-CL" href="<?= e($currentCanonical) ?>">
     <link rel="alternate" hreflang="x-default" href="<?= e($currentCanonical) ?>">
     <link rel="icon" href="/assets/img/favicon.png" type="image/png">
-    <link rel="preload" href="/assets/css/main.css?v=1.6.0" as="style">
+    <link rel="preload" href="/assets/css/main.css?v=2.0.0" as="style">
     <?php if ($meta['path'] === '/'): ?>
     <link rel="preload" href="/assets/img/agency-web-design-v2.webp" as="image" type="image/webp" fetchpriority="high">
     <?php elseif ($visualScene !== null): ?>
     <link rel="preload" href="<?= e($visualScene['hero_image'] ?? $visualScene['image']) ?>" as="image" type="image/webp" fetchpriority="high">
     <?php endif; ?>
-    <link rel="stylesheet" href="/assets/css/main.css?v=1.6.0">
+    <link rel="stylesheet" href="/assets/css/main.css?v=2.0.0">
     <meta property="og:locale" content="es_CL">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Go Creative Chile">
@@ -228,8 +239,9 @@ $navItems = [
     ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) ?>
     </script>
 </head>
-<body<?php if ($visualScene !== null): ?> class="page-hero--<?= e($visualScene['hero_copy'] ?? 'left') ?>" style="--page-hero-image: url('<?= e(site_path($visualScene['hero_image'] ?? $visualScene['image'])) ?>'); --page-hero-position: <?= e($visualScene['hero_position'] ?? 'center') ?>"<?php endif; ?>>
+<body class="<?= e(implode(' ', $bodyClasses)) ?>"<?php if ($visualScene !== null): ?> style="--page-hero-image: url('<?= e(site_path($visualScene['hero_image'] ?? $visualScene['image'])) ?>'); --page-hero-position: <?= e($visualScene['hero_position'] ?? 'center') ?>"<?php endif; ?>>
 <a class="skip-link" href="#contenido">Saltar al contenido</a>
+<div class="scroll-progress" aria-hidden="true"><span data-scroll-progress></span></div>
 <div class="topbar">
     <div class="container topbar__inner">
         <span>Soluciones digitales para empresas en todo Chile</span>

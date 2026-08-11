@@ -112,6 +112,6 @@ $showProjectStrip = !in_array(
     <span>WhatsApp</span>
     <strong>Conversemos</strong>
 </a>
-<script src="/assets/js/main.js?v=1.2.0" defer></script>
+<script src="/assets/js/main.js?v=2.0.0" defer></script>
 </body>
 </html>

@@ -2,6 +2,7 @@
   const toggle = document.querySelector('[data-nav-toggle]');
   const nav = document.querySelector('[data-nav]');
   const header = document.querySelector('[data-header]');
+  const progress = document.querySelector('[data-scroll-progress]');
 
   if (toggle && nav) {
     const closeMenu = () => {
@@ -21,15 +22,61 @@
     document.addEventListener('keydown', (event) => event.key === 'Escape' && closeMenu());
   }
 
-  const syncHeader = () => header?.classList.toggle('is-scrolled', window.scrollY > 20);
-  syncHeader();
-  window.addEventListener('scroll', syncHeader, { passive: true });
+  const syncScrollUi = () => {
+    header?.classList.toggle('is-scrolled', window.scrollY > 20);
+
+    if (progress) {
+      const available = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+      const value = Math.max(0, Math.min(1, window.scrollY / available));
+      progress.style.transform = `scaleX(${value.toFixed(4)})`;
+    }
+  };
+
+  syncScrollUi();
+  window.addEventListener('scroll', syncScrollUi, { passive: true });
 
   document.querySelectorAll('[data-faq]').forEach((item) => {
     const button = item.querySelector('button');
     button?.addEventListener('click', () => {
       const open = item.classList.toggle('is-open');
       button.setAttribute('aria-expanded', String(open));
+    });
+  });
+
+  const revealSelectors = [
+    '.inner-hero .breadcrumbs',
+    '.inner-hero__grid > div',
+    '.section-heading',
+    '.content-grid__intro',
+    '.content-item',
+    '.service-card',
+    '.feature-card',
+    '.portfolio-card',
+    '.plan-card',
+    '.testimonial-grid blockquote',
+    '.check-grid li',
+    '.stat',
+    '.contact-intro',
+    '.contact-card',
+    '.form-card',
+    '.project-strip__item',
+    '.photo-editorial__item',
+    '.split-media__image',
+    '.split-media__content',
+    '.about-method__card',
+    '.about-value'
+  ];
+
+  document.querySelectorAll(revealSelectors.join(',')).forEach((element, index) => {
+    if (!element.hasAttribute('data-reveal')) {
+      const direction = index % 3 === 0 ? 'left' : index % 3 === 1 ? 'up' : 'right';
+      element.setAttribute('data-reveal', direction);
+    }
+  });
+
+  document.querySelectorAll('main > section').forEach((section) => {
+    section.querySelectorAll('[data-reveal]').forEach((element, index) => {
+      element.style.setProperty('--reveal-delay', `${Math.min(index * 65, 260)}ms`);
     });
   });
 
@@ -41,12 +88,25 @@
             observer.unobserve(entry.target);
           }
         });
-      }, { threshold: 0.12 })
+      }, { threshold: 0.08, rootMargin: '0px 0px -7% 0px' })
     : null;
 
   document.querySelectorAll('[data-reveal]').forEach((element) => {
     if (observer) observer.observe(element);
     else element.classList.add('is-visible');
+  });
+
+  const sectionObserver = 'IntersectionObserver' in window
+    ? new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) entry.target.classList.add('is-section-visible');
+        });
+      }, { threshold: 0.1 })
+    : null;
+
+  document.querySelectorAll('main > section').forEach((section) => {
+    if (sectionObserver) sectionObserver.observe(section);
+    else section.classList.add('is-section-visible');
   });
 
   const parallaxSections = Array.from(document.querySelectorAll('[data-parallax]'));
