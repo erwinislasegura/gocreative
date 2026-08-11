@@ -17,8 +17,8 @@ require __DIR__ . '/includes/header.php';
     <div class="container hero__grid">
         <div class="hero__content" data-reveal>
             <p class="eyebrow"><span></span> Agencia digital · Los Ángeles, Chile</p>
-            <h1>Diseño web, tecnología y <em>marketing que convierten.</em></h1>
-            <p class="hero__lead">Creamos experiencias digitales atractivas, campañas medibles y sistemas que ayudan a tu empresa a vender mejor y trabajar con mayor control.</p>
+            <h1>Diseño web, software y marketing <em>sin soluciones genéricas.</em></h1>
+            <p class="hero__lead">Unimos estrategia visual, desarrollo y crecimiento digital para que tu empresa se vea mejor, venda mejor y trabaje con más claridad.</p>
             <div class="hero__actions">
                 <a class="button button--lime" href="/contacto/">Cuéntanos tu proyecto <span>↗</span></a>
                 <a class="button button--ghost" href="/portafolio/">Ver proyectos</a>
@@ -30,11 +30,15 @@ require __DIR__ . '/includes/header.php';
             </div>
         </div>
     </div>
+    <div class="hero__edition" data-reveal>
+        <span>Estudio digital independiente</span>
+        <strong>Diseño + tecnología + crecimiento</strong>
+    </div>
 </section>
 
 <section class="proof-strip">
     <div class="container proof-strip__inner">
-        <p>Soluciones pensadas para hacer crecer tu negocio</p>
+        <p>Capacidades conectadas</p>
         <div><span>Web corporativa</span><span>Ecommerce</span><span>Software</span><span>Automatización</span><span>Meta Ads</span><span>Diseño creativo</span></div>
     </div>
 </section>
@@ -42,8 +46,8 @@ require __DIR__ . '/includes/header.php';
 <section class="section section--light" id="servicios">
     <div class="container">
         <div class="section-heading section-heading--split" data-reveal>
-            <div><p class="eyebrow eyebrow--dark"><span></span> Lo que hacemos</p><h2>Desarrollo, diseño y marketing en una sola agencia.</h2></div>
-            <p>Partimos por el problema real, definimos prioridades y construimos una solución profesional que tus clientes y tu equipo puedan usar.</p>
+            <div><p class="eyebrow eyebrow--dark"><span></span> Lo que hacemos</p><h2>Una agencia para pensar, construir y hacer crecer.</h2></div>
+            <p>No vendemos piezas aisladas. Conectamos marca, experiencia, tecnología y adquisición para resolver el problema completo.</p>
         </div>
         <div class="service-grid">
             <a class="service-card service-card--featured" href="/diseno-web-chile/" data-reveal>
