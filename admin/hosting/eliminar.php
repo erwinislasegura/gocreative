@@ -28,20 +28,22 @@ $activeCheckout = db()->prepare(
        AND (expires_at IS NULL OR expires_at > NOW())"
 );
 $activeCheckout->execute(['id' => $service['id']]);
-if ((int) $activeCheckout->fetchColumn() > 0) {
-    flash('warning', 'No se eliminó el hosting porque tiene un checkout Flow vigente. Espera su vencimiento o confirma primero el pago.');
-    redirect_admin('hosting/ver.php?id=' . (int) $service['id']);
-}
+$activeCheckoutCount = (int) $activeCheckout->fetchColumn();
 
 $serviceLabel = (string) ($service['domain'] ?: $service['service_name']);
 db()->beginTransaction();
 try {
     $detachOrders = db()->prepare(
         "UPDATE payment_orders
-         SET reference_type = 'hosting_deleted'
+         SET reference_type = 'hosting_deleted',
+             expires_at = CASE
+                 WHEN status IN ('created', 'pending') THEN NOW()
+                 ELSE expires_at
+             END
          WHERE reference_type = 'hosting' AND reference_id = :id"
     );
     $detachOrders->execute(['id' => $service['id']]);
+    $detachedOrderCount = $detachOrders->rowCount();
 
     $delete = db()->prepare('DELETE FROM hosting_services WHERE id = :id');
     $delete->execute(['id' => $service['id']]);
@@ -54,9 +56,14 @@ try {
         'hosting_service',
         (int) $service['id'],
         'Hosting eliminado: ' . $serviceLabel . ' por ' . $currentAdmin['email']
+            . '. Órdenes Flow desvinculadas: ' . $detachedOrderCount
     );
     db()->commit();
-    flash('success', 'El hosting ' . $serviceLabel . ' fue eliminado correctamente.');
+    $message = 'El hosting ' . $serviceLabel . ' fue eliminado correctamente.';
+    if ($activeCheckoutCount > 0) {
+        $message .= ' El checkout pendiente quedó vencido y desvinculado del servicio.';
+    }
+    flash('success', $message);
 } catch (Throwable $exception) {
     if (db()->inTransaction()) {
         db()->rollBack();

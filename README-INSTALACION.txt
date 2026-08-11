@@ -146,8 +146,9 @@ seis o doce meses según el ciclo contratado.
 
 La cuarta migración habilita el permiso Eliminar hosting para el
 Superadministrador. El botón aparece en el listado y en la ficha. El sistema
-solicita confirmación, elimina el historial de avisos asociado y bloquea la
-operación si todavía existe un checkout Flow vigente.
+solicita confirmación y elimina el historial de avisos asociado. Si existe un
+checkout Flow pendiente, lo marca como vencido y lo desvincula antes de borrar
+el servicio, conservando la orden únicamente como registro financiero.
 
 Si phpMyAdmin informa que una columna o tabla ya existe, usa la versión más
 reciente de 2026_08_11_comercial.sql y vuelve a importarla completa. El archivo
@@ -198,4 +199,4 @@ Después de publicar
 8. Envía un aviso de prueba y una cotización a un correo controlado por ti.
 9. Vacía caché de LiteSpeed/cPanel si todavía aparece la versión anterior.
 
-Versión: 3.8.1 — agosto de 2026
+Versión: 3.8.2 — agosto de 2026
