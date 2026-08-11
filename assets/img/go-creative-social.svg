@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="shade" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#07111f" stop-opacity="0.98"/>
+      <stop offset="0.60" stop-color="#07111f" stop-opacity="0.90"/>
+      <stop offset="1" stop-color="#07111f" stop-opacity="0.35"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#8bea38"/>
+      <stop offset="1" stop-color="#2bd9c5"/>
+    </linearGradient>
+  </defs>
+  <image href="agency-web-design-v2.webp" width="1200" height="630" preserveAspectRatio="xMidYMid slice"/>
+  <rect width="1200" height="630" fill="url(#shade)"/>
+  <rect x="0" y="0" width="14" height="630" fill="url(#accent)"/>
+  <image href="logo.webp" x="80" y="62" width="266" height="96"/>
+  <line x1="80" y1="214" x2="130" y2="214" stroke="#8bea38" stroke-width="4"/>
+  <text x="150" y="220" fill="#9ce8db" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" letter-spacing="3">DISEÑO · TECNOLOGÍA · CRECIMIENTO</text>
+  <text x="80" y="310" fill="#f7faf8" font-family="Arial, Helvetica, sans-serif" font-size="56" font-weight="800" letter-spacing="-1.5">Soluciones digitales</text>
+  <text x="80" y="380" fill="#8bea38" font-family="Arial, Helvetica, sans-serif" font-size="56" font-weight="800" letter-spacing="-1.5">sin fórmulas genéricas.</text>
+  <text x="80" y="440" fill="#c7d1d6" font-family="Arial, Helvetica, sans-serif" font-size="22">Diseño web, software y marketing para empresas que quieren crecer.</text>
+  <rect x="80" y="508" width="460" height="54" rx="2" fill="#f7faf8" fill-opacity="0.08" stroke="#f7faf8" stroke-opacity="0.18"/>
+  <circle cx="111" cy="535" r="7" fill="#8bea38"/>
+  <text x="132" y="542" fill="#f7faf8" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700">gocreative.cl · Los Ángeles, Chile</text>
+  <g transform="translate(1010 64)" opacity="0.75">
+    <rect width="112" height="112" rx="22" fill="#07111f" stroke="#2bd9c5" stroke-width="2"/>
+    <circle cx="43" cy="56" r="30" fill="none" stroke="#f7faf8" stroke-width="5"/>
+    <circle cx="71" cy="56" r="30" fill="none" stroke="#f7faf8" stroke-width="5"/>
+    <text x="19" y="69" fill="#f7faf8" font-family="Arial, Helvetica, sans-serif" font-size="36" font-weight="800" letter-spacing="-3">GO</text>
+    <circle cx="66" cy="41" r="8" fill="#8bea38"/>
+  </g>
+</svg>

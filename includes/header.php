@@ -29,6 +29,11 @@ $meta = array_merge([
     'image_alt' => 'Equipo de Go Creative desarrollando soluciones digitales para empresas en Chile',
     'image_width' => 1800,
     'image_height' => 1202,
+    'social_image' => '/assets/img/go-creative-social.jpg',
+    'social_image_alt' => 'Go Creative Chile: diseño web, software y marketing sin fórmulas genéricas',
+    'social_image_width' => 1200,
+    'social_image_height' => 630,
+    'social_image_type' => 'image/jpeg',
     'index' => http_response_code() < 400,
 ], $pageMeta);
 
@@ -42,7 +47,8 @@ if ($visualScene !== null && !array_key_exists('image', $pageMeta)) {
 
 $active = $active ?? '';
 $currentCanonical = canonical($meta['path']);
-$ogImage = str_starts_with($meta['image'], 'http') ? $meta['image'] : canonical($meta['image']);
+$primaryImage = str_starts_with($meta['image'], 'http') ? $meta['image'] : canonical($meta['image']);
+$ogImage = str_starts_with($meta['social_image'], 'http') ? $meta['social_image'] : canonical($meta['social_image']);
 $robotsDirective = ($meta['index'] ?? true)
     ? 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'
     : 'noindex, follow';
@@ -76,13 +82,22 @@ if ($meta['path'] === '/') {
         'logo' => [
             '@type' => 'ImageObject',
             '@id' => rtrim(SITE_URL, '/') . '/#logo',
-            'url' => canonical('/assets/img/logo.webp'),
-            'contentUrl' => canonical('/assets/img/logo.webp'),
-            'width' => 260,
-            'height' => 147,
+            'url' => canonical('/assets/img/favicon.png'),
+            'contentUrl' => canonical('/assets/img/favicon.png'),
+            'width' => 512,
+            'height' => 512,
             'caption' => 'Go Creative Chile',
         ],
         'image' => ['@id' => $imageId],
+        'slogan' => 'Soluciones digitales sin fórmulas genéricas',
+        'knowsAbout' => [
+            'Diseño y desarrollo web',
+            'Comercio electrónico',
+            'Software a medida',
+            'Automatización de procesos',
+            'Marketing digital',
+            'Diseño de marca',
+        ],
         'email' => SITE_EMAIL,
         'telephone' => SITE_PHONE_LINK,
         'address' => [
@@ -128,6 +143,7 @@ $pageSchema = [
     'about' => ['@id' => $organizationId],
     'primaryImageOfPage' => ['@id' => $imageId],
     'inLanguage' => 'es-CL',
+    'dateModified' => '2026-08-11',
 ];
 
 if (count($breadcrumbs) > 1) {
@@ -155,8 +171,8 @@ $schemaGraph[] = $pageSchema;
 $schemaGraph[] = [
     '@type' => 'ImageObject',
     '@id' => $imageId,
-    'url' => $ogImage,
-    'contentUrl' => $ogImage,
+    'url' => $primaryImage,
+    'contentUrl' => $primaryImage,
     'caption' => $meta['image_alt'],
     'width' => $meta['image_width'],
     'height' => $meta['image_height'],
@@ -203,11 +219,16 @@ $navItems = [
     <meta name="googlebot" content="<?= e($robotsDirective) ?>">
     <meta name="author" content="Go Creative Chile">
     <meta name="theme-color" content="#07111f">
+    <meta name="color-scheme" content="light">
     <meta name="format-detection" content="telephone=yes">
     <link rel="canonical" href="<?= e($currentCanonical) ?>">
     <link rel="alternate" hreflang="es-CL" href="<?= e($currentCanonical) ?>">
     <link rel="alternate" hreflang="x-default" href="<?= e($currentCanonical) ?>">
-    <link rel="icon" href="/assets/img/favicon.png" type="image/png">
+    <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="/assets/img/favicon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png" sizes="180x180">
+    <link rel="manifest" href="/site.webmanifest">
     <link rel="preload" href="/assets/css/main.css?v=2.1.0" as="style">
     <?php if ($meta['path'] === '/'): ?>
     <link rel="preload" href="/assets/img/agency-web-design-v2.webp" as="image" type="image/webp" fetchpriority="high">
@@ -222,16 +243,17 @@ $navItems = [
     <meta property="og:description" content="<?= e($meta['description']) ?>">
     <meta property="og:url" content="<?= e($currentCanonical) ?>">
     <meta property="og:image" content="<?= e($ogImage) ?>">
+    <meta property="og:image:url" content="<?= e($ogImage) ?>">
     <meta property="og:image:secure_url" content="<?= e($ogImage) ?>">
-    <meta property="og:image:type" content="image/webp">
-    <meta property="og:image:width" content="<?= e((string) $meta['image_width']) ?>">
-    <meta property="og:image:height" content="<?= e((string) $meta['image_height']) ?>">
-    <meta property="og:image:alt" content="<?= e($meta['image_alt']) ?>">
+    <meta property="og:image:type" content="<?= e($meta['social_image_type']) ?>">
+    <meta property="og:image:width" content="<?= e((string) $meta['social_image_width']) ?>">
+    <meta property="og:image:height" content="<?= e((string) $meta['social_image_height']) ?>">
+    <meta property="og:image:alt" content="<?= e($meta['social_image_alt']) ?>">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="<?= e($meta['title']) ?>">
     <meta name="twitter:description" content="<?= e($meta['description']) ?>">
     <meta name="twitter:image" content="<?= e($ogImage) ?>">
-    <meta name="twitter:image:alt" content="<?= e($meta['image_alt']) ?>">
+    <meta name="twitter:image:alt" content="<?= e($meta['social_image_alt']) ?>">
     <script type="application/ld+json">
     <?= json_encode([
         '@context' => 'https://schema.org',

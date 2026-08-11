@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">Go Creative Chile</title>
+  <rect width="64" height="64" rx="14" fill="#07111f"/>
+  <circle cx="23" cy="32" r="17" fill="none" stroke="#f7faf8" stroke-width="3"/>
+  <circle cx="41" cy="32" r="17" fill="none" stroke="#f7faf8" stroke-width="3"/>
+  <text x="9.5" y="39" fill="#f7faf8" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="800" letter-spacing="-1.6">GO</text>
+  <circle cx="38.5" cy="23.5" r="4.2" fill="#8bea38"/>
+  <circle cx="38.5" cy="23.5" r="1.7" fill="#07111f"/>
+</svg>
