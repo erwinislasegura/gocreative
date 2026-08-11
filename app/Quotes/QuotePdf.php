@@ -32,14 +32,19 @@ final class QuotePdf extends FPDF
         $this->Rect(0, 0, 210, 47, 'F');
         $this->SetFillColor(139, 234, 56);
         $this->Rect(0, 0, 210, 3.2, 'F');
-        $this->SetTextColor(255, 255, 255);
-        $this->SetFont('Helvetica', 'B', 18);
-        $this->SetXY(17, 14);
-        $this->Cell(90, 8, 'GO CREATIVE', 0, 0);
+
+        $logoPath = dirname(__DIR__, 2) . '/assets/img/logo-pdf.png';
+        if (is_file($logoPath)) {
+            $this->Image($logoPath, 17, 9.5, 50);
+        }
         $this->SetTextColor(158, 174, 174);
         $this->SetFont('Helvetica', 'B', 6.5);
-        $this->SetXY(17, 24);
+        $this->SetXY(17, 29.5);
         $this->Cell(100, 5, $this->encodeText('DISEÑO · TECNOLOGIA · CRECIMIENTO'), 0, 0);
+        $this->SetTextColor(204, 215, 214);
+        $this->SetFont('Helvetica', '', 6.3);
+        $this->SetXY(17, 35);
+        $this->Cell(96, 4, $this->encodeText('gocreative.cl · ' . SITE_EMAIL . ' · ' . SITE_PHONE_DISPLAY), 0, 0);
 
         $this->SetTextColor(139, 234, 56);
         $this->SetFont('Helvetica', 'B', 7);
@@ -58,14 +63,16 @@ final class QuotePdf extends FPDF
 
     public function Footer(): void
     {
-        $this->SetY(-17);
+        $this->SetY(-18);
         $this->SetDrawColor(216, 224, 219);
         $this->Line(17, $this->GetY(), 193, $this->GetY());
-        $this->SetY(-13);
+        $this->SetY(-14);
         $this->SetTextColor(110, 125, 130);
-        $this->SetFont('Helvetica', '', 6.8);
-        $this->Cell(125, 5, $this->encodeText('Go Creative Chile · contacto@gocreative.cl · +56 9 5215 7840'), 0, 0);
-        $this->Cell(51, 5, $this->encodeText('Pagina ' . $this->PageNo() . ' de {nb}'), 0, 0, 'R');
+        $this->SetFont('Helvetica', '', 6.4);
+        $this->Cell(132, 4, $this->encodeText('gocreative.cl · ' . SITE_EMAIL . ' · ' . SITE_PHONE_DISPLAY), 0, 0);
+        $this->Cell(44, 4, $this->encodeText('Página ' . $this->PageNo() . ' de {nb}'), 0, 1, 'R');
+        $this->SetX(17);
+        $this->Cell(176, 4, $this->encodeText(SITE_CITY), 0, 0);
     }
 
     private function customerBlock(array $quote): void
