@@ -10,8 +10,10 @@ $service = $id ? hosting_find_by_id((int) $id) : null;
 if (!$service || !in_array((int) $level, [1,2,3], true)) { flash('warning', 'Servicio o aviso no válido.'); redirect_admin('hosting/'); }
 try {
     hosting_send_notice($service, (int) $level, (int) $currentAdmin['id']);
-    audit_log('notice_sent', 'hosting_service', (int) $service['id'], 'Aviso de hosting nivel ' . (int) $level . ' enviado');
-    flash('success', 'Aviso enviado a ' . $service['customer_email'] . ' con el botón de pago Flow.');
+    $labels = [1 => 'Aviso 1', 2 => 'Aviso 2', 3 => 'Aviso de suspensión'];
+    $noticeName = $labels[(int) $level];
+    audit_log('notice_sent', 'hosting_service', (int) $service['id'], $noticeName . ' enviado');
+    flash('success', $noticeName . ' enviado a ' . $service['customer_email'] . '. Progreso: ' . (int) $level . ' de 3.');
 } catch (Throwable $exception) {
     error_log('Error enviando aviso de hosting: ' . $exception->getMessage());
     flash('danger', $exception instanceof PDOException ? 'No fue posible registrar el aviso.' : 'No se pudo enviar: ' . $exception->getMessage());

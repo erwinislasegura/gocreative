@@ -115,12 +115,28 @@ function hosting_prepare_payment(array $service, int $createdBy): array
 function hosting_send_notice(array $service, int $level, int $createdBy): int
 {
     if (!in_array($level, [1, 2, 3], true)) {
-        throw new RuntimeException('El nivel de aviso no es valido.');
+        throw new RuntimeException('El nivel de aviso no es válido.');
     }
-    $lastLevel = (int) $service['last_notice_level'];
-    if ($level > $lastLevel + 1) {
-        throw new RuntimeException('Debes enviar los avisos en orden: primero, segundo y ultimo.');
+
+    $freshService = hosting_find_by_id((int) $service['id']);
+    if ($freshService === null) {
+        throw new RuntimeException('El servicio de hosting ya no existe.');
     }
+    if ($freshService['status'] === 'cancelled') {
+        throw new RuntimeException('No se pueden enviar avisos para un servicio cancelado.');
+    }
+
+    $lastLevel = max(0, (int) $freshService['last_notice_level']);
+    if ($lastLevel >= 3) {
+        throw new RuntimeException('Ya se enviaron los tres avisos permitidos para este ciclo.');
+    }
+
+    $expectedLevel = $lastLevel + 1;
+    if ($level !== $expectedLevel) {
+        throw new RuntimeException('El próximo envío permitido es el aviso ' . $expectedLevel . '.');
+    }
+
+    $service = $freshService;
 
     $order = hosting_prepare_payment($service, $createdBy);
     $service['payment_order_id'] = $order['id'];

@@ -29,9 +29,9 @@ function email_layout(string $preheader, string $eyebrow, string $title, string 
 function hosting_notice_email(array $service, int $level, string $paymentUrl): array
 {
     $labels = [
-        1 => ['eyebrow' => 'Primer aviso de renovación', 'title' => 'Tu servicio de hosting está próximo a renovar.', 'accent' => '#8bea38'],
-        2 => ['eyebrow' => 'Segundo aviso de renovación', 'title' => 'Tu renovación de hosting sigue pendiente.', 'accent' => '#f1b84b'],
-        3 => ['eyebrow' => 'Último aviso de renovación', 'title' => 'Evita la suspensión de tu servicio de hosting.', 'accent' => '#dc4f66'],
+        1 => ['eyebrow' => 'Aviso 1 de renovación', 'title' => 'Tu servicio de hosting está próximo a renovar.', 'accent' => '#8bea38'],
+        2 => ['eyebrow' => 'Aviso 2 de renovación', 'title' => 'Tu renovación de hosting sigue pendiente.', 'accent' => '#f1b84b'],
+        3 => ['eyebrow' => 'Aviso de suspensión', 'title' => 'Evita la suspensión de tu servicio de hosting.', 'accent' => '#dc4f66'],
     ];
     $copy = $labels[$level] ?? $labels[1];
     $domain = $service['domain'] ?: $service['service_name'];

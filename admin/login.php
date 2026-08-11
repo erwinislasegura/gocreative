@@ -60,7 +60,7 @@ $flashes = pull_flashes();
     <link rel="icon" href="<?= e(site_path('/assets/img/favicon.svg')) ?>" type="image/svg+xml">
     <link rel="shortcut icon" href="<?= e(site_path('/favicon.ico')) ?>">
     <link rel="stylesheet" href="<?= e(admin_url('assets/vendor/bootstrap/css/bootstrap.min.css')) ?>">
-    <link rel="stylesheet" href="<?= e(admin_url('assets/css/admin.css?v=1.6.0')) ?>">
+    <link rel="stylesheet" href="<?= e(admin_url('assets/css/admin.css?v=1.7.0')) ?>">
     <?php if ($recaptchaRequired): ?>
         <link rel="preconnect" href="https://www.google.com">
         <link rel="preconnect" href="https://www.gstatic.com" crossorigin>

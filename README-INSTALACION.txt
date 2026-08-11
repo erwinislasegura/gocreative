@@ -117,6 +117,13 @@ en public_url. Antes de cobrar dinero real, completa una renovación en sandbox,
 comprueba que la fecha de Hosting avance seis o doce meses y luego cambia a
 production con las credenciales reales.
 
+Cada ciclo admite exactamente tres correos, enviados en orden: Aviso 1,
+Aviso 2 y Aviso de suspensión. La ficha del servicio muestra el contador, el
+historial y el estado del checkout. Los intentos fallidos no avanzan el
+contador y pueden volver a intentarse; después del tercer envío la acción queda
+bloqueada en la interfaz y en el servidor. Al registrar o confirmar el pago,
+la próxima fecha se actualiza y la secuencia vuelve a 0 de 3.
+
 Actualización de una instalación existente
 -------------------------------------------
 Si la base ya contiene usuarios, NO vuelvas a importar gocreative.sql porque
@@ -181,4 +188,4 @@ Después de publicar
 8. Envía un aviso de prueba y una cotización a un correo controlado por ti.
 9. Vacía caché de LiteSpeed/cPanel si todavía aparece la versión anterior.
 
-Versión: 3.6.0 — agosto de 2026
+Versión: 3.7.0 — agosto de 2026
