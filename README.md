@@ -7,7 +7,7 @@ software y marketing digital.
 
 1. Copia el proyecto en `xampp/htdocs/gocreative`.
 2. Inicia Apache y MySQL.
-3. Copia `includes/database.example.php` como `includes/database.local.php` y completa tus propios datos MySQL.
+3. Copia `config/database/database.example.php` como `config/database/database.local.php` y completa tus propios datos MySQL.
 4. Importa `database/gocreative.sql` desde phpMyAdmin.
 5. Abre `http://localhost/gocreative/`.
 6. Abre `http://localhost/gocreative/admin/instalar.php` y crea tu cuenta principal.
@@ -16,7 +16,7 @@ software y marketing digital.
 El proyecto no incluye correos ni contraseñas predeterminadas. El instalador
 se bloquea automáticamente después de crear el primer superadministrador.
 
-`database.local.php` está ignorado por Git para evitar publicar credenciales.
+`config/database/database.local.php` está ignorado por Git para evitar publicar credenciales.
 En producción también puedes usar `GC_DB_HOST`, `GC_DB_PORT`, `GC_DB_NAME`,
 `GC_DB_USER` y `GC_DB_PASSWORD`.
 

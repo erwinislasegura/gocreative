@@ -9,7 +9,7 @@ Instalación rápida en XAMPP
 ---------------------------
 1. Inicia Apache y MySQL desde el panel de XAMPP.
 2. Abre http://localhost/phpmyadmin/.
-3. Copia includes/database.example.php como includes/database.local.php.
+3. Copia config/database/database.example.php como config/database/database.local.php.
 4. Completa en ese archivo tus propios datos de conexión MySQL.
 5. Entra en la pestaña "Importar" de phpMyAdmin.
 6. Selecciona database/gocreative.sql y ejecuta la importación.
@@ -25,7 +25,7 @@ automáticamente después de crear la primera cuenta.
 
 Configuración de conexión
 -------------------------
-El archivo includes/database.local.php está excluido por .gitignore y
+El archivo config/database/database.local.php está excluido por .gitignore y
 protegido contra acceso web. Nunca publiques ese archivo. Como alternativa,
 define estas variables en el hosting:
 

@@ -13,11 +13,11 @@ function database_config(): array
     if (is_file($localConfigPath)) {
         $localConfig = require $localConfigPath;
         if (!is_array($localConfig)) {
-            throw new RuntimeException('includes/database.local.php debe retornar un arreglo de configuración.');
+            throw new RuntimeException('config/database/database.local.php debe retornar un arreglo de configuración.');
         }
         foreach (['host', 'port', 'name', 'user', 'password'] as $requiredKey) {
             if (!array_key_exists($requiredKey, $localConfig)) {
-                throw new RuntimeException('Falta la clave ' . $requiredKey . ' en includes/database.local.php.');
+                throw new RuntimeException('Falta la clave ' . $requiredKey . ' en config/database/database.local.php.');
             }
         }
         return $localConfig;
@@ -26,7 +26,7 @@ function database_config(): array
     $databaseUser = getenv('GC_DB_USER');
     $databasePassword = getenv('GC_DB_PASSWORD');
     if ($databaseUser === false || $databasePassword === false) {
-        throw new RuntimeException('Configura includes/database.local.php o las variables GC_DB_* antes de usar el panel.');
+        throw new RuntimeException('Configura config/database/database.local.php o las variables GC_DB_* antes de usar el panel.');
     }
 
     $host = getenv('GC_DB_HOST');
