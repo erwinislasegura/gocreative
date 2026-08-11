@@ -22,12 +22,13 @@ El nombre de base configurado es `gocreative`; los comentarios del archivo indic
 En producción también puedes usar `GC_DB_HOST`, `GC_DB_PORT`, `GC_DB_NAME`,
 `GC_DB_USER` y `GC_DB_PASSWORD`.
 
-## Pasarela de pago Flow.cl
+## Checkout Flow.cl para Hosting
 
-El panel incluye un módulo de cobros con enlaces públicos, checkout Flow,
-confirmación automática, retorno del cliente, consulta manual de estado e
-historial de eventos. Las claves viven exclusivamente en el archivo ignorado
-`config/flow/flow.local.php` o en variables `GC_FLOW_*`.
+Flow no aparece como un módulo independiente del panel. Se utiliza únicamente
+en las renovaciones de Hosting: al enviar un aviso, el botón del correo abre
+directamente el checkout de Flow. La confirmación firmada actualiza el próximo
+vencimiento de manera automática. Las claves viven exclusivamente en el
+archivo ignorado `config/flow/flow.local.php` o en variables `GC_FLOW_*`.
 
 Si ya instalaste una versión anterior de la base, no vuelvas a importar el
 script completo. Importa, en este orden:
@@ -42,8 +43,8 @@ conectarse a `localhost`.
 ## Gestión comercial
 
 - **Hosting:** clientes, dominios, ciclo semestral o anual, vencimientos en
-  rojo, tres niveles de aviso, historial de correos y renovación automática
-  cuando Flow confirma el pago.
+  rojo, tres niveles de aviso, historial de correos, checkout Flow directo y
+  renovación automática cuando Flow confirma el pago.
 - **Cotizaciones:** catálogo editable, servicios y productos, descuento, IVA,
   vigencia, estados, aceptación o rechazo mediante enlace privado, correo HTML
   y PDF A4 profesional adjunto.

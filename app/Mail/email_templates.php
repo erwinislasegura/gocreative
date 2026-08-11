@@ -45,7 +45,7 @@ function hosting_notice_email(array $service, int $level, string $paymentUrl): a
         . '<tr><td style="padding:13px 16px;color:#718087;font-size:11px;border-bottom:1px solid #e2e8e4">CICLO / VENCIMIENTO</td><td align="right" style="padding:13px 16px;font-size:13px;font-weight:700;border-bottom:1px solid #e2e8e4">' . $cycle . ' · ' . $dueDate . '</td></tr>'
         . '<tr><td style="padding:16px;color:#718087;font-size:11px">TOTAL RENOVACIÓN</td><td align="right" style="padding:16px;color:#07111f;font-size:22px;font-weight:800">' . email_escape($amount) . '</td></tr></table>'
         . '<table role="presentation" cellspacing="0" cellpadding="0"><tr><td style="background:#8bea38"><a href="' . email_escape($paymentUrl) . '" style="display:inline-block;padding:16px 23px;color:#07111f;font-size:13px;font-weight:800;text-decoration:none">Pagar renovación de hosting →</a></td></tr></table>'
-        . '<p style="margin:18px 0 0;color:#7b888d;font-size:11px;line-height:1.6">El pago se procesa en el checkout seguro de Flow. Go Creative no solicita ni almacena datos de tarjetas.</p>';
+        . '<p style="margin:18px 0 0;color:#7b888d;font-size:11px;line-height:1.6">El botón abre directamente el checkout seguro de Flow. Go Creative no solicita ni almacena datos de tarjetas.</p>';
 
     return [
         'subject' => $copy['eyebrow'] . ': ' . $domain,

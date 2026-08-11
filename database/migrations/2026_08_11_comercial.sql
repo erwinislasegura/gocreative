@@ -1,17 +1,45 @@
 -- Go Creative Chile - Hosting, avisos de cobro y cotizaciones
--- Migracion no destructiva. Ejecutar despues de 2026_08_11_flow.sql.
+-- Migracion no destructiva y reejecutable. Ejecutar despues de 2026_08_11_flow.sql.
 -- Compatible con MySQL 5.7+ y MariaDB 10.4+.
 
 SET NAMES utf8mb4;
 USE `gocreative`;
 
-ALTER TABLE `payment_orders`
-  ADD COLUMN `reference_type` varchar(30) NOT NULL DEFAULT 'manual' AFTER `currency`,
-  ADD COLUMN `reference_id` bigint unsigned DEFAULT NULL AFTER `reference_type`,
-  ADD COLUMN `reference_processed_at` datetime DEFAULT NULL AFTER `reference_id`,
-  ADD KEY `payment_orders_reference_index` (`reference_type`, `reference_id`);
+-- Cada cambio se ejecuta solo si aun no existe. Esto permite volver a importar
+-- el archivo cuando un intento anterior se interrumpio a mitad del proceso.
+SET @gc_sql = IF(
+  (SELECT COUNT(*) FROM information_schema.COLUMNS
+   WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'payment_orders' AND COLUMN_NAME = 'reference_type') = 0,
+  'ALTER TABLE `payment_orders` ADD COLUMN `reference_type` varchar(30) NOT NULL DEFAULT ''hosting'' AFTER `currency`',
+  'SELECT 1'
+);
+PREPARE gc_stmt FROM @gc_sql; EXECUTE gc_stmt; DEALLOCATE PREPARE gc_stmt;
 
-CREATE TABLE `customers` (
+SET @gc_sql = IF(
+  (SELECT COUNT(*) FROM information_schema.COLUMNS
+   WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'payment_orders' AND COLUMN_NAME = 'reference_id') = 0,
+  'ALTER TABLE `payment_orders` ADD COLUMN `reference_id` bigint unsigned DEFAULT NULL AFTER `reference_type`',
+  'SELECT 1'
+);
+PREPARE gc_stmt FROM @gc_sql; EXECUTE gc_stmt; DEALLOCATE PREPARE gc_stmt;
+
+SET @gc_sql = IF(
+  (SELECT COUNT(*) FROM information_schema.COLUMNS
+   WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'payment_orders' AND COLUMN_NAME = 'reference_processed_at') = 0,
+  'ALTER TABLE `payment_orders` ADD COLUMN `reference_processed_at` datetime DEFAULT NULL AFTER `reference_id`',
+  'SELECT 1'
+);
+PREPARE gc_stmt FROM @gc_sql; EXECUTE gc_stmt; DEALLOCATE PREPARE gc_stmt;
+
+SET @gc_sql = IF(
+  (SELECT COUNT(*) FROM information_schema.STATISTICS
+   WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'payment_orders' AND INDEX_NAME = 'payment_orders_reference_index') = 0,
+  'ALTER TABLE `payment_orders` ADD KEY `payment_orders_reference_index` (`reference_type`, `reference_id`)',
+  'SELECT 1'
+);
+PREPARE gc_stmt FROM @gc_sql; EXECUTE gc_stmt; DEALLOCATE PREPARE gc_stmt;
+
+CREATE TABLE IF NOT EXISTS `customers` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   `company` varchar(150) DEFAULT NULL,
@@ -29,7 +57,7 @@ CREATE TABLE `customers` (
   KEY `customers_status_name_index` (`status`, `name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE `hosting_services` (
+CREATE TABLE IF NOT EXISTS `hosting_services` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `customer_id` bigint unsigned NOT NULL,
   `created_by` int unsigned DEFAULT NULL,
@@ -59,7 +87,7 @@ CREATE TABLE `hosting_services` (
   CONSTRAINT `hosting_payment_order_fk` FOREIGN KEY (`current_payment_order_id`) REFERENCES `payment_orders` (`id`) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE `hosting_notices` (
+CREATE TABLE IF NOT EXISTS `hosting_notices` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `hosting_service_id` bigint unsigned NOT NULL,
   `payment_order_id` bigint unsigned DEFAULT NULL,
@@ -77,7 +105,7 @@ CREATE TABLE `hosting_notices` (
   CONSTRAINT `hosting_notices_payment_fk` FOREIGN KEY (`payment_order_id`) REFERENCES `payment_orders` (`id`) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE `catalog_items` (
+CREATE TABLE IF NOT EXISTS `catalog_items` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `item_type` enum('service','product') NOT NULL DEFAULT 'service',
   `name` varchar(180) NOT NULL,
@@ -91,7 +119,7 @@ CREATE TABLE `catalog_items` (
   KEY `catalog_status_order_index` (`status`, `sort_order`, `name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE `quotes` (
+CREATE TABLE IF NOT EXISTS `quotes` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `customer_id` bigint unsigned NOT NULL,
   `created_by` int unsigned DEFAULT NULL,
@@ -124,7 +152,7 @@ CREATE TABLE `quotes` (
   CONSTRAINT `quotes_created_by_fk` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE `quote_items` (
+CREATE TABLE IF NOT EXISTS `quote_items` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `quote_id` bigint unsigned NOT NULL,
   `item_type` enum('service','product') NOT NULL DEFAULT 'service',
@@ -139,7 +167,7 @@ CREATE TABLE `quote_items` (
   CONSTRAINT `quote_items_quote_fk` FOREIGN KEY (`quote_id`) REFERENCES `quotes` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE `quote_emails` (
+CREATE TABLE IF NOT EXISTS `quote_emails` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `quote_id` bigint unsigned NOT NULL,
   `recipient` varchar(190) NOT NULL,
@@ -153,15 +181,30 @@ CREATE TABLE `quote_emails` (
   CONSTRAINT `quote_emails_quote_fk` FOREIGN KEY (`quote_id`) REFERENCES `quotes` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO `catalog_items` (`item_type`, `name`, `description`, `unit_price`, `sort_order`) VALUES
-  ('service', 'Diseño y desarrollo web', 'Sitio corporativo responsive, autoadministrable y optimizado para buscadores.', 450000, 10),
-  ('service', 'Tienda online', 'Ecommerce con catálogo, carrito, pagos, envíos y capacitación de administración.', 750000, 20),
-  ('service', 'Software a medida', 'Análisis, diseño y desarrollo de una plataforma adaptada a procesos empresariales.', 0, 30),
-  ('service', 'Automatización de procesos', 'Integración de formularios, alertas, tareas, documentos y datos.', 0, 40),
-  ('service', 'Gestión Meta Ads', 'Configuración, gestión y optimización mensual de campañas en Meta.', 180000, 50),
-  ('service', 'Diseño creativo digital', 'Sistema visual y piezas digitales coherentes con la identidad de marca.', 250000, 60),
-  ('service', 'Soporte técnico', 'Bloque de soporte, diagnóstico y mantenimiento web.', 45000, 70),
-  ('service', 'Hosting administrado anual', 'Alojamiento web, SSL, respaldos y soporte básico por 12 meses.', 120000, 80);
+INSERT INTO `catalog_items` (`item_type`, `name`, `description`, `unit_price`, `sort_order`)
+SELECT 'service', 'Diseño y desarrollo web', 'Sitio corporativo responsive, autoadministrable y optimizado para buscadores.', 450000, 10
+WHERE NOT EXISTS (SELECT 1 FROM `catalog_items` WHERE `name` = 'Diseño y desarrollo web');
+INSERT INTO `catalog_items` (`item_type`, `name`, `description`, `unit_price`, `sort_order`)
+SELECT 'service', 'Tienda online', 'Ecommerce con catálogo, carrito, pagos, envíos y capacitación de administración.', 750000, 20
+WHERE NOT EXISTS (SELECT 1 FROM `catalog_items` WHERE `name` = 'Tienda online');
+INSERT INTO `catalog_items` (`item_type`, `name`, `description`, `unit_price`, `sort_order`)
+SELECT 'service', 'Software a medida', 'Análisis, diseño y desarrollo de una plataforma adaptada a procesos empresariales.', 0, 30
+WHERE NOT EXISTS (SELECT 1 FROM `catalog_items` WHERE `name` = 'Software a medida');
+INSERT INTO `catalog_items` (`item_type`, `name`, `description`, `unit_price`, `sort_order`)
+SELECT 'service', 'Automatización de procesos', 'Integración de formularios, alertas, tareas, documentos y datos.', 0, 40
+WHERE NOT EXISTS (SELECT 1 FROM `catalog_items` WHERE `name` = 'Automatización de procesos');
+INSERT INTO `catalog_items` (`item_type`, `name`, `description`, `unit_price`, `sort_order`)
+SELECT 'service', 'Gestión Meta Ads', 'Configuración, gestión y optimización mensual de campañas en Meta.', 180000, 50
+WHERE NOT EXISTS (SELECT 1 FROM `catalog_items` WHERE `name` = 'Gestión Meta Ads');
+INSERT INTO `catalog_items` (`item_type`, `name`, `description`, `unit_price`, `sort_order`)
+SELECT 'service', 'Diseño creativo digital', 'Sistema visual y piezas digitales coherentes con la identidad de marca.', 250000, 60
+WHERE NOT EXISTS (SELECT 1 FROM `catalog_items` WHERE `name` = 'Diseño creativo digital');
+INSERT INTO `catalog_items` (`item_type`, `name`, `description`, `unit_price`, `sort_order`)
+SELECT 'service', 'Soporte técnico', 'Bloque de soporte, diagnóstico y mantenimiento web.', 45000, 70
+WHERE NOT EXISTS (SELECT 1 FROM `catalog_items` WHERE `name` = 'Soporte técnico');
+INSERT INTO `catalog_items` (`item_type`, `name`, `description`, `unit_price`, `sort_order`)
+SELECT 'service', 'Hosting administrado anual', 'Alojamiento web, SSL, respaldos y soporte básico por 12 meses.', 120000, 80
+WHERE NOT EXISTS (SELECT 1 FROM `catalog_items` WHERE `name` = 'Hosting administrado anual');
 
 INSERT INTO `permissions` (`name`, `slug`, `description`, `group_name`)
 SELECT 'Ver hosting', 'hosting.view', 'Consultar servicios, vencimientos y avisos.', 'Hosting'
@@ -173,7 +216,7 @@ INSERT INTO `permissions` (`name`, `slug`, `description`, `group_name`)
 SELECT 'Editar hosting', 'hosting.edit', 'Modificar fechas, ciclos, montos y estados.', 'Hosting'
 WHERE NOT EXISTS (SELECT 1 FROM `permissions` WHERE `slug` = 'hosting.edit');
 INSERT INTO `permissions` (`name`, `slug`, `description`, `group_name`)
-SELECT 'Enviar avisos hosting', 'hosting.send', 'Enviar primer, segundo y ultimo aviso con pago Flow.', 'Hosting'
+SELECT 'Enviar avisos hosting', 'hosting.send', 'Enviar primer, segundo y ultimo aviso con checkout Flow.', 'Hosting'
 WHERE NOT EXISTS (SELECT 1 FROM `permissions` WHERE `slug` = 'hosting.send');
 INSERT INTO `permissions` (`name`, `slug`, `description`, `group_name`)
 SELECT 'Ver cotizaciones', 'quotes.view', 'Consultar propuestas, estados y PDFs.', 'Cotizaciones'
@@ -195,3 +238,11 @@ INSERT IGNORE INTO `role_permissions` (`role_id`, `permission_id`)
 SELECT r.id, p.id FROM `roles` r CROSS JOIN `permissions` p
 WHERE r.slug IN ('superadministrador', 'administrador')
   AND p.slug IN ('hosting.view','hosting.create','hosting.edit','hosting.send','quotes.view','quotes.create','quotes.edit','quotes.send','catalog.manage');
+
+-- Limpia permisos de versiones anteriores que exponian un modulo separado de
+-- cobros. Flow queda disponible solamente dentro de las renovaciones Hosting.
+DELETE rp FROM `role_permissions` rp
+INNER JOIN `permissions` p ON p.id = rp.permission_id
+WHERE p.slug IN ('payments.view', 'payments.create', 'payments.sync');
+DELETE FROM `permissions`
+WHERE slug IN ('payments.view', 'payments.create', 'payments.sync');

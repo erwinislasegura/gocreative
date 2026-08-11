@@ -49,12 +49,12 @@ superadministrador con tus propios datos. No existen credenciales
 predeterminadas en el código. El instalador queda bloqueado automáticamente.
 
 El panel incluye usuarios, roles, permisos, control de intentos, protección
-CSRF, auditoría, cobros mediante Flow, renovaciones de hosting y cotizaciones
-con PDF. Revisa
+CSRF, auditoría, renovaciones de hosting con checkout Flow y cotizaciones con
+PDF. Flow no agrega un módulo separado al menú. Revisa
 database/README-INSTALACION-BD.txt antes de importar.
 
-Pasarela Flow.cl
-----------------
+Checkout Flow.cl para Hosting
+-----------------------------
 Configuración privada:
 config/flow/flow.local.php
 
@@ -68,15 +68,17 @@ GC_FLOW_PUBLIC_URL
 GC_FLOW_PAYMENT_METHOD
 GC_FLOW_TIMEOUT
 
+Flow se utiliza exclusivamente al enviar avisos de renovación desde Hosting.
+El botón del correo abre directamente su checkout. Para confirmar el resultado,
 Flow necesita llegar por HTTPS a:
 - /pagos/confirmacion.php
 - /pagos/retorno.php
 
 Por eso localhost no sirve como URL de confirmación. Para pruebas con XAMPP
 usa un túnel HTTPS o publica una instalación de prueba y escribe esa dirección
-en public_url. Antes de cobrar dinero real, completa una operación en sandbox,
-comprueba que el panel cambie a "Pagada" y luego cambia a production con las
-credenciales reales.
+en public_url. Antes de cobrar dinero real, completa una renovación en sandbox,
+comprueba que la fecha de Hosting avance seis o doce meses y luego cambia a
+production con las credenciales reales.
 
 Actualización de una instalación existente
 -------------------------------------------
@@ -91,6 +93,10 @@ La segunda migración crea clientes, hosting, avisos, catálogo y cotizaciones.
 No guarda datos de tarjetas. El botón de cada aviso lleva al checkout seguro
 de Flow y, cuando Flow confirma el pago, la próxima fecha de hosting avanza
 seis o doce meses según el ciclo contratado.
+
+Si phpMyAdmin informa que una columna o tabla ya existe, usa la versión más
+reciente de 2026_08_11_comercial.sql y vuelve a importarla completa. El archivo
+detecta instalaciones parciales y continúa sin borrar información.
 
 Correos del panel
 -----------------
@@ -121,8 +127,9 @@ Después de publicar
 4. Crea el superadministrador desde /admin/instalar.php.
 5. Configura Google Analytics o Tag Manager si se utilizará medición.
 6. Prueba el envío desde /contacto/ y confirma que llegue al correo.
-7. Ejecuta un pago completo en sandbox y verifica confirmación y retorno.
+7. Ejecuta una renovación de Hosting en sandbox y verifica el checkout, la
+   confirmación y la nueva fecha de vencimiento.
 8. Envía un aviso de prueba y una cotización a un correo controlado por ti.
 9. Vacía caché de LiteSpeed/cPanel si todavía aparece la versión anterior.
 
-Versión: 3.2.0 — agosto de 2026
+Versión: 3.3.0 — agosto de 2026

@@ -94,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $databaseError === '') {
     <link rel="icon" href="<?= e(site_path('/assets/img/favicon.svg')) ?>" type="image/svg+xml">
     <link rel="shortcut icon" href="<?= e(site_path('/favicon.ico')) ?>">
     <link rel="stylesheet" href="<?= e(admin_url('assets/vendor/bootstrap/css/bootstrap.min.css')) ?>">
-    <link rel="stylesheet" href="<?= e(admin_url('assets/css/admin.css?v=1.2.0')) ?>">
+    <link rel="stylesheet" href="<?= e(admin_url('assets/css/admin.css?v=1.3.0')) ?>">
 </head>
 <body class="login-body">
 <main class="login-shell">

@@ -12,7 +12,7 @@ function hosting_find_by_id(int $id): ?array
 {
     $statement = db()->prepare(
         'SELECT hs.*, c.name AS customer_name, c.company AS customer_company, c.email AS customer_email,
-                c.phone AS customer_phone, po.status AS payment_status, po.checkout_url, po.public_key AS payment_public_key,
+                c.phone AS customer_phone, po.status AS payment_status, po.checkout_url,
                 u.name AS created_by_name
          FROM hosting_services hs
          INNER JOIN customers c ON c.id = hs.customer_id
@@ -95,15 +95,13 @@ function hosting_prepare_payment(array $service, int $createdBy): array
         }
     }
 
-    $orderId = payment_create_order([
+    $orderId = payment_create_hosting_checkout([
         'customer_name' => $service['customer_name'],
         'customer_email' => $service['customer_email'],
         'subject' => 'Renovacion ' . $service['plan_name'] . ($service['domain'] ? ' · ' . $service['domain'] : ''),
         'amount' => (int) $service['amount'],
-        'reference_type' => 'hosting',
-        'reference_id' => (int) $service['id'],
         'timeout' => 2592000,
-    ], $createdBy);
+    ], $createdBy, (int) $service['id']);
 
     $update = db()->prepare('UPDATE hosting_services SET current_payment_order_id = :payment_order_id WHERE id = :id');
     $update->execute(['payment_order_id' => $orderId, 'id' => $service['id']]);
@@ -126,7 +124,10 @@ function hosting_send_notice(array $service, int $level, int $createdBy): int
 
     $order = hosting_prepare_payment($service, $createdBy);
     $service['payment_order_id'] = $order['id'];
-    $paymentUrl = payment_public_url($order);
+    $paymentUrl = (string) ($order['checkout_url'] ?? '');
+    if ($paymentUrl === '') {
+        throw new RuntimeException('Flow no entregó una URL de checkout válida.');
+    }
     $email = hosting_notice_email($service, $level, $paymentUrl);
     $mailer = new HtmlMailer(SITE_EMAIL, SITE_NAME);
 

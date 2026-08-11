@@ -1,5 +1,5 @@
--- Go Creative Chile - Integracion de cobros Flow.cl
--- Migracion no destructiva para instalaciones existentes.
+-- Go Creative Chile - Checkout Flow.cl para renovaciones de Hosting
+-- Migracion tecnica no destructiva para instalaciones existentes.
 -- Compatible con MySQL 5.7+ y MariaDB 10.4+.
 
 SET NAMES utf8mb4;
@@ -52,30 +52,5 @@ CREATE TABLE IF NOT EXISTS `payment_events` (
   CONSTRAINT `payment_events_order_fk` FOREIGN KEY (`payment_order_id`) REFERENCES `payment_orders` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO `permissions` (`name`, `slug`, `description`, `group_name`)
-SELECT 'Ver cobros', 'payments.view', 'Consultar ordenes, montos y estados de Flow.', 'Cobros Flow'
-WHERE NOT EXISTS (SELECT 1 FROM `permissions` WHERE `slug` = 'payments.view');
-
-INSERT INTO `permissions` (`name`, `slug`, `description`, `group_name`)
-SELECT 'Crear cobros', 'payments.create', 'Generar ordenes y enlaces de pago mediante Flow.', 'Cobros Flow'
-WHERE NOT EXISTS (SELECT 1 FROM `permissions` WHERE `slug` = 'payments.create');
-
-INSERT INTO `permissions` (`name`, `slug`, `description`, `group_name`)
-SELECT 'Sincronizar cobros', 'payments.sync', 'Consultar manualmente el estado informado por Flow.', 'Cobros Flow'
-WHERE NOT EXISTS (SELECT 1 FROM `permissions` WHERE `slug` = 'payments.sync');
-
--- El superadministrador recibe todos los permisos nuevos.
-INSERT IGNORE INTO `role_permissions` (`role_id`, `permission_id`)
-SELECT r.id, p.id
-FROM `roles` r
-CROSS JOIN `permissions` p
-WHERE r.slug = 'superadministrador'
-  AND p.slug IN ('payments.view', 'payments.create', 'payments.sync');
-
--- El rol Administrador puede operar cobros por defecto.
-INSERT IGNORE INTO `role_permissions` (`role_id`, `permission_id`)
-SELECT r.id, p.id
-FROM `roles` r
-CROSS JOIN `permissions` p
-WHERE r.slug = 'administrador'
-  AND p.slug IN ('payments.view', 'payments.create', 'payments.sync');
+-- No crea menú ni permisos. Estas tablas son infraestructura interna del
+-- checkout que utiliza exclusivamente el módulo de Hosting.

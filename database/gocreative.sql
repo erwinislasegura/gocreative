@@ -121,7 +121,7 @@ CREATE TABLE `payment_orders` (
   `subject` varchar(255) NOT NULL,
   `amount` int unsigned NOT NULL,
   `currency` char(3) NOT NULL DEFAULT 'CLP',
-  `reference_type` varchar(30) NOT NULL DEFAULT 'manual',
+  `reference_type` varchar(30) NOT NULL DEFAULT 'hosting',
   `reference_id` bigint unsigned DEFAULT NULL,
   `reference_processed_at` datetime DEFAULT NULL,
   `status` enum('created','pending','paid','rejected','cancelled','error') NOT NULL DEFAULT 'created',
@@ -326,18 +326,15 @@ INSERT INTO `permissions` (`id`, `name`, `slug`, `description`, `group_name`) VA
   (7, 'Crear roles', 'roles.create', 'Crear nuevas combinaciones de permisos.', 'Roles y permisos'),
   (8, 'Editar roles', 'roles.edit', 'Modificar nombres, descripciones y permisos.', 'Roles y permisos'),
   (9, 'Eliminar roles', 'roles.delete', 'Eliminar roles sin usuarios asignados.', 'Roles y permisos'),
-  (10, 'Ver cobros', 'payments.view', 'Consultar ordenes, montos y estados de Flow.', 'Cobros Flow'),
-  (11, 'Crear cobros', 'payments.create', 'Generar ordenes y enlaces de pago mediante Flow.', 'Cobros Flow'),
-  (12, 'Sincronizar cobros', 'payments.sync', 'Consultar manualmente el estado informado por Flow.', 'Cobros Flow'),
-  (13, 'Ver hosting', 'hosting.view', 'Consultar servicios, vencimientos y avisos.', 'Hosting'),
-  (14, 'Crear hosting', 'hosting.create', 'Registrar nuevos servicios de alojamiento.', 'Hosting'),
-  (15, 'Editar hosting', 'hosting.edit', 'Modificar fechas, ciclos, montos y estados.', 'Hosting'),
-  (16, 'Enviar avisos hosting', 'hosting.send', 'Enviar primer, segundo y ultimo aviso con pago Flow.', 'Hosting'),
-  (17, 'Ver cotizaciones', 'quotes.view', 'Consultar propuestas, estados y PDFs.', 'Cotizaciones'),
-  (18, 'Crear cotizaciones', 'quotes.create', 'Generar propuestas con servicios y productos.', 'Cotizaciones'),
-  (19, 'Editar cotizaciones', 'quotes.edit', 'Modificar el alcance y condiciones de propuestas.', 'Cotizaciones'),
-  (20, 'Enviar cotizaciones', 'quotes.send', 'Enviar correo HTML con la propuesta PDF.', 'Cotizaciones'),
-  (21, 'Gestionar catalogo', 'catalog.manage', 'Administrar servicios y productos para cotizar rapidamente.', 'Cotizaciones');
+  (10, 'Ver hosting', 'hosting.view', 'Consultar servicios, vencimientos y avisos.', 'Hosting'),
+  (11, 'Crear hosting', 'hosting.create', 'Registrar nuevos servicios de alojamiento.', 'Hosting'),
+  (12, 'Editar hosting', 'hosting.edit', 'Modificar fechas, ciclos, montos y estados.', 'Hosting'),
+  (13, 'Enviar avisos hosting', 'hosting.send', 'Enviar primer, segundo y ultimo aviso con checkout Flow.', 'Hosting'),
+  (14, 'Ver cotizaciones', 'quotes.view', 'Consultar propuestas, estados y PDFs.', 'Cotizaciones'),
+  (15, 'Crear cotizaciones', 'quotes.create', 'Generar propuestas con servicios y productos.', 'Cotizaciones'),
+  (16, 'Editar cotizaciones', 'quotes.edit', 'Modificar el alcance y condiciones de propuestas.', 'Cotizaciones'),
+  (17, 'Enviar cotizaciones', 'quotes.send', 'Enviar correo HTML con la propuesta PDF.', 'Cotizaciones'),
+  (18, 'Gestionar catalogo', 'catalog.manage', 'Administrar servicios y productos para cotizar rapidamente.', 'Cotizaciones');
 
 -- Superadministrador: todos los permisos.
 INSERT INTO `role_permissions` (`role_id`, `permission_id`)
@@ -345,8 +342,8 @@ SELECT 1, `id` FROM `permissions`;
 
 -- Administrador: panel y gestión operativa de usuarios.
 INSERT INTO `role_permissions` (`role_id`, `permission_id`) VALUES
-  (2, 1), (2, 2), (2, 3), (2, 4), (2, 6), (2, 10), (2, 11), (2, 12),
-  (2, 13), (2, 14), (2, 15), (2, 16), (2, 17), (2, 18), (2, 19), (2, 20), (2, 21);
+  (2, 1), (2, 2), (2, 3), (2, 4), (2, 6),
+  (2, 10), (2, 11), (2, 12), (2, 13), (2, 14), (2, 15), (2, 16), (2, 17), (2, 18);
 
 -- Editor: acceso básico al panel.
 INSERT INTO `role_permissions` (`role_id`, `permission_id`) VALUES

@@ -40,19 +40,18 @@ function payment_generate_commerce_order(): string
     throw new RuntimeException('No fue posible generar un numero de orden unico.');
 }
 
-function payment_create_order(array $data, int $createdBy): int
+function payment_create_hosting_checkout(array $data, int $createdBy, int $hostingServiceId): int
 {
     $config = flow_config();
     if (!flow_is_configured()) {
-        throw new RuntimeException('Configura las credenciales de Flow antes de crear un cobro.');
+        throw new RuntimeException('Configura las credenciales de Flow antes de crear el checkout de Hosting.');
     }
 
     $commerceOrder = payment_generate_commerce_order();
     $publicKey = bin2hex(random_bytes(32));
     $currency = 'CLP';
-    $referenceType = (string) ($data['reference_type'] ?? 'manual');
-    if (!in_array($referenceType, ['manual', 'hosting', 'quote'], true)) {
-        $referenceType = 'manual';
+    if ($hostingServiceId <= 0) {
+        throw new RuntimeException('El checkout debe estar asociado a un servicio de hosting.');
     }
     $timeout = isset($data['timeout']) ? (int) $data['timeout'] : (int) $config['timeout'];
     $timeout = max(0, min($timeout, 2592000));
@@ -76,8 +75,8 @@ function payment_create_order(array $data, int $createdBy): int
         'amount' => $data['amount'],
         'currency' => $currency,
         'status' => 'created',
-        'reference_type' => $referenceType,
-        'reference_id' => !empty($data['reference_id']) ? (int) $data['reference_id'] : null,
+        'reference_type' => 'hosting',
+        'reference_id' => $hostingServiceId,
         'timeout_seconds' => $timeout,
         'timeout_seconds_copy' => $timeout,
     ]);
@@ -156,18 +155,6 @@ function payment_find_by_id(int $id): ?array
     return $order ?: null;
 }
 
-function payment_find_by_public_key(string $publicKey): ?array
-{
-    if (!preg_match('/^[a-f0-9]{64}$/', $publicKey)) {
-        return null;
-    }
-
-    $statement = db()->prepare('SELECT * FROM payment_orders WHERE public_key = :public_key LIMIT 1');
-    $statement->execute(['public_key' => $publicKey]);
-    $order = $statement->fetch();
-    return $order ?: null;
-}
-
 function payment_find_by_token(string $token): ?array
 {
     if ($token === '' || strlen($token) > 255 || !preg_match('/^[A-Za-z0-9_-]+$/', $token)) {
@@ -178,11 +165,6 @@ function payment_find_by_token(string $token): ?array
     $statement->execute(['token' => $token]);
     $order = $statement->fetch();
     return $order ?: null;
-}
-
-function payment_public_url(array $order): string
-{
-    return flow_config()['public_url'] . '/pagar/?orden=' . rawurlencode((string) $order['public_key']);
 }
 
 function payment_sync_order(array $order, string $source): array

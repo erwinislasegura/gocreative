@@ -7,7 +7,6 @@ Disallow: /contacto/enviar.php
 Disallow: /admin/
 Disallow: /database/
 Disallow: /vendor/
-Disallow: /pagar/
 Disallow: /pagos/
 Disallow: /cotizacion/
 

@@ -25,9 +25,12 @@ agregar los módulos sin borrar información importa una sola vez y en orden:
 1. database/migrations/2026_08_11_flow.sql
 2. database/migrations/2026_08_11_comercial.sql
 
-La primera migración crea órdenes y eventos de pago. La segunda agrega
-clientes, hosting, avisos, catálogo y cotizaciones, junto con sus permisos.
-Ambas asignan los permisos nuevos a Superadministrador y Administrador.
+La primera migración crea la infraestructura interna del checkout Flow, sin
+menú ni permisos propios. La segunda agrega clientes, hosting, avisos, catálogo
+y cotizaciones, y asigna sus permisos a Superadministrador y Administrador.
+La migración comercial es reejecutable: si un intento anterior se interrumpió
+por una columna o tabla existente, descarga la versión actual y vuelve a
+importarla completa. No elimina registros ni duplica el catálogo inicial.
 
 Primer acceso seguro
 --------------------
@@ -57,7 +60,7 @@ Seguridad incluida
 - Límite de intentos de acceso.
 - Auditoría de acciones administrativas.
 - Panel excluido de buscadores.
-- Las órdenes guardan estados y referencias, nunca datos de tarjetas.
+- El checkout interno guarda estados y referencias, nunca datos de tarjetas.
 - Confirmación Flow verificada consultando la API firmada.
 - Enlaces públicos de cotización con claves aleatorias de 256 bits.
 - Respuesta de cotizaciones protegida con sesión y token CSRF.
