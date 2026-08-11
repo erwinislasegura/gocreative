@@ -1,10 +1,37 @@
 <?php
+$visualScene = $visualScenes[$meta['path']] ?? null;
 $showProjectStrip = !in_array(
     $meta['path'],
     ['/', '/portafolio/', '/politica-de-privacidad/', '/404'],
     true
 );
 ?>
+<?php if ($visualScene !== null): ?>
+<section class="parallax-band parallax-band--<?= e($visualScene['align']) ?>"
+         aria-labelledby="visual-break-title"
+         data-parallax>
+    <div class="parallax-band__media" data-parallax-media>
+        <img src="<?= e($visualScene['image']) ?>"
+             alt="<?= e($visualScene['alt']) ?>"
+             width="<?= e((string) $visualScene['width']) ?>"
+             height="<?= e((string) $visualScene['height']) ?>"
+             loading="lazy"
+             decoding="async">
+    </div>
+    <div class="parallax-band__overlay" aria-hidden="true"></div>
+    <div class="container parallax-band__inner">
+        <div class="parallax-band__card" data-reveal>
+            <p class="eyebrow"><span></span> <?= e($visualScene['eyebrow']) ?></p>
+            <h2 id="visual-break-title"><?= e($visualScene['title']) ?></h2>
+            <p><?= e($visualScene['description']) ?></p>
+            <div class="parallax-band__meta" aria-label="Áreas de trabajo">
+                <span>Estrategia</span><span>Diseño</span><span>Desarrollo</span>
+            </div>
+            <a class="text-link" href="/nosotros/">Conoce nuestro método <span>→</span></a>
+        </div>
+    </div>
+</section>
+<?php endif; ?>
 <?php if ($showProjectStrip): ?>
 <section class="project-strip" aria-labelledby="project-strip-title">
     <div class="container">
@@ -83,6 +110,6 @@ $showProjectStrip = !in_array(
     <span>WhatsApp</span>
     <strong>Conversemos</strong>
 </a>
-<script src="/assets/js/main.js?v=1.1.0" defer></script>
+<script src="/assets/js/main.js?v=1.2.0" defer></script>
 </body>
 </html>

@@ -83,6 +83,31 @@ require __DIR__ . '/includes/header.php';
     </div>
 </section>
 
+<section class="parallax-band parallax-band--left parallax-band--home"
+         aria-labelledby="home-parallax-title"
+         data-parallax>
+    <div class="parallax-band__media" data-parallax-media>
+        <img src="/assets/img/parallax-strategy.webp"
+             alt="Equipo de Go Creative planificando la estrategia, estructura y diseño de un proyecto digital"
+             width="1920"
+             height="768"
+             loading="lazy"
+             decoding="async">
+    </div>
+    <div class="parallax-band__overlay" aria-hidden="true"></div>
+    <div class="container parallax-band__inner">
+        <div class="parallax-band__card" data-reveal>
+            <p class="eyebrow"><span></span> Diseño con propósito</p>
+            <h2 id="home-parallax-title">Primero entendemos. Después diseñamos y desarrollamos.</h2>
+            <p>La estética importa, pero funciona mejor cuando nace de una estrategia clara, mensajes concretos y una experiencia pensada para las personas.</p>
+            <div class="parallax-band__meta" aria-label="Etapas de trabajo">
+                <span>Diagnóstico</span><span>Experiencia</span><span>Implementación</span>
+            </div>
+            <a class="text-link" href="/nosotros/">Así trabajamos <span>→</span></a>
+        </div>
+    </div>
+</section>
+
 <section class="section section--dark process-showcase">
     <div class="container process-showcase__grid">
         <div data-reveal>
@@ -97,6 +122,38 @@ require __DIR__ . '/includes/header.php';
             <li><span>03</span><div><h3>Desarrollo</h3><p>Funciones, integraciones y configuración.</p></div></li>
             <li><span>04</span><div><h3>Pruebas y lanzamiento</h3><p>QA, optimización, publicación y capacitación.</p></div></li>
         </ol>
+    </div>
+</section>
+
+<section class="section photo-editorial" aria-labelledby="visual-work-title">
+    <div class="container">
+        <div class="section-heading section-heading--split" data-reveal>
+            <div>
+                <p class="eyebrow eyebrow--dark"><span></span> Tecnología en contexto</p>
+                <h2 id="visual-work-title">Soluciones digitales que se conectan con el trabajo real.</h2>
+            </div>
+            <p>Comercio, campañas, indicadores y procesos forman parte de una misma experiencia cuando la tecnología está bien integrada.</p>
+        </div>
+        <div class="photo-editorial__grid">
+            <figure class="photo-editorial__item photo-editorial__item--wide" data-reveal>
+                <img src="/assets/img/parallax-commerce.webp"
+                     alt="Planificación de ecommerce, ventas y marketing digital con métricas en computador y teléfono"
+                     width="1920"
+                     height="781"
+                     loading="lazy"
+                     decoding="async">
+                <figcaption><span>Ecommerce y marketing</span><strong>Vender, medir y mejorar</strong></figcaption>
+            </figure>
+            <figure class="photo-editorial__item" data-reveal>
+                <img src="/assets/img/parallax-software.webp"
+                     alt="Equipo revisando un sistema empresarial con tableros, reportes e indicadores"
+                     width="1823"
+                     height="863"
+                     loading="lazy"
+                     decoding="async">
+                <figcaption><span>Software y automatización</span><strong>Control para decidir</strong></figcaption>
+            </figure>
+        </div>
     </div>
 </section>
 

@@ -49,6 +49,48 @@
     else element.classList.add('is-visible');
   });
 
+  const parallaxSections = Array.from(document.querySelectorAll('[data-parallax]'));
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let parallaxFrame = null;
+
+  const updateParallax = () => {
+    parallaxFrame = null;
+    const enabled = !reducedMotion.matches && window.innerWidth > 880;
+
+    parallaxSections.forEach((section) => {
+      const media = section.querySelector('[data-parallax-media]');
+      if (!media) return;
+
+      if (!enabled) {
+        media.style.removeProperty('--parallax-shift');
+        return;
+      }
+
+      const rect = section.getBoundingClientRect();
+      if (rect.bottom < -120 || rect.top > window.innerHeight + 120) return;
+
+      const viewportCenter = window.innerHeight / 2;
+      const sectionCenter = rect.top + rect.height / 2;
+      const progress = (viewportCenter - sectionCenter) / (window.innerHeight + rect.height);
+      const shift = Math.max(-72, Math.min(72, progress * 150));
+      media.style.setProperty('--parallax-shift', `${shift.toFixed(1)}px`);
+    });
+  };
+
+  const scheduleParallax = () => {
+    if (parallaxFrame !== null) return;
+    parallaxFrame = window.requestAnimationFrame(updateParallax);
+  };
+
+  if (parallaxSections.length > 0) {
+    updateParallax();
+    window.addEventListener('scroll', scheduleParallax, { passive: true });
+    window.addEventListener('resize', scheduleParallax, { passive: true });
+    if (typeof reducedMotion.addEventListener === 'function') {
+      reducedMotion.addEventListener('change', scheduleParallax);
+    }
+  }
+
   document.querySelectorAll('[data-year]').forEach((el) => {
     el.textContent = String(new Date().getFullYear());
   });

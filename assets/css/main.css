@@ -211,7 +211,7 @@ ul, ol { padding: 0; margin: 0; }
 .cta-band__actions { display: flex; flex-direction: column; align-items: flex-end; gap: 15px; }
 .cta-band__actions > a:last-child { color: #fff; font-size: .85rem; text-decoration: underline; text-underline-offset: 4px; }
 
-.inner-hero { position: relative; overflow: hidden; padding: 168px 0 72px; color: #fff; background: var(--ink); }
+.inner-hero { position: relative; overflow: hidden; padding: 168px 0 72px; color: #fff; background: linear-gradient(90deg, rgba(7,17,31,.98) 0%, rgba(7,17,31,.9) 52%, rgba(7,17,31,.68) 100%), url("../img/parallax-strategy.webp") center 42% / cover no-repeat; }
 .inner-hero::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 85% 15%, rgba(21,144,91,.4), transparent 32%), linear-gradient(135deg, transparent 55%, rgba(94,231,211,.06)); }
 .inner-hero::after { content: ""; position: absolute; width: 430px; height: 430px; right: 8%; bottom: -330px; border: 1px solid rgba(155,234,66,.28); border-radius: 50%; box-shadow: 0 0 0 80px rgba(155,234,66,.03), 0 0 0 160px rgba(155,234,66,.02); }
 .inner-hero .container { position: relative; z-index: 2; }
@@ -393,6 +393,32 @@ ul, ol { padding: 0; margin: 0; }
   [data-reveal] { opacity: 1; transform: none; }
 }
 
+/* Photographic storytelling and accessible parallax */
+.parallax-band { position: relative; min-height: clamp(420px, 47vw, 560px); display: flex; align-items: stretch; overflow: hidden; isolation: isolate; color: #fff; background: var(--ink); }
+.parallax-band__media { position: absolute; z-index: 0; inset: -13% 0; transform: translate3d(0, var(--parallax-shift, 0), 0) scale(1.065); transform-origin: center; will-change: transform; }
+.parallax-band__media img { width: 100%; height: 100%; object-fit: cover; }
+.parallax-band__overlay { position: absolute; z-index: 1; inset: 0; background: linear-gradient(90deg, rgba(4,10,18,.94) 0%, rgba(7,17,31,.79) 46%, rgba(7,17,31,.24) 100%), linear-gradient(0deg, rgba(4,10,18,.42), transparent 54%); }
+.parallax-band--right .parallax-band__overlay { background: linear-gradient(270deg, rgba(4,10,18,.95) 0%, rgba(7,17,31,.8) 46%, rgba(7,17,31,.2) 100%), linear-gradient(0deg, rgba(4,10,18,.45), transparent 54%); }
+.parallax-band__inner { position: relative; z-index: 2; min-height: inherit; display: flex; align-items: center; padding-block: clamp(62px, 8vw, 100px); }
+.parallax-band__card { width: min(100%, 610px); padding: clamp(26px, 3.5vw, 40px); border-left: 3px solid var(--lime); background: rgba(4,10,18,.72); box-shadow: 0 28px 80px rgba(0,0,0,.25); backdrop-filter: blur(8px); }
+.parallax-band--right .parallax-band__card { margin-left: auto; }
+.parallax-band__card .eyebrow { margin-bottom: 15px; }
+.parallax-band__card h2 { max-width: 570px; margin-bottom: 17px; font-size: clamp(1.75rem, 3vw, 2.75rem); }
+.parallax-band__card > p { margin-bottom: 22px; color: #d0d9df; font-size: .95rem; }
+.parallax-band__meta { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+.parallax-band__meta span { padding: 5px 9px; border: 1px solid rgba(255,255,255,.26); color: #e8eef1; background: rgba(255,255,255,.05); font-size: .65rem; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
+.parallax-band--home { border-block: 1px solid rgba(255,255,255,.08); }
+
+.photo-editorial { overflow: hidden; background: #f6f8f7; }
+.photo-editorial__grid { display: grid; grid-template-columns: 1.32fr .68fr; gap: 16px; }
+.photo-editorial__item { position: relative; min-height: 410px; margin: 0; overflow: hidden; background: var(--ink); }
+.photo-editorial__item img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s cubic-bezier(.2,.7,.2,1), filter .4s ease; }
+.photo-editorial__item::after { content: ""; position: absolute; inset: 38% 0 0; background: linear-gradient(transparent, rgba(4,10,18,.92)); pointer-events: none; }
+.photo-editorial__item figcaption { position: absolute; z-index: 2; inset: auto 0 0; display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; padding: 26px; color: #fff; }
+.photo-editorial__item figcaption span { color: var(--lime); font-size: .68rem; font-weight: 800; text-transform: uppercase; letter-spacing: .09em; }
+.photo-editorial__item figcaption strong { max-width: 190px; text-align: right; font-size: 1rem; }
+.photo-editorial__item:hover img { transform: scale(1.035); filter: saturate(1.06); }
+
 /* Compact visual proof used on internal pages */
 .project-strip { padding: clamp(46px, 5.5vw, 72px) 0; border-top: 1px solid var(--line); background: #eef3f1; }
 .project-strip__head { display: flex; align-items: flex-end; justify-content: space-between; gap: 30px; margin-bottom: 24px; }
@@ -412,13 +438,31 @@ ul, ol { padding: 0; margin: 0; }
 }
 
 @media (max-width: 880px) {
+  .parallax-band { min-height: 450px; }
+  .parallax-band__media { inset: 0; transform: scale(1.02) !important; will-change: auto; }
+  .parallax-band__overlay, .parallax-band--right .parallax-band__overlay { background: linear-gradient(90deg, rgba(4,10,18,.92), rgba(7,17,31,.68)); }
+  .parallax-band__inner { padding-block: 58px; }
+  .parallax-band__card, .parallax-band--right .parallax-band__card { width: min(100%, 620px); margin: 0; }
+  .photo-editorial__grid { grid-template-columns: 1fr; }
+  .photo-editorial__item { min-height: 340px; }
   .project-strip__head { align-items: flex-start; flex-direction: column; gap: 14px; }
   .project-strip__grid { grid-template-columns: repeat(2, 1fr); }
   .project-strip__item:last-child { grid-column: 1 / -1; }
 }
 
 @media (max-width: 620px) {
+  .parallax-band { min-height: 420px; }
+  .parallax-band__inner { padding-block: 42px; }
+  .parallax-band__card { padding: 24px 21px; background: rgba(4,10,18,.8); }
+  .parallax-band__card h2 { font-size: clamp(1.55rem, 7.8vw, 2rem); }
+  .photo-editorial__item { min-height: 270px; }
+  .photo-editorial__item figcaption { padding: 20px; align-items: flex-start; flex-direction: column; gap: 5px; }
+  .photo-editorial__item figcaption strong { max-width: none; text-align: left; }
   .project-strip__grid { grid-template-columns: 1fr; }
   .project-strip__item:last-child { grid-column: auto; }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .parallax-band__media { transform: scale(1.02) !important; will-change: auto; }
+  .photo-editorial__item img { transition: none; }
+}

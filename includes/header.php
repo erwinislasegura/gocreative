@@ -20,14 +20,25 @@ if (!defined('SITE_URL_REWRITE_BUFFER_STARTED')) {
     ob_start('rewrite_site_urls');
 }
 
+$pageMeta = $meta ?? [];
 $meta = array_merge([
     'title' => 'Go Creative | Desarrollo web y soluciones digitales',
     'description' => 'Diseño web, tiendas online, software a medida, automatización, Meta Ads y soporte técnico para empresas en Chile.',
     'path' => '/',
     'image' => '/assets/img/hero-team.webp',
     'image_alt' => 'Equipo de Go Creative desarrollando soluciones digitales para empresas en Chile',
+    'image_width' => 1800,
+    'image_height' => 1202,
     'index' => http_response_code() < 400,
-], $meta ?? []);
+], $pageMeta);
+
+$visualScene = $visualScenes[$meta['path']] ?? null;
+if ($visualScene !== null && !array_key_exists('image', $pageMeta)) {
+    $meta['image'] = $visualScene['image'];
+    $meta['image_alt'] = $visualScene['alt'];
+    $meta['image_width'] = $visualScene['width'];
+    $meta['image_height'] = $visualScene['height'];
+}
 
 $active = $active ?? '';
 $currentCanonical = canonical($meta['path']);
@@ -136,8 +147,8 @@ $schemaGraph[] = [
     'url' => $ogImage,
     'contentUrl' => $ogImage,
     'caption' => $meta['image_alt'],
-    'width' => 1800,
-    'height' => 1202,
+    'width' => $meta['image_width'],
+    'height' => $meta['image_height'],
     'representativeOfPage' => true,
 ];
 
@@ -186,11 +197,13 @@ $navItems = [
     <link rel="alternate" hreflang="es-CL" href="<?= e($currentCanonical) ?>">
     <link rel="alternate" hreflang="x-default" href="<?= e($currentCanonical) ?>">
     <link rel="icon" href="/assets/img/favicon.png" type="image/png">
-    <link rel="preload" href="/assets/css/main.css?v=1.1.0" as="style">
+    <link rel="preload" href="/assets/css/main.css?v=1.2.0" as="style">
     <?php if ($meta['path'] === '/'): ?>
     <link rel="preload" href="/assets/img/hero-team.webp" as="image" type="image/webp" fetchpriority="high">
+    <?php elseif ($meta['path'] !== '/404'): ?>
+    <link rel="preload" href="/assets/img/parallax-strategy.webp" as="image" type="image/webp" fetchpriority="high">
     <?php endif; ?>
-    <link rel="stylesheet" href="/assets/css/main.css?v=1.1.0">
+    <link rel="stylesheet" href="/assets/css/main.css?v=1.2.0">
     <meta property="og:locale" content="es_CL">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Go Creative Chile">
@@ -200,8 +213,8 @@ $navItems = [
     <meta property="og:image" content="<?= e($ogImage) ?>">
     <meta property="og:image:secure_url" content="<?= e($ogImage) ?>">
     <meta property="og:image:type" content="image/webp">
-    <meta property="og:image:width" content="1800">
-    <meta property="og:image:height" content="1202">
+    <meta property="og:image:width" content="<?= e((string) $meta['image_width']) ?>">
+    <meta property="og:image:height" content="<?= e((string) $meta['image_height']) ?>">
     <meta property="og:image:alt" content="<?= e($meta['image_alt']) ?>">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="<?= e($meta['title']) ?>">
