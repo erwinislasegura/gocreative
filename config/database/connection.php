@@ -4,6 +4,9 @@ declare(strict_types=1);
 /**
  * Central MySQL connection for the administration panel.
  *
+ * NO ESCRIBAS EL USUARIO O LA CONTRASEÑA EN ESTE ARCHIVO.
+ * Duplica database.example.php como database.local.php y edita esa copia.
+ *
  * Credentials live in an ignored database.local.php file or in GC_DB_*
  * environment variables. They are never stored in the repository.
  */

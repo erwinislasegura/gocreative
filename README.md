@@ -17,6 +17,7 @@ El proyecto no incluye correos ni contraseñas predeterminadas. El instalador
 se bloquea automáticamente después de crear el primer superadministrador.
 
 `config/database/database.local.php` está ignorado por Git para evitar publicar credenciales.
+El nombre de base configurado es `gocreative`; los comentarios del archivo indican dónde cambiar nombre, usuario y contraseña.
 En producción también puedes usar `GC_DB_HOST`, `GC_DB_PORT`, `GC_DB_NAME`,
 `GC_DB_USER` y `GC_DB_PASSWORD`.
 
