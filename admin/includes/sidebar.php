@@ -12,21 +12,39 @@
             <?php if (can('dashboard.view')): ?>
                 <a class="<?= $activeMenu === 'dashboard' ? 'is-active' : '' ?>" href="<?= e(admin_url()) ?>"><span>01</span>Resumen</a>
             <?php endif; ?>
-            <?php if (can('users.view')): ?>
-                <a class="<?= $activeMenu === 'users' ? 'is-active' : '' ?>" href="<?= e(admin_url('usuarios/')) ?>"><span>02</span>Usuarios</a>
-            <?php endif; ?>
-            <?php if (can('roles.view')): ?>
-                <a class="<?= $activeMenu === 'roles' ? 'is-active' : '' ?>" href="<?= e(admin_url('roles/')) ?>"><span>03</span>Roles y permisos</a>
-            <?php endif; ?>
             <?php if (can('hosting.view')): ?>
-                <a class="<?= $activeMenu === 'hosting' ? 'is-active' : '' ?>" href="<?= e(admin_url('hosting/')) ?>"><span>04</span>Hosting</a>
+                <a class="<?= $activeMenu === 'hosting' ? 'is-active' : '' ?>" href="<?= e(admin_url('hosting/')) ?>"><span>02</span>Hosting</a>
             <?php endif; ?>
             <?php if (can('quotes.view')): ?>
-                <a class="<?= $activeMenu === 'quotes' ? 'is-active' : '' ?>" href="<?= e(admin_url('cotizaciones/')) ?>"><span>05</span>Cotizaciones</a>
+                <a class="<?= $activeMenu === 'quotes' ? 'is-active' : '' ?>" href="<?= e(admin_url('cotizaciones/')) ?>"><span>03</span>Cotizaciones</a>
             <?php endif; ?>
-            <?php if (can('settings.manage')): ?>
-                <a class="<?= $activeMenu === 'analytics' ? 'is-active' : '' ?>" href="<?= e(admin_url('configuracion/analytics.php')) ?>"><span>06</span>Google Analytics</a>
-                <a class="<?= $activeMenu === 'recaptcha' ? 'is-active' : '' ?>" href="<?= e(admin_url('configuracion/recaptcha.php')) ?>"><span>07</span>reCAPTCHA v2</a>
+
+            <?php
+            $systemConfigMenus = ['users', 'roles', 'recaptcha', 'analytics', 'flow'];
+            $systemConfigOpen = in_array($activeMenu, $systemConfigMenus, true);
+            $canSystemConfig = can('users.view') || can('roles.view') || can('settings.manage');
+            ?>
+            <?php if ($canSystemConfig): ?>
+                <div class="admin-nav-group">
+                    <button class="admin-nav-group__toggle <?= $systemConfigOpen ? 'is-active' : '' ?>" type="button" data-bs-toggle="collapse" data-bs-target="#systemConfigurationMenu" aria-expanded="<?= $systemConfigOpen ? 'true' : 'false' ?>" aria-controls="systemConfigurationMenu">
+                        <span>04</span><strong>Configuración del sistema</strong><i aria-hidden="true">⌄</i>
+                    </button>
+                    <div class="collapse <?= $systemConfigOpen ? 'show' : '' ?>" id="systemConfigurationMenu">
+                        <div class="admin-nav-group__items">
+                            <?php if (can('users.view')): ?>
+                                <a class="<?= $activeMenu === 'users' ? 'is-active' : '' ?>" href="<?= e(admin_url('usuarios/')) ?>">Usuarios</a>
+                            <?php endif; ?>
+                            <?php if (can('roles.view')): ?>
+                                <a class="<?= $activeMenu === 'roles' ? 'is-active' : '' ?>" href="<?= e(admin_url('roles/')) ?>">Roles y permisos</a>
+                            <?php endif; ?>
+                            <?php if (can('settings.manage')): ?>
+                                <a class="<?= $activeMenu === 'recaptcha' ? 'is-active' : '' ?>" href="<?= e(admin_url('configuracion/recaptcha.php')) ?>">reCAPTCHA v2</a>
+                                <a class="<?= $activeMenu === 'analytics' ? 'is-active' : '' ?>" href="<?= e(admin_url('configuracion/analytics.php')) ?>">Google Analytics</a>
+                                <a class="<?= $activeMenu === 'flow' ? 'is-active' : '' ?>" href="<?= e(admin_url('configuracion/flow.php')) ?>">Flow Checkout</a>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
             <?php endif; ?>
         </nav>
         <div class="admin-sidebar__footer">
