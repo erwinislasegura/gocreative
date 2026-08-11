@@ -30,7 +30,8 @@ La primera migración crea la infraestructura interna del checkout Flow, sin
 menú ni permisos propios. La segunda agrega clientes, hosting, avisos, catálogo
 y cotizaciones, y asigna sus permisos a Superadministrador y Administrador.
 La tercera incorpora el permiso de configuración para los módulos Google
-Analytics y reCAPTCHA v2; por seguridad se asigna solo al Superadministrador.
+Analytics, reCAPTCHA v2 y Correo SMTP; por seguridad se asigna solo al
+Superadministrador.
 La migración comercial es reejecutable: si un intento anterior se interrumpió
 por una columna o tabla existente, descarga la versión actual y vuelve a
 importarla completa. No elimina registros ni duplica el catálogo inicial.

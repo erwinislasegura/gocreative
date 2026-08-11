@@ -13,7 +13,7 @@ software y marketing digital.
 6. Abre `http://localhost/gocreative/`.
 7. Abre `http://localhost/gocreative/admin/instalar.php` y crea tu cuenta principal.
 8. Después accede normalmente en `http://localhost/gocreative/admin/`.
-9. Configura Google Analytics y reCAPTCHA v2 desde sus módulos del menú.
+9. Configura Google Analytics, reCAPTCHA v2 y Correo SMTP desde el menú.
 
 El proyecto no incluye correos ni contraseñas predeterminadas. El instalador
 se bloquea automáticamente después de crear el primer superadministrador.
@@ -40,6 +40,19 @@ el login o el contacto. La clave secreta nunca vuelve a mostrarse. Se guarda
 en el archivo ignorado `config/recaptcha/recaptcha.local.php` o en las variables
 `GC_RECAPTCHA_SITE_KEY` y `GC_RECAPTCHA_SECRET_KEY`. Registra `gocreative.cl`
 y `localhost` como dominios permitidos si trabajarás también desde XAMPP.
+
+## Correo SMTP
+
+El módulo **Correo SMTP** del panel configura el transporte común para avisos
+de Hosting, cotizaciones y el formulario de contacto. Incluye una prueba real
+de entrega y muestra el error exacto de conexión o autenticación. En XAMPP se
+recomienda SMTP porque `mail()` no tiene un servidor de salida configurado de
+forma predeterminada.
+
+La contraseña se guarda en el archivo ignorado `config/mail/mail.local.php`.
+También puedes utilizar `GC_MAIL_TRANSPORT`, `GC_SMTP_HOST`, `GC_SMTP_PORT`,
+`GC_SMTP_ENCRYPTION`, `GC_SMTP_USERNAME`, `GC_SMTP_PASSWORD`,
+`GC_MAIL_FROM_EMAIL`, `GC_MAIL_FROM_NAME` y `GC_SMTP_TIMEOUT`.
 
 ## Checkout Flow.cl para Hosting
 
@@ -69,9 +82,8 @@ conectarse a `localhost`.
   vigencia, estados, aceptación o rechazo mediante enlace privado, correo HTML
   y PDF A4 profesional adjunto.
 
-Los correos salen mediante la función `mail()` de PHP. En cPanel normalmente
-basta con disponer de una cuenta de correo del dominio; en XAMPP debes
-configurar un servidor SMTP/sendmail para probar envíos reales.
+Los correos utilizan el transporte elegido en el módulo Correo SMTP. Configura
+un buzón real del dominio y ejecuta la prueba antes de enviar avisos a clientes.
 
 Consulta [README-INSTALACION.txt](README-INSTALACION.txt) y
 [database/README-INSTALACION-BD.txt](database/README-INSTALACION-BD.txt) para

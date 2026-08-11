@@ -3,9 +3,11 @@
 /config/flow/flow.local.php
 /config/recaptcha/recaptcha.local.php
 /config/analytics/analytics.local.php
+/config/mail/mail.local.php
 /config/database/database.local.php.tmp-*.php
 /config/flow/flow.local.php.tmp-*.php
 /config/recaptcha/recaptcha.local.php.tmp-*.php
 /config/analytics/analytics.local.php.tmp-*.php
+/config/mail/mail.local.php.tmp-*.php
 /tmp/
 /output/

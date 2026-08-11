@@ -5,21 +5,34 @@ namespace GoCreative\Mail;
 
 use RuntimeException;
 
+require_once __DIR__ . '/SmtpTransport.php';
+
 final class HtmlMailer
 {
     private string $fromEmail;
     private string $fromName;
+    private array $transportConfig;
 
-    public function __construct(string $fromEmail, string $fromName = 'Go Creative')
+    public function __construct(string $fromEmail, string $fromName = 'Go Creative', ?array $transportConfig = null)
     {
+        $transportConfig ??= function_exists('\\mail_config') ? \mail_config() : ['transport' => 'mail'];
+        $configuredFrom = trim((string) ($transportConfig['from_email'] ?? ''));
+        if ($configuredFrom !== '') {
+            $fromEmail = $configuredFrom;
+        }
+        $configuredName = trim((string) ($transportConfig['from_name'] ?? ''));
+        if ($configuredName !== '') {
+            $fromName = $configuredName;
+        }
         if (filter_var($fromEmail, FILTER_VALIDATE_EMAIL) === false) {
             throw new RuntimeException('El correo remitente no es valido.');
         }
         $this->fromEmail = $fromEmail;
         $this->fromName = trim(preg_replace('/[\r\n]+/', ' ', $fromName) ?? 'Go Creative');
+        $this->transportConfig = $transportConfig;
     }
 
-    public function send(string $to, string $subject, string $html, array $attachments = []): void
+    public function send(string $to, string $subject, string $html, array $attachments = [], ?string $replyTo = null): void
     {
         if (filter_var($to, FILTER_VALIDATE_EMAIL) === false || preg_match('/[\r\n]/', $to)) {
             throw new RuntimeException('El correo del destinatario no es valido.');
@@ -29,6 +42,10 @@ final class HtmlMailer
         if ($subject === '') {
             throw new RuntimeException('El asunto del correo no puede estar vacio.');
         }
+        $replyTo = trim((string) ($replyTo ?? $this->fromEmail));
+        if (filter_var($replyTo, FILTER_VALIDATE_EMAIL) === false || preg_match('/[\r\n]/', $replyTo)) {
+            throw new RuntimeException('El correo de respuesta no es válido.');
+        }
 
         $mixedBoundary = 'gc_mixed_' . bin2hex(random_bytes(12));
         $alternativeBoundary = 'gc_alt_' . bin2hex(random_bytes(12));
@@ -37,7 +54,7 @@ final class HtmlMailer
         $headers = [
             'MIME-Version: 1.0',
             'From: ' . $this->encodeHeader($this->fromName) . ' <' . $this->fromEmail . '>',
-            'Reply-To: ' . $this->fromEmail,
+            'Reply-To: ' . $replyTo,
             'Content-Type: multipart/mixed; boundary="' . $mixedBoundary . '"',
             'X-Mailer: GoCreative/PHP-' . PHP_VERSION,
         ];
@@ -73,8 +90,25 @@ final class HtmlMailer
 
         $body .= '--' . $mixedBoundary . '--' . "\r\n";
 
+        if (($this->transportConfig['transport'] ?? 'mail') === 'smtp') {
+            $domain = substr(strrchr($this->fromEmail, '@') ?: '@gocreative.cl', 1);
+            $smtpHeaders = array_merge([
+                'Date: ' . date(DATE_RFC2822),
+                'Message-ID: <' . bin2hex(random_bytes(16)) . '@' . $domain . '>',
+                'To: <' . $to . '>',
+                'Subject: ' . $this->encodeHeader($subject),
+            ], $headers);
+            (new SmtpTransport())->send(
+                $this->transportConfig,
+                $this->fromEmail,
+                $to,
+                implode("\r\n", $smtpHeaders) . "\r\n\r\n" . $body
+            );
+            return;
+        }
+
         if (!mail($to, $this->encodeHeader($subject), $body, implode("\r\n", $headers))) {
-            throw new RuntimeException('El servidor no acepto el envio del correo.');
+            throw new RuntimeException('PHP mail() rechazó el envío. Configura Correo SMTP en el panel, especialmente si estás usando XAMPP.');
         }
     }
 

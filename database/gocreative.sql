@@ -335,7 +335,7 @@ INSERT INTO `permissions` (`id`, `name`, `slug`, `description`, `group_name`) VA
   (16, 'Editar cotizaciones', 'quotes.edit', 'Modificar el alcance y condiciones de propuestas.', 'Cotizaciones'),
   (17, 'Enviar cotizaciones', 'quotes.send', 'Enviar correo HTML con la propuesta PDF.', 'Cotizaciones'),
   (18, 'Gestionar catalogo', 'catalog.manage', 'Administrar servicios y productos para cotizar rapidamente.', 'Cotizaciones'),
-  (19, 'Gestionar integraciones', 'settings.manage', 'Configurar Google Analytics y reCAPTCHA v2.', 'Configuración');
+  (19, 'Gestionar integraciones', 'settings.manage', 'Configurar Analytics, reCAPTCHA y correo SMTP.', 'Configuración');
 
 -- Superadministrador: todos los permisos.
 INSERT INTO `role_permissions` (`role_id`, `permission_id`)

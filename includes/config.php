@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 require_once dirname(__DIR__) . '/config/recaptcha/configuration.php';
 require_once dirname(__DIR__) . '/config/analytics/configuration.php';
+require_once dirname(__DIR__) . '/config/mail/configuration.php';
 
 const SITE_NAME = 'Go Creative';
 const SITE_URL = 'https://gocreative.cl';

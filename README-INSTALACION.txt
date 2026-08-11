@@ -4,10 +4,10 @@ GO CREATIVE — INSTALACIÓN EN CPANEL
 Requisitos
 ----------
 - PHP 8.0 o superior.
-- Extensiones PDO MySQL, mbstring y cURL habilitadas.
+- Extensiones PDO MySQL, mbstring, OpenSSL y cURL habilitadas.
 - MySQL 5.7+ o MariaDB 10.4+.
 - Apache o LiteSpeed.
-- Función mail() habilitada para contacto, avisos de hosting y cotizaciones.
+- Conexiones salientes SMTP habilitadas o, como alternativa, función mail().
 
 Instalación
 -----------
@@ -21,7 +21,7 @@ Instalación
 8. Copia config/database/database.example.php como config/database/database.local.php y completa los datos MySQL, o configura las variables GC_DB_*.
 9. Copia config/flow/flow.example.php como config/flow/flow.local.php y agrega
    tus credenciales. Comienza siempre con environment = sandbox.
-10. Ingresa al panel y configura Google Analytics y reCAPTCHA desde sus módulos.
+10. Ingresa al panel y configura Analytics, reCAPTCHA y Correo SMTP.
 11. Prueba la portada, todas las páginas, /admin/ y el formulario de contacto.
 
 Configuración central
@@ -38,8 +38,9 @@ Allí puedes actualizar:
 
 Formulario de contacto
 ----------------------
-El formulario envía los mensajes a contacto@gocreative.cl mediante mail() de PHP.
-Si el servidor no entrega correos usando mail(), configura un buzón del mismo dominio en cPanel y solicita al hosting habilitar la entrega PHP, o reemplaza el envío por SMTP.
+El formulario envía los mensajes a contacto@gocreative.cl usando el transporte
+central configurado en el módulo Correo SMTP. Las respuestas quedan dirigidas
+al correo que ingresó el visitante.
 
 Google Analytics
 ----------------
@@ -84,7 +85,7 @@ superadministrador con tus propios datos. No existen credenciales
 predeterminadas en el código. El instalador queda bloqueado automáticamente.
 
 El panel incluye usuarios, roles, permisos, módulos Google Analytics y
-reCAPTCHA v2, control de intentos, protección
+reCAPTCHA v2, Correo SMTP, control de intentos, protección
 CSRF, auditoría, renovaciones de hosting con checkout Flow y cotizaciones con
 PDF. Flow no agrega un módulo separado al menú. Revisa
 database/README-INSTALACION-BD.txt antes de importar.
@@ -137,11 +138,22 @@ detecta instalaciones parciales y continúa sin borrar información.
 
 Correos del panel
 -----------------
-Los avisos y las cotizaciones usan mail() de PHP y SITE_EMAIL como remitente.
-En XAMPP configura SMTP/sendmail antes de probar. En cPanel usa un correo del
-dominio y verifica SPF, DKIM y DMARC para mejorar la entrega. Las cotizaciones
-se adjuntan como PDF y también incluyen un enlace privado para aceptar,
-rechazar o descargar nuevamente la propuesta.
+Ruta: /admin/configuracion/correo.php
+
+Selecciona SMTP e ingresa servidor, puerto, cifrado, usuario, contraseña y
+remitente. En XAMPP se recomienda puerto 587 con TLS o 465 con SSL según los
+datos entregados por cPanel. Usa "Guardar y enviar prueba" antes de reenviar un
+aviso de Hosting. El error SMTP se mostrará en la misma pantalla sin revelar la
+contraseña.
+
+La configuración se guarda en config/mail/mail.local.php, excluido de GitHub.
+También admite GC_MAIL_TRANSPORT, GC_SMTP_HOST, GC_SMTP_PORT,
+GC_SMTP_ENCRYPTION, GC_SMTP_USERNAME, GC_SMTP_PASSWORD,
+GC_MAIL_FROM_EMAIL, GC_MAIL_FROM_NAME y GC_SMTP_TIMEOUT.
+
+Verifica SPF, DKIM y DMARC para mejorar la entrega. Las cotizaciones se
+adjuntan como PDF e incluyen un enlace privado para aceptar, rechazar o
+descargar nuevamente la propuesta.
 
 SEO incluido
 ------------
@@ -169,4 +181,4 @@ Después de publicar
 8. Envía un aviso de prueba y una cotización a un correo controlado por ti.
 9. Vacía caché de LiteSpeed/cPanel si todavía aparece la versión anterior.
 
-Versión: 3.5.0 — agosto de 2026
+Versión: 3.6.0 — agosto de 2026
