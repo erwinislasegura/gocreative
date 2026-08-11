@@ -109,9 +109,10 @@ $showProjectStrip = !in_array(
     </div>
 </footer>
 <a class="whatsapp-float" href="<?= e(whatsapp_url()) ?>" target="_blank" rel="noopener" aria-label="Escribir a Go Creative por WhatsApp">
+    <svg class="whatsapp-float__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 11.8a8.4 8.4 0 0 1-12.4 7.4L3.5 20.5l1.3-4.4A8.4 8.4 0 1 1 20.5 11.8Z"/><path d="M8.2 7.8c.2-.4.4-.4.7-.4h.4c.2 0 .4.1.5.4l.7 1.7c.1.3.1.5-.1.7l-.6.8c-.2.2-.1.4 0 .6.6 1.1 1.4 2 2.5 2.6.3.2.5.2.7 0l.9-1.1c.2-.2.4-.3.7-.2l1.7.8c.3.1.5.3.5.5 0 .3-.1 1.4-.7 2-.6.7-1.6 1-2.6.8-1.1-.2-2.5-.7-4.2-2.2-2-1.8-3.2-4-3.3-5.1-.1-.8.2-1.4.5-1.9Z"/></svg>
     <span>WhatsApp</span>
     <strong>Conversemos</strong>
 </a>
-<script src="/assets/js/main.js?v=2.0.0" defer></script>
+<script src="/assets/js/main.js?v=2.1.0" defer></script>
 </body>
 </html>

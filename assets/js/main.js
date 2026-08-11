@@ -24,6 +24,7 @@
 
   const syncScrollUi = () => {
     header?.classList.toggle('is-scrolled', window.scrollY > 20);
+    document.body.classList.toggle('has-passed-hero', window.scrollY > window.innerHeight * .72);
 
     if (progress) {
       const available = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
@@ -149,6 +150,51 @@
     if (typeof reducedMotion.addEventListener === 'function') {
       reducedMotion.addEventListener('change', scheduleParallax);
     }
+  }
+
+  const motionHero = document.querySelector('[data-hero-motion]');
+  let heroMotionFrame = null;
+
+  if (motionHero) {
+    const updateHeroMotion = (event) => {
+      if (reducedMotion.matches || window.innerWidth <= 880) return;
+
+      const rect = motionHero.getBoundingClientRect();
+      const relativeX = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
+      const relativeY = Math.max(0, Math.min(1, (event.clientY - rect.top) / rect.height));
+      const centeredX = relativeX - .5;
+      const centeredY = relativeY - .5;
+
+      motionHero.style.setProperty('--hero-pointer-x', `${(relativeX * 100).toFixed(1)}%`);
+      motionHero.style.setProperty('--hero-pointer-y', `${(relativeY * 100).toFixed(1)}%`);
+      motionHero.style.setProperty('--hero-image-x', `${(centeredX * -13).toFixed(1)}px`);
+      motionHero.style.setProperty('--hero-image-y', `${(centeredY * -9).toFixed(1)}px`);
+      motionHero.style.setProperty('--hero-ui-x', `${(centeredX * 11).toFixed(1)}px`);
+      motionHero.style.setProperty('--hero-ui-y', `${(centeredY * 8).toFixed(1)}px`);
+      motionHero.style.setProperty('--hero-ui-reverse-x', `${(centeredX * -8.8).toFixed(1)}px`);
+      motionHero.style.setProperty('--hero-ui-reverse-y', `${(centeredY * -6.4).toFixed(1)}px`);
+      motionHero.style.setProperty('--hero-ui-soft-x', `${(centeredX * 6.1).toFixed(1)}px`);
+      motionHero.style.setProperty('--hero-ui-soft-y', `${(centeredY * 4.4).toFixed(1)}px`);
+    };
+
+    motionHero.addEventListener('pointermove', (event) => {
+      if (heroMotionFrame !== null) return;
+      heroMotionFrame = window.requestAnimationFrame(() => {
+        heroMotionFrame = null;
+        updateHeroMotion(event);
+      });
+    }, { passive: true });
+
+    motionHero.addEventListener('pointerleave', () => {
+      motionHero.style.removeProperty('--hero-image-x');
+      motionHero.style.removeProperty('--hero-image-y');
+      motionHero.style.removeProperty('--hero-ui-x');
+      motionHero.style.removeProperty('--hero-ui-y');
+      motionHero.style.removeProperty('--hero-ui-reverse-x');
+      motionHero.style.removeProperty('--hero-ui-reverse-y');
+      motionHero.style.removeProperty('--hero-ui-soft-x');
+      motionHero.style.removeProperty('--hero-ui-soft-y');
+    });
   }
 
   document.querySelectorAll('[data-year]').forEach((el) => {
