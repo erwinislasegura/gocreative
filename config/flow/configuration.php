@@ -74,27 +74,57 @@ function flow_config(): array
     return $config;
 }
 
-function flow_is_configured(): bool
+/**
+ * Returns a detailed diagnostic instead of collapsing every problem into
+ * "Flow not configured". This is also used by the admin screen.
+ */
+function flow_configuration_status(): array
 {
     try {
         $config = flow_config();
     } catch (Throwable $exception) {
-        return false;
+        return [
+            'configured' => false,
+            'credentials' => false,
+            'curl' => extension_loaded('curl') && function_exists('curl_init'),
+            'message' => $exception->getMessage(),
+        ];
     }
 
     $placeholders = ['REEMPLAZA_CON_TU_API_KEY', 'REEMPLAZA_CON_TU_SECRET_KEY'];
-    return $config['api_key'] !== ''
+    $credentials = $config['api_key'] !== ''
         && $config['secret_key'] !== ''
         && $config['public_url'] !== ''
         && !in_array($config['api_key'], $placeholders, true)
-        && !in_array($config['secret_key'], $placeholders, true)
-        && extension_loaded('curl');
+        && !in_array($config['secret_key'], $placeholders, true);
+    $curl = extension_loaded('curl') && function_exists('curl_init');
+
+    if (!$credentials) {
+        $message = 'Faltan credenciales de Flow o la URL pública del sitio.';
+    } elseif (!$curl) {
+        $message = 'Las credenciales están guardadas, pero PHP cURL no está habilitado en el servidor.';
+    } else {
+        $message = 'Flow está listo para crear checkout.';
+    }
+
+    return [
+        'configured' => $credentials && $curl,
+        'credentials' => $credentials,
+        'curl' => $curl,
+        'message' => $message,
+    ];
+}
+
+function flow_is_configured(): bool
+{
+    return (bool) flow_configuration_status()['configured'];
 }
 
 function flow_client(): FlowClient
 {
-    if (!flow_is_configured()) {
-        throw new RuntimeException('Flow aun no esta configurado o la extension cURL no esta habilitada.');
+    $status = flow_configuration_status();
+    if (!$status['configured']) {
+        throw new RuntimeException((string) $status['message']);
     }
 
     $config = flow_config();
