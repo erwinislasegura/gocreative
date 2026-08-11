@@ -3,18 +3,22 @@ $meta = [
     'title' => 'Diseño web y soluciones digitales en Chile | Go Creative',
     'description' => 'Creamos páginas web, tiendas online, software a medida, automatizaciones y campañas Meta Ads para empresas en Chile. Cotiza con Go Creative.',
     'path' => '/',
+    'image' => '/assets/img/agency-web-design-v2.webp',
+    'image_alt' => 'Equipo de Go Creative diseñando una experiencia web profesional para empresas en Chile',
+    'image_width' => 1939,
+    'image_height' => 811,
 ];
 $active = 'inicio';
 require __DIR__ . '/includes/header.php';
 ?>
 <section class="hero hero--home">
-    <div class="hero__media" aria-hidden="true"><img src="/assets/img/hero-team.webp" alt="" width="1800" height="1202"></div>
+    <div class="hero__media" aria-hidden="true"><img src="/assets/img/agency-web-design-v2.webp" alt="" width="1939" height="811" fetchpriority="high"></div>
     <div class="hero__overlay"></div>
     <div class="container hero__grid">
         <div class="hero__content" data-reveal>
             <p class="eyebrow"><span></span> Agencia digital · Los Ángeles, Chile</p>
-            <h1>Ideas creativas.<br><em>Resultados reales.</em></h1>
-            <p class="hero__lead">Diseñamos páginas web que convierten, campañas que atraen oportunidades y sistemas digitales que ayudan a tu empresa a trabajar con mayor control.</p>
+            <h1>Diseño web, tecnología y <em>marketing que convierten.</em></h1>
+            <p class="hero__lead">Creamos experiencias digitales atractivas, campañas medibles y sistemas que ayudan a tu empresa a vender mejor y trabajar con mayor control.</p>
             <div class="hero__actions">
                 <a class="button button--lime" href="/contacto/">Cuéntanos tu proyecto <span>↗</span></a>
                 <a class="button button--ghost" href="/portafolio/">Ver proyectos</a>
@@ -25,32 +29,20 @@ require __DIR__ . '/includes/header.php';
                 <div><strong>Chile</strong><span>atención nacional</span></div>
             </div>
         </div>
-        <div class="hero__visual" data-reveal>
-            <div class="browser-card">
-                <div class="browser-card__top"><i></i><i></i><i></i><span>gocreative.cl</span></div>
-                <div class="browser-card__screen">
-                    <p>Tu próxima ventaja digital</p>
-                    <strong>Diseño que inspira.<br>Tecnología que resuelve.</strong>
-                    <span></span>
-                </div>
-            </div>
-            <div class="floating-note floating-note--one"><span>↑</span><strong>Más consultas</strong><small>Experiencias enfocadas en conversión</small></div>
-            <div class="floating-note floating-note--two"><span>✓</span><strong>Menos trabajo manual</strong><small>Procesos simples y conectados</small></div>
-        </div>
     </div>
 </section>
 
 <section class="proof-strip">
     <div class="container proof-strip__inner">
         <p>Soluciones pensadas para hacer crecer tu negocio</p>
-        <div><span>Web corporativa</span><span>Ecommerce</span><span>Software</span><span>Automatización</span><span>Meta Ads</span></div>
+        <div><span>Web corporativa</span><span>Ecommerce</span><span>Software</span><span>Automatización</span><span>Meta Ads</span><span>Diseño creativo</span></div>
     </div>
 </section>
 
 <section class="section section--light" id="servicios">
     <div class="container">
         <div class="section-heading section-heading--split" data-reveal>
-            <div><p class="eyebrow eyebrow--dark"><span></span> Lo que hacemos</p><h2>Una solución clara para cada etapa de tu empresa.</h2></div>
+            <div><p class="eyebrow eyebrow--dark"><span></span> Lo que hacemos</p><h2>Desarrollo, diseño y marketing en una sola agencia.</h2></div>
             <p>Partimos por el problema real, definimos prioridades y construimos una solución profesional que tus clientes y tu equipo puedan usar.</p>
         </div>
         <div class="service-grid">
@@ -75,9 +67,9 @@ require __DIR__ . '/includes/header.php';
                 <span class="service-card__number">05</span><div class="service-card__icon">◎</div>
                 <h3>Campañas Meta Ads</h3><p>Publicidad en Facebook e Instagram para atraer consultas y oportunidades comerciales medibles.</p><strong>Conocer servicio <span>→</span></strong>
             </a>
-            <a class="service-card" href="/soporte-tecnico/" data-reveal>
+            <a class="service-card" href="/diseno-creativo-digital/" data-reveal>
                 <span class="service-card__number">06</span><div class="service-card__icon">✦</div>
-                <h3>Soporte y mantenimiento</h3><p>Recuperación, optimización, migración y soporte remoto para mantener tu operación activa.</p><strong>Conocer servicio <span>→</span></strong>
+                <h3>Diseño creativo digital</h3><p>Identidad, campañas y contenido visual coherente para que tu marca se vea profesional en cada canal.</p><strong>Conocer servicio <span>→</span></strong>
             </a>
         </div>
     </div>
@@ -152,6 +144,24 @@ require __DIR__ . '/includes/header.php';
                      loading="lazy"
                      decoding="async">
                 <figcaption><span>Software y automatización</span><strong>Control para decidir</strong></figcaption>
+            </figure>
+            <figure class="photo-editorial__item" data-reveal>
+                <img src="/assets/img/agency-marketing-v2.webp"
+                     alt="Equipo creativo preparando contenido y analizando el rendimiento de campañas digitales"
+                     width="1983"
+                     height="793"
+                     loading="lazy"
+                     decoding="async">
+                <figcaption><span>Campañas digitales</span><strong>Contenido que atrae</strong></figcaption>
+            </figure>
+            <figure class="photo-editorial__item photo-editorial__item--wide" data-reveal>
+                <img src="/assets/img/agency-branding-v2.webp"
+                     alt="Proceso de diseño de una identidad visual con aplicaciones digitales y materiales de marca"
+                     width="1918"
+                     height="820"
+                     loading="lazy"
+                     decoding="async">
+                <figcaption><span>Identidad y diseño</span><strong>Marcas que se reconocen</strong></figcaption>
             </figure>
         </div>
     </div>

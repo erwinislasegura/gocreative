@@ -25,7 +25,9 @@ $showProjectStrip = !in_array(
             <h2 id="visual-break-title"><?= e($visualScene['title']) ?></h2>
             <p><?= e($visualScene['description']) ?></p>
             <div class="parallax-band__meta" aria-label="Áreas de trabajo">
-                <span>Estrategia</span><span>Diseño</span><span>Desarrollo</span>
+                <?php foreach (($visualScene['tags'] ?? ['Estrategia', 'Diseño', 'Desarrollo']) as $tag): ?>
+                <span><?= e($tag) ?></span>
+                <?php endforeach; ?>
             </div>
             <a class="text-link" href="/nosotros/">Conoce nuestro método <span>→</span></a>
         </div>

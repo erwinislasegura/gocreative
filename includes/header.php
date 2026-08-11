@@ -34,10 +34,10 @@ $meta = array_merge([
 
 $visualScene = $visualScenes[$meta['path']] ?? null;
 if ($visualScene !== null && !array_key_exists('image', $pageMeta)) {
-    $meta['image'] = $visualScene['image'];
-    $meta['image_alt'] = $visualScene['alt'];
-    $meta['image_width'] = $visualScene['width'];
-    $meta['image_height'] = $visualScene['height'];
+    $meta['image'] = $visualScene['hero_image'] ?? $visualScene['image'];
+    $meta['image_alt'] = $visualScene['hero_alt'] ?? $visualScene['alt'];
+    $meta['image_width'] = $visualScene['hero_width'] ?? $visualScene['width'];
+    $meta['image_height'] = $visualScene['hero_height'] ?? $visualScene['height'];
 }
 
 $active = $active ?? '';
@@ -197,13 +197,13 @@ $navItems = [
     <link rel="alternate" hreflang="es-CL" href="<?= e($currentCanonical) ?>">
     <link rel="alternate" hreflang="x-default" href="<?= e($currentCanonical) ?>">
     <link rel="icon" href="/assets/img/favicon.png" type="image/png">
-    <link rel="preload" href="/assets/css/main.css?v=1.2.0" as="style">
+    <link rel="preload" href="/assets/css/main.css?v=1.3.0" as="style">
     <?php if ($meta['path'] === '/'): ?>
-    <link rel="preload" href="/assets/img/hero-team.webp" as="image" type="image/webp" fetchpriority="high">
-    <?php elseif ($meta['path'] !== '/404'): ?>
-    <link rel="preload" href="/assets/img/parallax-strategy.webp" as="image" type="image/webp" fetchpriority="high">
+    <link rel="preload" href="/assets/img/agency-web-design-v2.webp" as="image" type="image/webp" fetchpriority="high">
+    <?php elseif ($visualScene !== null): ?>
+    <link rel="preload" href="<?= e($visualScene['hero_image'] ?? $visualScene['image']) ?>" as="image" type="image/webp" fetchpriority="high">
     <?php endif; ?>
-    <link rel="stylesheet" href="/assets/css/main.css?v=1.2.0">
+    <link rel="stylesheet" href="/assets/css/main.css?v=1.3.0">
     <meta property="og:locale" content="es_CL">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Go Creative Chile">
@@ -228,7 +228,7 @@ $navItems = [
     ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) ?>
     </script>
 </head>
-<body>
+<body<?php if ($visualScene !== null): ?> class="page-hero--<?= e($visualScene['hero_copy'] ?? 'left') ?>" style="--page-hero-image: url('<?= e(site_path($visualScene['hero_image'] ?? $visualScene['image'])) ?>'); --page-hero-position: <?= e($visualScene['hero_position'] ?? 'center') ?>"<?php endif; ?>>
 <a class="skip-link" href="#contenido">Saltar al contenido</a>
 <div class="topbar">
     <div class="container topbar__inner">
