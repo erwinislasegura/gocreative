@@ -83,6 +83,13 @@ require dirname(__DIR__) . '/includes/header.php';
         <?php if (can('hosting.edit')): ?>
             <a class="btn btn-dark" href="<?= e(admin_url('hosting/editar.php?id=' . (int) $service['id'])) ?>">Editar servicio</a>
         <?php endif; ?>
+        <?php if (can('hosting.delete')): ?>
+            <form method="post" action="<?= e(admin_url('hosting/eliminar.php')) ?>" data-confirm="¿Eliminar definitivamente el hosting <?= e($service['domain'] ?: $service['service_name']) ?>? También se borrará su historial de avisos. Esta acción no se puede deshacer.">
+                <?= csrf_field() ?>
+                <input type="hidden" name="id" value="<?= (int) $service['id'] ?>">
+                <button class="btn btn-outline-danger" type="submit">Eliminar hosting</button>
+            </form>
+        <?php endif; ?>
     </div>
 </div>
 

@@ -16,7 +16,7 @@ $flashes = pull_flashes();
     <link rel="icon" href="<?= e(site_path('/assets/img/favicon-32x32.png')) ?>" type="image/png" sizes="32x32">
     <link rel="shortcut icon" href="<?= e(site_path('/favicon.ico')) ?>">
     <link rel="stylesheet" href="<?= e(admin_url('assets/vendor/bootstrap/css/bootstrap.min.css')) ?>">
-    <link rel="stylesheet" href="<?= e(admin_url('assets/css/admin.css?v=1.7.0')) ?>">
+    <link rel="stylesheet" href="<?= e(admin_url('assets/css/admin.css?v=1.8.0')) ?>">
 </head>
 <body class="admin-body">
 <div class="admin-shell">

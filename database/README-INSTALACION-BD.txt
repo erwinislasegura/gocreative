@@ -25,6 +25,7 @@ agregar los módulos sin borrar información importa una sola vez y en orden:
 1. database/migrations/2026_08_11_flow.sql
 2. database/migrations/2026_08_11_comercial.sql
 3. database/migrations/2026_08_11_settings.sql
+4. database/migrations/2026_08_11_hosting_delete.sql
 
 La primera migración crea la infraestructura interna del checkout Flow, sin
 menú ni permisos propios. La segunda agrega clientes, hosting, avisos, catálogo
@@ -32,6 +33,8 @@ y cotizaciones, y asigna sus permisos a Superadministrador y Administrador.
 La tercera incorpora el permiso de configuración para los módulos Google
 Analytics, reCAPTCHA v2 y Correo SMTP; por seguridad se asigna solo al
 Superadministrador.
+La cuarta agrega el permiso independiente para eliminar servicios de Hosting
+y lo asigna inicialmente solo al Superadministrador. No elimina registros.
 La migración comercial es reejecutable: si un intento anterior se interrumpió
 por una columna o tabla existente, descarga la versión actual y vuelve a
 importarla completa. No elimina registros ni duplica el catálogo inicial.

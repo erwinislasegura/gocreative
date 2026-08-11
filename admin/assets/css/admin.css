@@ -372,6 +372,8 @@ a { color: inherit; }
 .filter-bar .form-control,
 .filter-bar .form-select { min-height: 38px; }
 .filter-bar--hosting { grid-template-columns: minmax(260px, 1fr) minmax(150px, 190px) auto; }
+.hosting-row-actions { display: flex; justify-content: flex-end; gap: 6px; white-space: nowrap; }
+.hosting-row-actions form { margin: 0; }
 
 .order-code { color: #2a6068; font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; font-size: .72rem; }
 .payment-subject { display: block; max-width: 260px; color: #3e4e56; line-height: 1.45; }

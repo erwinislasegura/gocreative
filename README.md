@@ -68,6 +68,7 @@ script completo. Importa, en este orden:
 1. `database/migrations/2026_08_11_flow.sql`
 2. `database/migrations/2026_08_11_comercial.sql`
 3. `database/migrations/2026_08_11_settings.sql`
+4. `database/migrations/2026_08_11_hosting_delete.sql`
 
 Para probar callbacks desde XAMPP,
 `public_url` debe ser una URL HTTPS accesible desde Internet; Flow no puede
@@ -77,7 +78,8 @@ conectarse a `localhost`.
 
 - **Hosting:** clientes, dominios, ciclo semestral o anual, vencimientos en
   rojo, tres niveles de aviso, historial de correos, checkout Flow directo y
-  renovación automática cuando Flow confirma el pago.
+  renovación automática cuando Flow confirma el pago. El Superadministrador
+  puede eliminar registros sin checkout vigente desde el listado o la ficha.
 - **Cotizaciones:** catálogo editable, servicios y productos, descuento, IVA,
   vigencia, estados, aceptación o rechazo mediante enlace privado, correo HTML
   y PDF A4 profesional adjunto.

@@ -68,7 +68,18 @@ require dirname(__DIR__) . '/includes/header.php';
                 <td><strong><?= e(payment_format_amount((int) $service['amount'], $service['currency'])) ?></strong></td>
                 <td><span class="due-badge due-badge--<?= e($dueMeta['class']) ?>"><?= e($dueMeta['label']) ?></span><small class="d-block mt-1 text-secondary"><?= e(date('d-m-Y', strtotime($service['due_date']))) ?></small></td>
                 <td><span class="notice-level"><?= (int) $service['last_notice_level'] ?> / 3</span></td>
-                <td class="text-end"><a class="btn btn-sm btn-outline-dark" href="<?= e(admin_url('hosting/ver.php?id=' . (int) $service['id'])) ?>">Gestionar</a></td>
+                <td class="text-end">
+                    <div class="hosting-row-actions">
+                        <a class="btn btn-sm btn-outline-dark" href="<?= e(admin_url('hosting/ver.php?id=' . (int) $service['id'])) ?>">Gestionar</a>
+                        <?php if (can('hosting.delete')): ?>
+                            <form method="post" action="<?= e(admin_url('hosting/eliminar.php')) ?>" data-confirm="¿Eliminar definitivamente el hosting <?= e($service['domain'] ?: $service['service_name']) ?>? También se borrará su historial de avisos. Esta acción no se puede deshacer.">
+                                <?= csrf_field() ?>
+                                <input type="hidden" name="id" value="<?= (int) $service['id'] ?>">
+                                <button class="btn btn-sm btn-outline-danger" type="submit">Eliminar</button>
+                            </form>
+                        <?php endif; ?>
+                    </div>
+                </td>
             </tr>
         <?php endforeach; ?>
         </tbody></table>

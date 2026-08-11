@@ -219,6 +219,9 @@ INSERT INTO `permissions` (`name`, `slug`, `description`, `group_name`)
 SELECT 'Enviar avisos hosting', 'hosting.send', 'Enviar primer, segundo y ultimo aviso con checkout Flow.', 'Hosting'
 WHERE NOT EXISTS (SELECT 1 FROM `permissions` WHERE `slug` = 'hosting.send');
 INSERT INTO `permissions` (`name`, `slug`, `description`, `group_name`)
+SELECT 'Eliminar hosting', 'hosting.delete', 'Eliminar servicios de hosting y su historial de avisos.', 'Hosting'
+WHERE NOT EXISTS (SELECT 1 FROM `permissions` WHERE `slug` = 'hosting.delete');
+INSERT INTO `permissions` (`name`, `slug`, `description`, `group_name`)
 SELECT 'Ver cotizaciones', 'quotes.view', 'Consultar propuestas, estados y PDFs.', 'Cotizaciones'
 WHERE NOT EXISTS (SELECT 1 FROM `permissions` WHERE `slug` = 'quotes.view');
 INSERT INTO `permissions` (`name`, `slug`, `description`, `group_name`)
@@ -238,6 +241,10 @@ INSERT IGNORE INTO `role_permissions` (`role_id`, `permission_id`)
 SELECT r.id, p.id FROM `roles` r CROSS JOIN `permissions` p
 WHERE r.slug IN ('superadministrador', 'administrador')
   AND p.slug IN ('hosting.view','hosting.create','hosting.edit','hosting.send','quotes.view','quotes.create','quotes.edit','quotes.send','catalog.manage');
+
+INSERT IGNORE INTO `role_permissions` (`role_id`, `permission_id`)
+SELECT r.id, p.id FROM `roles` r CROSS JOIN `permissions` p
+WHERE r.slug = 'superadministrador' AND p.slug = 'hosting.delete';
 
 -- Limpia permisos de versiones anteriores que exponian un modulo separado de
 -- cobros. Flow queda disponible solamente dentro de las renovaciones Hosting.

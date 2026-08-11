@@ -133,11 +133,17 @@ y en este orden:
 1. database/migrations/2026_08_11_flow.sql
 2. database/migrations/2026_08_11_comercial.sql
 3. database/migrations/2026_08_11_settings.sql
+4. database/migrations/2026_08_11_hosting_delete.sql
 
 La segunda migración crea clientes, hosting, avisos, catálogo y cotizaciones.
 No guarda datos de tarjetas. El botón de cada aviso lleva al checkout seguro
 de Flow y, cuando Flow confirma el pago, la próxima fecha de hosting avanza
 seis o doce meses según el ciclo contratado.
+
+La cuarta migración habilita el permiso Eliminar hosting para el
+Superadministrador. El botón aparece en el listado y en la ficha. El sistema
+solicita confirmación, elimina el historial de avisos asociado y bloquea la
+operación si todavía existe un checkout Flow vigente.
 
 Si phpMyAdmin informa que una columna o tabla ya existe, usa la versión más
 reciente de 2026_08_11_comercial.sql y vuelve a importarla completa. El archivo
@@ -188,4 +194,4 @@ Después de publicar
 8. Envía un aviso de prueba y una cotización a un correo controlado por ti.
 9. Vacía caché de LiteSpeed/cPanel si todavía aparece la versión anterior.
 
-Versión: 3.7.0 — agosto de 2026
+Versión: 3.8.0 — agosto de 2026
