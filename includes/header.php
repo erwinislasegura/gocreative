@@ -208,13 +208,13 @@ $navItems = [
     <link rel="alternate" hreflang="es-CL" href="<?= e($currentCanonical) ?>">
     <link rel="alternate" hreflang="x-default" href="<?= e($currentCanonical) ?>">
     <link rel="icon" href="/assets/img/favicon.png" type="image/png">
-    <link rel="preload" href="/assets/css/main.css?v=2.0.0" as="style">
+    <link rel="preload" href="/assets/css/main.css?v=2.0.1" as="style">
     <?php if ($meta['path'] === '/'): ?>
     <link rel="preload" href="/assets/img/agency-web-design-v2.webp" as="image" type="image/webp" fetchpriority="high">
     <?php elseif ($visualScene !== null): ?>
     <link rel="preload" href="<?= e($visualScene['hero_image'] ?? $visualScene['image']) ?>" as="image" type="image/webp" fetchpriority="high">
     <?php endif; ?>
-    <link rel="stylesheet" href="/assets/css/main.css?v=2.0.0">
+    <link rel="stylesheet" href="/assets/css/main.css?v=2.0.1">
     <meta property="og:locale" content="es_CL">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Go Creative Chile">
@@ -254,7 +254,7 @@ $navItems = [
 <header class="site-header" data-header>
     <div class="container header__inner">
         <a class="brand" href="/" aria-label="Go Creative, inicio">
-            <img src="/assets/img/logo-white.webp" width="260" height="147" alt="Go Creative Chile" fetchpriority="high">
+            <img src="/assets/img/logo.webp" width="620" height="224" alt="Go Creative Chile" fetchpriority="high">
         </a>
         <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-navigation" data-nav-toggle>
             <span></span><span></span><span></span><span class="sr-only">Abrir menú</span>

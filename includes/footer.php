@@ -66,7 +66,7 @@ $showProjectStrip = !in_array(
 <footer class="site-footer">
     <div class="container footer__grid">
         <div class="footer__brand">
-            <a href="/" aria-label="Go Creative, inicio"><img src="/assets/img/logo-white.webp" width="250" height="141" alt="Go Creative Chile" loading="lazy"></a>
+            <a href="/" aria-label="Go Creative, inicio"><img src="/assets/img/logo.webp" width="620" height="224" alt="Go Creative Chile" loading="lazy"></a>
             <p>Desarrollo web, tiendas online y soluciones digitales para empresas que buscan vender más y operar con mayor eficiencia.</p>
             <div class="footer__social">
                 <a href="https://www.facebook.com/profile.php?id=61572961960110" target="_blank" rel="noopener" aria-label="Facebook de Go Creative">f</a>
