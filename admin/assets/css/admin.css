@@ -473,6 +473,7 @@ a { color: inherit; }
 .login-form-panel > p { max-width: 440px; margin: 16px 0 30px; color: var(--gc-muted); line-height: 1.65; }
 .login-form { max-width: 440px; }
 .login-form .btn { min-height: 47px; }
+.login-recaptcha { min-height: 80px; margin-bottom: 14px; overflow: hidden; }
 .password-field { position: relative; }
 .password-field .form-control { padding-right: 70px; }
 .password-toggle { position: absolute; top: 50%; right: 10px; padding: 5px 7px; color: var(--gc-green); background: transparent; border: 0; font-size: .65rem; font-weight: 850; transform: translateY(-50%); }
@@ -538,6 +539,8 @@ a { color: inherit; }
   .admin-avatar { width: 34px; height: 34px; }
   .login-form-panel h1 { font-size: 1.8rem; }
   .login-visual h2 { font-size: 1.6rem; }
+  .login-recaptcha .g-recaptcha { width: 304px; transform: scale(.86); transform-origin: left top; }
+  .login-recaptcha { min-height: 69px; }
   .payment-copy { grid-template-columns: 1fr; gap: 7px; }
   .payment-copy .form-control { border-right: 1px solid #cfd8d3; }
   .quote-catalog-bar { grid-template-columns: 1fr; }

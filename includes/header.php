@@ -229,13 +229,13 @@ $navItems = [
     <link rel="shortcut icon" href="/favicon.ico">
     <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png" sizes="180x180">
     <link rel="manifest" href="/site.webmanifest">
-    <link rel="preload" href="/assets/css/main.css?v=2.2.0" as="style">
+    <link rel="preload" href="/assets/css/main.css?v=2.3.0" as="style">
     <?php if ($meta['path'] === '/'): ?>
     <link rel="preload" href="/assets/img/agency-web-design-v2.webp" as="image" type="image/webp" fetchpriority="high">
     <?php elseif ($visualScene !== null): ?>
     <link rel="preload" href="<?= e($visualScene['hero_image'] ?? $visualScene['image']) ?>" as="image" type="image/webp" fetchpriority="high">
     <?php endif; ?>
-    <link rel="stylesheet" href="/assets/css/main.css?v=2.2.0">
+    <link rel="stylesheet" href="/assets/css/main.css?v=2.3.0">
     <meta property="og:locale" content="es_CL">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Go Creative Chile">
@@ -260,6 +260,20 @@ $navItems = [
         '@graph' => $schemaGraph,
     ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) ?>
     </script>
+    <?php if (GOOGLE_TAG_ID !== ''): ?>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=<?= e(rawurlencode(GOOGLE_TAG_ID)) ?>"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', <?= json_encode(GOOGLE_TAG_ID, JSON_UNESCAPED_SLASHES) ?>);
+    </script>
+    <?php endif; ?>
+    <?php if (($loadRecaptcha ?? false) && recaptcha_is_configured()): ?>
+    <link rel="preconnect" href="https://www.google.com">
+    <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+    <script src="https://www.google.com/recaptcha/api.js?hl=es-419" async defer></script>
+    <?php endif; ?>
 </head>
 <body class="<?= e(implode(' ', $bodyClasses)) ?>"<?php if ($visualScene !== null): ?> style="--page-hero-image: url('<?= e(site_path($visualScene['hero_image'] ?? $visualScene['image'])) ?>'); --page-hero-position: <?= e($visualScene['hero_position'] ?? 'center') ?>"<?php endif; ?>>
 <a class="skip-link" href="#contenido">Saltar al contenido</a>

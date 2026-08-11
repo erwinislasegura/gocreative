@@ -6,9 +6,10 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-function fail(): void
+function fail(string $status = 'error'): void
 {
-    header('Location: ' . site_path('/contacto/?estado=error'));
+    $allowed = ['error', 'captcha'];
+    header('Location: ' . site_path('/contacto/?estado=' . (in_array($status, $allowed, true) ? $status : 'error')));
     exit;
 }
 
@@ -24,6 +25,11 @@ if (!empty($_POST['website'])) {
 $token = (string) ($_POST['csrf_token'] ?? '');
 if (empty($_SESSION['csrf_token']) || !hash_equals($_SESSION['csrf_token'], $token)) {
     fail();
+}
+
+$recaptchaToken = (string) ($_POST['g-recaptcha-response'] ?? '');
+if (!recaptcha_verify($recaptchaToken, (string) ($_SERVER['REMOTE_ADDR'] ?? ''))) {
+    fail('captcha');
 }
 
 $nombre = trim(strip_tags((string) ($_POST['nombre'] ?? '')));
@@ -58,5 +64,6 @@ if (!mail(SITE_EMAIL, $subject, $body, implode("\r\n", $headers))) {
 }
 
 unset($_SESSION['csrf_token']);
+$_SESSION['contact_success_event'] = true;
 header('Location: ' . site_path('/contacto/?estado=ok'));
 exit;

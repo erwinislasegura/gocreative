@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+require_once dirname(__DIR__) . '/config/recaptcha/configuration.php';
+
 const SITE_NAME = 'Go Creative';
 const SITE_URL = 'https://gocreative.cl';
 const SITE_EMAIL = 'contacto@gocreative.cl';
@@ -8,6 +10,11 @@ const SITE_PHONE_DISPLAY = '+56 9 5215 7840';
 const SITE_PHONE_LINK = '+56952157840';
 const SITE_WHATSAPP = '56952157840';
 const SITE_CITY = 'Los Ángeles, Biobío, Chile';
+
+// Google Analytics verificado en la instalación pública anterior de gocreative.cl.
+const GOOGLE_ANALYTICS_ACCOUNT_ID = '161497159';
+const GOOGLE_ANALYTICS_PROPERTY_ID = '490278227';
+const GOOGLE_TAG_ID = 'GT-TXZH8NNL';
 
 
 /**

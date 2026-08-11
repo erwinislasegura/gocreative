@@ -282,6 +282,8 @@ ul, ol { padding: 0; margin: 0; }
 .form-field input:focus, .form-field textarea:focus, .form-field select:focus { border-color: var(--lime); box-shadow: 0 0 0 2px rgba(155,234,66,.16); }
 .form-field option { color: var(--ink); background: #fff; }
 .form-note { margin: 18px 0 0; color: #96a4b1; font-size: .72rem; }
+.recaptcha-wrap { min-height: 80px; overflow: hidden; }
+.form-card button:disabled { cursor: not-allowed; opacity: .55; }
 .honeypot { position: absolute; left: -10000px; }
 .alert { margin-bottom: 22px; padding: 14px 18px; border-left: 4px solid; font-size: .9rem; }
 .alert--success { color: #dfffe1; border-color: var(--lime); background: rgba(155,234,66,.1); }
@@ -407,6 +409,11 @@ ul, ol { padding: 0; margin: 0; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
   [data-reveal] { opacity: 1; transform: none; }
+}
+
+@media (max-width: 380px) {
+  .recaptcha-wrap .g-recaptcha { width: 304px; transform: scale(.86); transform-origin: left top; }
+  .recaptcha-wrap { min-height: 69px; }
 }
 
 /* Photographic storytelling and accessible parallax */

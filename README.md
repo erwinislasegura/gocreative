@@ -10,9 +10,10 @@ software y marketing digital.
 3. Copia `config/database/database.example.php` como `config/database/database.local.php` y completa tus propios datos MySQL.
 4. Importa `database/gocreative.sql` desde phpMyAdmin.
 5. Copia `config/flow/flow.example.php` como `config/flow/flow.local.php` y agrega tus credenciales de prueba Flow.
-6. Abre `http://localhost/gocreative/`.
-7. Abre `http://localhost/gocreative/admin/instalar.php` y crea tu cuenta principal.
-8. Después accede normalmente en `http://localhost/gocreative/admin/`.
+6. Copia `config/recaptcha/recaptcha.example.php` como `config/recaptcha/recaptcha.local.php` y agrega las claves reCAPTCHA v2.
+7. Abre `http://localhost/gocreative/`.
+8. Abre `http://localhost/gocreative/admin/instalar.php` y crea tu cuenta principal.
+9. Después accede normalmente en `http://localhost/gocreative/admin/`.
 
 El proyecto no incluye correos ni contraseñas predeterminadas. El instalador
 se bloquea automáticamente después de crear el primer superadministrador.
@@ -21,6 +22,19 @@ se bloquea automáticamente después de crear el primer superadministrador.
 El nombre de base configurado es `gocreative`; los comentarios del archivo indican dónde cambiar nombre, usuario y contraseña.
 En producción también puedes usar `GC_DB_HOST`, `GC_DB_PORT`, `GC_DB_NAME`,
 `GC_DB_USER` y `GC_DB_PASSWORD`.
+
+## Google Analytics y reCAPTCHA v2
+
+El sitio público carga la etiqueta de Google `GT-TXZH8NNL`, comprobada
+directamente en gocreative.cl. La captura de Analytics identifica la cuenta
+`161497159` y la propiedad `490278227`. La configuración es central y no se
+carga en el panel ni en propuestas privadas.
+
+El formulario de contacto y el acceso administrativo verifican reCAPTCHA v2
+en el servidor. Las claves se guardan en el archivo ignorado
+`config/recaptcha/recaptcha.local.php` o en las variables
+`GC_RECAPTCHA_SITE_KEY` y `GC_RECAPTCHA_SECRET_KEY`. Registra `gocreative.cl`
+y `localhost` como dominios permitidos si trabajarás también desde XAMPP.
 
 ## Checkout Flow.cl para Hosting
 

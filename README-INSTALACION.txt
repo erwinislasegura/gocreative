@@ -21,7 +21,9 @@ Instalación
 8. Copia config/database/database.example.php como config/database/database.local.php y completa los datos MySQL, o configura las variables GC_DB_*.
 9. Copia config/flow/flow.example.php como config/flow/flow.local.php y agrega
    tus credenciales. Comienza siempre con environment = sandbox.
-10. Prueba la portada, todas las páginas, /admin/ y el formulario de contacto.
+10. Copia config/recaptcha/recaptcha.example.php como
+    config/recaptcha/recaptcha.local.php y agrega las claves reCAPTCHA v2.
+11. Prueba la portada, todas las páginas, /admin/ y el formulario de contacto.
 
 Configuración central
 ---------------------
@@ -39,6 +41,32 @@ Formulario de contacto
 ----------------------
 El formulario envía los mensajes a contacto@gocreative.cl mediante mail() de PHP.
 Si el servidor no entrega correos usando mail(), configura un buzón del mismo dominio en cPanel y solicita al hosting habilitar la entrega PHP, o reemplaza el envío por SMTP.
+
+Google Analytics
+----------------
+La etiqueta pública verificada directamente en gocreative.cl es GT-TXZH8NNL.
+La captura de Google Analytics identifica la cuenta 161497159 y la propiedad
+490278227. La etiqueta se configura centralmente en includes/config.php y se
+carga en todas las páginas públicas que usan includes/header.php. El panel y
+las cotizaciones privadas no se miden.
+
+reCAPTCHA v2
+------------
+Configuración privada:
+config/recaptcha/recaptcha.local.php
+
+Copia el archivo de ejemplo y escribe donde está comentado:
+- site_key: clave pública del widget;
+- secret_key: clave secreta para la verificación del servidor.
+
+Nunca subas recaptcha.local.php a GitHub. También puedes configurar:
+GC_RECAPTCHA_SITE_KEY
+GC_RECAPTCHA_SECRET_KEY
+
+Al registrar las claves en Google agrega gocreative.cl. Para probar la misma
+integración en XAMPP agrega también localhost. Sin ambas claves, el contacto y
+el login se mantienen deshabilitados para no dejar los formularios sin
+protección.
 
 Panel de control
 ----------------
@@ -125,11 +153,11 @@ Después de publicar
 2. Envía https://gocreative.cl/sitemap.xml a Google Search Console.
 3. Revisa la portada con Rich Results Test y la URL con el depurador de Facebook.
 4. Crea el superadministrador desde /admin/instalar.php.
-5. Configura Google Analytics o Tag Manager si se utilizará medición.
+5. Comprueba en Google Analytics que GT-TXZH8NNL reciba una visita en tiempo real.
 6. Prueba el envío desde /contacto/ y confirma que llegue al correo.
 7. Ejecuta una renovación de Hosting en sandbox y verifica el checkout, la
    confirmación y la nueva fecha de vencimiento.
 8. Envía un aviso de prueba y una cotización a un correo controlado por ti.
 9. Vacía caché de LiteSpeed/cPanel si todavía aparece la versión anterior.
 
-Versión: 3.3.0 — agosto de 2026
+Versión: 3.4.0 — agosto de 2026
