@@ -1,8 +1,8 @@
 -- Go Creative Chile - Configuración de Analytics y reCAPTCHA
 -- Migración no destructiva y reejecutable para instalaciones existentes.
+-- Selecciona primero la base de destino en phpMyAdmin.
 
 SET NAMES utf8mb4;
-USE `gocreative`;
 
 INSERT INTO `permissions` (`name`, `slug`, `description`, `group_name`)
 SELECT 'Gestionar integraciones', 'settings.manage', 'Configurar Analytics, reCAPTCHA y correo SMTP.', 'Configuración'

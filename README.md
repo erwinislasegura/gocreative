@@ -8,7 +8,7 @@ software y marketing digital.
 1. Copia el proyecto en `xampp/htdocs/gocreative`.
 2. Inicia Apache y MySQL.
 3. Copia `config/database/database.example.php` como `config/database/database.local.php` y completa tus propios datos MySQL.
-4. Importa `database/gocreative.sql` desde phpMyAdmin.
+4. Crea y selecciona tu base en phpMyAdmin; después importa `database/gocreative.sql`.
 5. Copia `config/flow/flow.example.php` como `config/flow/flow.local.php` y agrega tus credenciales de prueba Flow.
 6. Abre `http://localhost/gocreative/`.
 7. Abre `http://localhost/gocreative/admin/instalar.php` y crea tu cuenta principal.
@@ -63,12 +63,16 @@ vencimiento de manera automática. Las claves viven exclusivamente en el
 archivo ignorado `config/flow/flow.local.php` o en variables `GC_FLOW_*`.
 
 Si ya instalaste una versión anterior de la base, no vuelvas a importar el
-script completo. Importa, en este orden:
+script completo. Selecciona primero tu base real en phpMyAdmin e importa, en
+este orden:
 
 1. `database/migrations/2026_08_11_flow.sql`
 2. `database/migrations/2026_08_11_comercial.sql`
 3. `database/migrations/2026_08_11_settings.sql`
 4. `database/migrations/2026_08_11_hosting_delete.sql`
+
+Las migraciones no contienen `USE gocreative`, por lo que aceptan directamente
+el nombre con prefijo asignado por cPanel.
 
 Para probar callbacks desde XAMPP,
 `public_url` debe ser una URL HTTPS accesible desde Internet; Flow no puede

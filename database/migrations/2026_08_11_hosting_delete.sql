@@ -1,5 +1,6 @@
 -- Go Creative Chile - Permiso para eliminar servicios de hosting
 -- Migración no destructiva y reejecutable para instalaciones existentes.
+-- Selecciona primero la base de destino en phpMyAdmin.
 
 SET NAMES utf8mb4;
 

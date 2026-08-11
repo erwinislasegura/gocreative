@@ -17,7 +17,7 @@ Instalación
 4. Sube el ZIP y extrae TODO su contenido directamente en esa carpeta.
 5. Confirma que index.php quede en la raíz pública, no dentro de otra subcarpeta.
 6. Selecciona PHP 8.0, 8.1, 8.2 o superior en MultiPHP Manager.
-7. Crea una base MySQL e importa database/gocreative.sql desde phpMyAdmin.
+7. Crea una base MySQL, selecciónala en phpMyAdmin e importa database/gocreative.sql.
 8. Copia config/database/database.example.php como config/database/database.local.php y completa los datos MySQL, o configura las variables GC_DB_*.
 9. Copia config/flow/flow.example.php como config/flow/flow.local.php y agrega
    tus credenciales. Comienza siempre con environment = sandbox.
@@ -130,6 +130,10 @@ Si la base ya contiene usuarios, NO vuelvas a importar gocreative.sql porque
 ese archivo es para instalaciones nuevas y recrea tablas. Importa una sola vez
 y en este orden:
 
+Selecciona primero la base real desde la columna izquierda de phpMyAdmin. Las
+migraciones no fuerzan el nombre `gocreative`, así que funcionan con el prefijo
+asignado por cPanel.
+
 1. database/migrations/2026_08_11_flow.sql
 2. database/migrations/2026_08_11_comercial.sql
 3. database/migrations/2026_08_11_settings.sql
@@ -194,4 +198,4 @@ Después de publicar
 8. Envía un aviso de prueba y una cotización a un correo controlado por ti.
 9. Vacía caché de LiteSpeed/cPanel si todavía aparece la versión anterior.
 
-Versión: 3.8.0 — agosto de 2026
+Versión: 3.8.1 — agosto de 2026

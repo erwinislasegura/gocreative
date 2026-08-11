@@ -1,9 +1,9 @@
 -- Go Creative Chile - Checkout Flow.cl para renovaciones de Hosting
 -- Migracion tecnica no destructiva para instalaciones existentes.
 -- Compatible con MySQL 5.7+ y MariaDB 10.4+.
+-- Selecciona primero la base de destino en phpMyAdmin.
 
 SET NAMES utf8mb4;
-USE `gocreative`;
 
 CREATE TABLE IF NOT EXISTS `payment_orders` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,

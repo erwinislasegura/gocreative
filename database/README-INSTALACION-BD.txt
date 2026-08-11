@@ -11,16 +11,21 @@ Instalación rápida en XAMPP
 2. Abre http://localhost/phpmyadmin/.
 3. Copia config/database/database.example.php como config/database/database.local.php.
 4. Completa en ese archivo tus propios datos de conexión MySQL.
-5. Entra en la pestaña "Importar" de phpMyAdmin.
-6. Selecciona database/gocreative.sql y ejecuta la importación.
-7. Abre http://localhost/gocreative/admin/instalar.php.
-8. Crea el primer superadministrador con tu propio correo y contraseña.
-9. Ingresa en http://localhost/gocreative/admin/.
+5. Crea la base indicada en la configuración y selecciónala en phpMyAdmin.
+6. Entra en la pestaña "Importar" de esa base seleccionada.
+7. Selecciona database/gocreative.sql y ejecuta la importación.
+8. Abre http://localhost/gocreative/admin/instalar.php.
+9. Crea el primer superadministrador con tu propio correo y contraseña.
+10. Ingresa en http://localhost/gocreative/admin/.
 
 Actualizar una instalación existente
 -------------------------------------
 Si ya tienes usuarios creados, NO vuelvas a importar gocreative.sql. Para
 agregar los módulos sin borrar información importa una sola vez y en orden:
+
+Antes de importar, entra en tu base real desde la columna izquierda de
+phpMyAdmin. Los archivos no incluyen CREATE DATABASE ni USE, por lo que
+funcionan con nombres que tengan prefijo de cPanel.
 
 1. database/migrations/2026_08_11_flow.sql
 2. database/migrations/2026_08_11_comercial.sql

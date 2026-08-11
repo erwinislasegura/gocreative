@@ -1,15 +1,11 @@
 -- Go Creative Chile - Panel de control
 -- Compatible con MySQL 5.7+ y MariaDB 10.4+ (XAMPP)
 -- Fecha: 2026-08-11
+-- IMPORTANTE: selecciona primero la base de destino en phpMyAdmin.
+-- El script no crea ni cambia de base para ser compatible con prefijos cPanel.
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
-
-CREATE DATABASE IF NOT EXISTS `gocreative`
-  CHARACTER SET utf8mb4
-  COLLATE utf8mb4_unicode_ci;
-
-USE `gocreative`;
 
 DROP TABLE IF EXISTS `audit_logs`;
 DROP TABLE IF EXISTS `login_attempts`;

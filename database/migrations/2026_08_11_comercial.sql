@@ -1,9 +1,9 @@
 -- Go Creative Chile - Hosting, avisos de cobro y cotizaciones
 -- Migracion no destructiva y reejecutable. Ejecutar despues de 2026_08_11_flow.sql.
 -- Compatible con MySQL 5.7+ y MariaDB 10.4+.
+-- Selecciona primero la base de destino en phpMyAdmin.
 
 SET NAMES utf8mb4;
-USE `gocreative`;
 
 -- Cada cambio se ejecuta solo si aun no existe. Esto permite volver a importar
 -- el archivo cuando un intento anterior se interrumpio a mitad del proceso.
