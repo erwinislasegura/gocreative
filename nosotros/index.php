@@ -26,13 +26,13 @@ require dirname(__DIR__) . '/includes/header.php';
                 <a class="text-link" href="/portafolio/">Explorar trabajos <span>→</span></a>
             </div>
         </div>
-        <div class="about-hero__stamp" aria-hidden="true"><span>GO</span><small>Creative studio<br>Chile · 2026</small></div>
+        <div class="about-hero__stamp" aria-hidden="true"><span>GC / 01</span><small>Estudio digital<br>Chile · 2026</small></div>
     </div>
 </section>
 
 <section class="about-ticker" aria-label="Capacidades de Go Creative">
     <div class="about-ticker__track">
-        <span>Observar</span><i>✦</i><span>Imaginar</span><i>✦</i><span>Diseñar</span><i>✦</i><span>Construir</span><i>✦</i><span>Medir</span><i>✦</i><span>Mejorar</span>
+        <span>Estrategia</span><i>—</i><span>Diseño UX/UI</span><i>—</i><span>Desarrollo web</span><i>—</i><span>Software</span><i>—</i><span>Marketing</span><i>—</i><span>Analítica</span>
     </div>
 </section>
 

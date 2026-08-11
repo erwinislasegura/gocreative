@@ -197,13 +197,13 @@ $navItems = [
     <link rel="alternate" hreflang="es-CL" href="<?= e($currentCanonical) ?>">
     <link rel="alternate" hreflang="x-default" href="<?= e($currentCanonical) ?>">
     <link rel="icon" href="/assets/img/favicon.png" type="image/png">
-    <link rel="preload" href="/assets/css/main.css?v=1.5.0" as="style">
+    <link rel="preload" href="/assets/css/main.css?v=1.6.0" as="style">
     <?php if ($meta['path'] === '/'): ?>
     <link rel="preload" href="/assets/img/agency-web-design-v2.webp" as="image" type="image/webp" fetchpriority="high">
     <?php elseif ($visualScene !== null): ?>
     <link rel="preload" href="<?= e($visualScene['hero_image'] ?? $visualScene['image']) ?>" as="image" type="image/webp" fetchpriority="high">
     <?php endif; ?>
-    <link rel="stylesheet" href="/assets/css/main.css?v=1.5.0">
+    <link rel="stylesheet" href="/assets/css/main.css?v=1.6.0">
     <meta property="og:locale" content="es_CL">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Go Creative Chile">
