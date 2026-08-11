@@ -2,8 +2,13 @@ User-agent: *
 Allow: /
 Disallow: /includes/
 Disallow: /config/
+Disallow: /app/
 Disallow: /contacto/enviar.php
 Disallow: /admin/
 Disallow: /database/
+Disallow: /vendor/
+Disallow: /pagar/
+Disallow: /pagos/
+Disallow: /cotizacion/
 
 Sitemap: https://gocreative.cl/sitemap.xml

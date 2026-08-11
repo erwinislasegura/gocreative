@@ -18,6 +18,15 @@
             <?php if (can('roles.view')): ?>
                 <a class="<?= $activeMenu === 'roles' ? 'is-active' : '' ?>" href="<?= e(admin_url('roles/')) ?>"><span>03</span>Roles y permisos</a>
             <?php endif; ?>
+            <?php if (can('payments.view')): ?>
+                <a class="<?= $activeMenu === 'payments' ? 'is-active' : '' ?>" href="<?= e(admin_url('cobros/')) ?>"><span>04</span>Cobros Flow</a>
+            <?php endif; ?>
+            <?php if (can('hosting.view')): ?>
+                <a class="<?= $activeMenu === 'hosting' ? 'is-active' : '' ?>" href="<?= e(admin_url('hosting/')) ?>"><span>05</span>Hosting</a>
+            <?php endif; ?>
+            <?php if (can('quotes.view')): ?>
+                <a class="<?= $activeMenu === 'quotes' ? 'is-active' : '' ?>" href="<?= e(admin_url('cotizaciones/')) ?>"><span>06</span>Cotizaciones</a>
+            <?php endif; ?>
         </nav>
         <div class="admin-sidebar__footer">
             <span class="admin-status"><i></i> Sistema protegido</span>

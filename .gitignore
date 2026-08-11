@@ -1,2 +1,5 @@
 /includes/database.local.php
 /config/database/database.local.php
+/config/flow/flow.local.php
+/tmp/
+/output/

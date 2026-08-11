@@ -17,6 +17,18 @@ Instalación rápida en XAMPP
 8. Crea el primer superadministrador con tu propio correo y contraseña.
 9. Ingresa en http://localhost/gocreative/admin/.
 
+Actualizar una instalación existente
+-------------------------------------
+Si ya tienes usuarios creados, NO vuelvas a importar gocreative.sql. Para
+agregar los módulos sin borrar información importa una sola vez y en orden:
+
+1. database/migrations/2026_08_11_flow.sql
+2. database/migrations/2026_08_11_comercial.sql
+
+La primera migración crea órdenes y eventos de pago. La segunda agrega
+clientes, hosting, avisos, catálogo y cotizaciones, junto con sus permisos.
+Ambas asignan los permisos nuevos a Superadministrador y Administrador.
+
 Primer acceso seguro
 --------------------
 El proyecto no contiene un correo o contraseña predeterminados. El instalador
@@ -45,6 +57,10 @@ Seguridad incluida
 - Límite de intentos de acceso.
 - Auditoría de acciones administrativas.
 - Panel excluido de buscadores.
+- Las órdenes guardan estados y referencias, nunca datos de tarjetas.
+- Confirmación Flow verificada consultando la API firmada.
+- Enlaces públicos de cotización con claves aleatorias de 256 bits.
+- Respuesta de cotizaciones protegida con sesión y token CSRF.
 
 Importante
 ----------

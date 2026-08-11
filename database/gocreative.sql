@@ -13,6 +13,15 @@ USE `gocreative`;
 
 DROP TABLE IF EXISTS `audit_logs`;
 DROP TABLE IF EXISTS `login_attempts`;
+DROP TABLE IF EXISTS `quote_emails`;
+DROP TABLE IF EXISTS `quote_items`;
+DROP TABLE IF EXISTS `quotes`;
+DROP TABLE IF EXISTS `catalog_items`;
+DROP TABLE IF EXISTS `hosting_notices`;
+DROP TABLE IF EXISTS `hosting_services`;
+DROP TABLE IF EXISTS `customers`;
+DROP TABLE IF EXISTS `payment_events`;
+DROP TABLE IF EXISTS `payment_orders`;
 DROP TABLE IF EXISTS `users`;
 DROP TABLE IF EXISTS `role_permissions`;
 DROP TABLE IF EXISTS `permissions`;
@@ -99,10 +108,213 @@ CREATE TABLE `audit_logs` (
   CONSTRAINT `audit_logs_user_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+CREATE TABLE `payment_orders` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `created_by` int unsigned DEFAULT NULL,
+  `commerce_order` varchar(64) NOT NULL,
+  `flow_order` bigint unsigned DEFAULT NULL,
+  `token` varchar(255) DEFAULT NULL,
+  `checkout_url` varchar(700) DEFAULT NULL,
+  `public_key` char(64) NOT NULL,
+  `customer_name` varchar(100) NOT NULL,
+  `customer_email` varchar(190) NOT NULL,
+  `subject` varchar(255) NOT NULL,
+  `amount` int unsigned NOT NULL,
+  `currency` char(3) NOT NULL DEFAULT 'CLP',
+  `reference_type` varchar(30) NOT NULL DEFAULT 'manual',
+  `reference_id` bigint unsigned DEFAULT NULL,
+  `reference_processed_at` datetime DEFAULT NULL,
+  `status` enum('created','pending','paid','rejected','cancelled','error') NOT NULL DEFAULT 'created',
+  `flow_status` tinyint unsigned DEFAULT NULL,
+  `payment_method` varchar(80) DEFAULT NULL,
+  `flow_response_json` longtext DEFAULT NULL,
+  `last_error` varchar(500) DEFAULT NULL,
+  `paid_at` datetime DEFAULT NULL,
+  `expires_at` datetime DEFAULT NULL,
+  `last_synced_at` datetime DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `payment_orders_commerce_unique` (`commerce_order`),
+  UNIQUE KEY `payment_orders_flow_unique` (`flow_order`),
+  UNIQUE KEY `payment_orders_token_unique` (`token`),
+  UNIQUE KEY `payment_orders_public_unique` (`public_key`),
+  KEY `payment_orders_created_by_index` (`created_by`),
+  KEY `payment_orders_status_created_index` (`status`, `created_at`),
+  KEY `payment_orders_email_index` (`customer_email`),
+  KEY `payment_orders_reference_index` (`reference_type`, `reference_id`),
+  CONSTRAINT `payment_orders_created_by_fk` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `customers` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `company` varchar(150) DEFAULT NULL,
+  `tax_id` varchar(30) DEFAULT NULL,
+  `email` varchar(190) NOT NULL,
+  `phone` varchar(30) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `city` varchar(100) DEFAULT NULL,
+  `notes` varchar(1500) DEFAULT NULL,
+  `status` enum('active','inactive') NOT NULL DEFAULT 'active',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `customers_email_unique` (`email`),
+  KEY `customers_status_name_index` (`status`, `name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `hosting_services` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `customer_id` bigint unsigned NOT NULL,
+  `created_by` int unsigned DEFAULT NULL,
+  `current_payment_order_id` bigint unsigned DEFAULT NULL,
+  `service_name` varchar(150) NOT NULL,
+  `domain` varchar(190) DEFAULT NULL,
+  `plan_name` varchar(120) NOT NULL,
+  `billing_cycle` enum('semiannual','annual') NOT NULL DEFAULT 'annual',
+  `start_date` date NOT NULL,
+  `due_date` date NOT NULL,
+  `amount` int unsigned NOT NULL,
+  `currency` char(3) NOT NULL DEFAULT 'CLP',
+  `status` enum('active','suspended','cancelled') NOT NULL DEFAULT 'active',
+  `last_notice_level` tinyint unsigned NOT NULL DEFAULT 0,
+  `last_notice_at` datetime DEFAULT NULL,
+  `last_paid_at` datetime DEFAULT NULL,
+  `notes` varchar(1500) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `hosting_customer_index` (`customer_id`),
+  KEY `hosting_created_by_index` (`created_by`),
+  KEY `hosting_payment_order_index` (`current_payment_order_id`),
+  KEY `hosting_due_status_index` (`due_date`, `status`),
+  CONSTRAINT `hosting_customer_fk` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `hosting_created_by_fk` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `hosting_payment_order_fk` FOREIGN KEY (`current_payment_order_id`) REFERENCES `payment_orders` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `hosting_notices` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `hosting_service_id` bigint unsigned NOT NULL,
+  `payment_order_id` bigint unsigned DEFAULT NULL,
+  `notice_level` tinyint unsigned NOT NULL,
+  `recipient` varchar(190) NOT NULL,
+  `subject` varchar(255) NOT NULL,
+  `status` enum('pending','sent','failed') NOT NULL DEFAULT 'pending',
+  `error_message` varchar(500) DEFAULT NULL,
+  `sent_at` datetime DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `hosting_notices_service_index` (`hosting_service_id`, `created_at`),
+  KEY `hosting_notices_payment_index` (`payment_order_id`),
+  CONSTRAINT `hosting_notices_service_fk` FOREIGN KEY (`hosting_service_id`) REFERENCES `hosting_services` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `hosting_notices_payment_fk` FOREIGN KEY (`payment_order_id`) REFERENCES `payment_orders` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `catalog_items` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `item_type` enum('service','product') NOT NULL DEFAULT 'service',
+  `name` varchar(180) NOT NULL,
+  `description` varchar(1000) DEFAULT NULL,
+  `unit_price` int unsigned NOT NULL DEFAULT 0,
+  `status` enum('active','inactive') NOT NULL DEFAULT 'active',
+  `sort_order` smallint unsigned NOT NULL DEFAULT 0,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `catalog_status_order_index` (`status`, `sort_order`, `name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `quotes` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `customer_id` bigint unsigned NOT NULL,
+  `created_by` int unsigned DEFAULT NULL,
+  `quote_number` varchar(40) NOT NULL,
+  `public_key` char(64) NOT NULL,
+  `title` varchar(180) NOT NULL,
+  `introduction` varchar(1500) DEFAULT NULL,
+  `issue_date` date NOT NULL,
+  `valid_until` date NOT NULL,
+  `status` enum('draft','sent','accepted','rejected','expired') NOT NULL DEFAULT 'draft',
+  `currency` char(3) NOT NULL DEFAULT 'CLP',
+  `subtotal` int unsigned NOT NULL DEFAULT 0,
+  `discount_amount` int unsigned NOT NULL DEFAULT 0,
+  `tax_percent` tinyint unsigned NOT NULL DEFAULT 19,
+  `tax_amount` int unsigned NOT NULL DEFAULT 0,
+  `total` int unsigned NOT NULL DEFAULT 0,
+  `terms` varchar(2000) DEFAULT NULL,
+  `notes` varchar(1500) DEFAULT NULL,
+  `sent_at` datetime DEFAULT NULL,
+  `responded_at` datetime DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `quotes_number_unique` (`quote_number`),
+  UNIQUE KEY `quotes_public_key_unique` (`public_key`),
+  KEY `quotes_customer_index` (`customer_id`),
+  KEY `quotes_created_by_index` (`created_by`),
+  KEY `quotes_status_date_index` (`status`, `created_at`),
+  CONSTRAINT `quotes_customer_fk` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `quotes_created_by_fk` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `quote_items` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `quote_id` bigint unsigned NOT NULL,
+  `item_type` enum('service','product') NOT NULL DEFAULT 'service',
+  `name` varchar(180) NOT NULL,
+  `description` varchar(1000) DEFAULT NULL,
+  `quantity` decimal(10,2) NOT NULL DEFAULT 1.00,
+  `unit_price` int unsigned NOT NULL DEFAULT 0,
+  `line_total` int unsigned NOT NULL DEFAULT 0,
+  `sort_order` smallint unsigned NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`),
+  KEY `quote_items_quote_order_index` (`quote_id`, `sort_order`),
+  CONSTRAINT `quote_items_quote_fk` FOREIGN KEY (`quote_id`) REFERENCES `quotes` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `quote_emails` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `quote_id` bigint unsigned NOT NULL,
+  `recipient` varchar(190) NOT NULL,
+  `subject` varchar(255) NOT NULL,
+  `status` enum('pending','sent','failed') NOT NULL DEFAULT 'pending',
+  `error_message` varchar(500) DEFAULT NULL,
+  `sent_at` datetime DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `quote_emails_quote_index` (`quote_id`, `created_at`),
+  CONSTRAINT `quote_emails_quote_fk` FOREIGN KEY (`quote_id`) REFERENCES `quotes` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `payment_events` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `payment_order_id` bigint unsigned NOT NULL,
+  `event_type` varchar(80) NOT NULL,
+  `flow_status` tinyint unsigned DEFAULT NULL,
+  `message` varchar(500) NOT NULL,
+  `payload_json` longtext DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `payment_events_order_created_index` (`payment_order_id`, `created_at`),
+  CONSTRAINT `payment_events_order_fk` FOREIGN KEY (`payment_order_id`) REFERENCES `payment_orders` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 INSERT INTO `roles` (`id`, `name`, `slug`, `description`, `is_system`) VALUES
   (1, 'Superadministrador', 'superadministrador', 'Acceso maestro a todas las áreas, usuarios, roles y permisos.', 1),
   (2, 'Administrador', 'administrador', 'Gestiona usuarios y consulta la configuración de roles.', 0),
   (3, 'Editor', 'editor', 'Acceso básico al resumen del panel.', 0);
+
+INSERT INTO `catalog_items` (`item_type`, `name`, `description`, `unit_price`, `sort_order`) VALUES
+  ('service', 'Diseño y desarrollo web', 'Sitio corporativo responsive, autoadministrable y optimizado para buscadores.', 450000, 10),
+  ('service', 'Tienda online', 'Ecommerce con catálogo, carrito, pagos, envíos y capacitación de administración.', 750000, 20),
+  ('service', 'Software a medida', 'Análisis, diseño y desarrollo de una plataforma adaptada a procesos empresariales.', 0, 30),
+  ('service', 'Automatización de procesos', 'Integración de formularios, alertas, tareas, documentos y datos.', 0, 40),
+  ('service', 'Gestión Meta Ads', 'Configuración, gestión y optimización mensual de campañas en Meta.', 180000, 50),
+  ('service', 'Diseño creativo digital', 'Sistema visual y piezas digitales coherentes con la identidad de marca.', 250000, 60),
+  ('service', 'Soporte técnico', 'Bloque de soporte, diagnóstico y mantenimiento web.', 45000, 70),
+  ('service', 'Hosting administrado anual', 'Alojamiento web, SSL, respaldos y soporte básico por 12 meses.', 120000, 80);
 
 INSERT INTO `permissions` (`id`, `name`, `slug`, `description`, `group_name`) VALUES
   (1, 'Ver resumen', 'dashboard.view', 'Acceder a indicadores y actividad reciente.', 'Panel'),
@@ -113,7 +325,19 @@ INSERT INTO `permissions` (`id`, `name`, `slug`, `description`, `group_name`) VA
   (6, 'Ver roles', 'roles.view', 'Consultar roles y sus permisos.', 'Roles y permisos'),
   (7, 'Crear roles', 'roles.create', 'Crear nuevas combinaciones de permisos.', 'Roles y permisos'),
   (8, 'Editar roles', 'roles.edit', 'Modificar nombres, descripciones y permisos.', 'Roles y permisos'),
-  (9, 'Eliminar roles', 'roles.delete', 'Eliminar roles sin usuarios asignados.', 'Roles y permisos');
+  (9, 'Eliminar roles', 'roles.delete', 'Eliminar roles sin usuarios asignados.', 'Roles y permisos'),
+  (10, 'Ver cobros', 'payments.view', 'Consultar ordenes, montos y estados de Flow.', 'Cobros Flow'),
+  (11, 'Crear cobros', 'payments.create', 'Generar ordenes y enlaces de pago mediante Flow.', 'Cobros Flow'),
+  (12, 'Sincronizar cobros', 'payments.sync', 'Consultar manualmente el estado informado por Flow.', 'Cobros Flow'),
+  (13, 'Ver hosting', 'hosting.view', 'Consultar servicios, vencimientos y avisos.', 'Hosting'),
+  (14, 'Crear hosting', 'hosting.create', 'Registrar nuevos servicios de alojamiento.', 'Hosting'),
+  (15, 'Editar hosting', 'hosting.edit', 'Modificar fechas, ciclos, montos y estados.', 'Hosting'),
+  (16, 'Enviar avisos hosting', 'hosting.send', 'Enviar primer, segundo y ultimo aviso con pago Flow.', 'Hosting'),
+  (17, 'Ver cotizaciones', 'quotes.view', 'Consultar propuestas, estados y PDFs.', 'Cotizaciones'),
+  (18, 'Crear cotizaciones', 'quotes.create', 'Generar propuestas con servicios y productos.', 'Cotizaciones'),
+  (19, 'Editar cotizaciones', 'quotes.edit', 'Modificar el alcance y condiciones de propuestas.', 'Cotizaciones'),
+  (20, 'Enviar cotizaciones', 'quotes.send', 'Enviar correo HTML con la propuesta PDF.', 'Cotizaciones'),
+  (21, 'Gestionar catalogo', 'catalog.manage', 'Administrar servicios y productos para cotizar rapidamente.', 'Cotizaciones');
 
 -- Superadministrador: todos los permisos.
 INSERT INTO `role_permissions` (`role_id`, `permission_id`)
@@ -121,7 +345,8 @@ SELECT 1, `id` FROM `permissions`;
 
 -- Administrador: panel y gestión operativa de usuarios.
 INSERT INTO `role_permissions` (`role_id`, `permission_id`) VALUES
-  (2, 1), (2, 2), (2, 3), (2, 4), (2, 6);
+  (2, 1), (2, 2), (2, 3), (2, 4), (2, 6), (2, 10), (2, 11), (2, 12),
+  (2, 13), (2, 14), (2, 15), (2, 16), (2, 17), (2, 18), (2, 19), (2, 20), (2, 21);
 
 -- Editor: acceso básico al panel.
 INSERT INTO `role_permissions` (`role_id`, `permission_id`) VALUES
