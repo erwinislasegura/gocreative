@@ -90,13 +90,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $databaseError === '') {
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="robots" content="noindex, nofollow, noarchive">
     <meta name="theme-color" content="#07111f">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Go Admin">
     <title>Configurar panel | Go Creative</title>
     <link rel="icon" href="<?= e(site_path('/assets/img/favicon.svg')) ?>" type="image/svg+xml">
     <link rel="shortcut icon" href="<?= e(site_path('/favicon.ico')) ?>">
+    <link rel="apple-touch-icon" href="<?= e(admin_url('assets/img/app-icon-180.png')) ?>">
+    <link rel="manifest" href="<?= e(admin_url('manifest.webmanifest?v=2.0.0')) ?>">
     <link rel="stylesheet" href="<?= e(admin_url('assets/vendor/bootstrap/css/bootstrap.min.css')) ?>">
-    <link rel="stylesheet" href="<?= e(admin_url('assets/css/admin.css?v=1.8.0')) ?>">
+    <link rel="stylesheet" href="<?= e(admin_url('assets/css/admin.css?v=2.0.0')) ?>">
 </head>
-<body class="login-body">
+<body class="login-body" data-admin-base="<?= e(admin_url()) ?>">
 <main class="login-shell">
     <section class="login-form-panel">
         <a class="login-brand" href="<?= e(site_path('/')) ?>" aria-label="Ir al sitio de Go Creative">
@@ -148,5 +154,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $databaseError === '') {
     </section>
 </main>
 <script src="<?= e(admin_url('assets/vendor/bootstrap/js/bootstrap.bundle.min.js')) ?>"></script>
+<script src="<?= e(admin_url('assets/js/admin.js?v=2.0.0')) ?>"></script>
 </body>
 </html>

@@ -11,14 +11,21 @@ $flashes = pull_flashes();
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="robots" content="noindex, nofollow, noarchive">
     <meta name="theme-color" content="#07111f">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Go Admin">
+    <meta name="format-detection" content="telephone=no">
     <title><?= e($pageTitle) ?> | Go Creative</title>
     <link rel="icon" href="<?= e(site_path('/assets/img/favicon.svg')) ?>" type="image/svg+xml">
     <link rel="icon" href="<?= e(site_path('/assets/img/favicon-32x32.png')) ?>" type="image/png" sizes="32x32">
     <link rel="shortcut icon" href="<?= e(site_path('/favicon.ico')) ?>">
+    <link rel="apple-touch-icon" href="<?= e(admin_url('assets/img/app-icon-180.png')) ?>">
+    <link rel="manifest" href="<?= e(admin_url('manifest.webmanifest?v=2.0.0')) ?>">
     <link rel="stylesheet" href="<?= e(admin_url('assets/vendor/bootstrap/css/bootstrap.min.css')) ?>">
-    <link rel="stylesheet" href="<?= e(admin_url('assets/css/admin.css?v=1.9.0')) ?>">
+    <link rel="stylesheet" href="<?= e(admin_url('assets/css/admin.css?v=2.0.0')) ?>">
 </head>
-<body class="admin-body">
+<body class="admin-body" data-admin-base="<?= e(admin_url()) ?>">
 <div class="admin-shell">
     <?php require __DIR__ . '/sidebar.php'; ?>
     <div class="admin-content">
@@ -31,7 +38,16 @@ $flashes = pull_flashes();
                 <strong><?= e($pageTitle) ?></strong>
             </div>
             <?php if ($currentAdmin): ?>
-                <div class="dropdown ms-auto">
+                <div class="admin-app-actions ms-auto">
+                    <span class="admin-network-status" data-network-status role="status" aria-live="polite">
+                        <i aria-hidden="true"></i><span>En línea</span>
+                    </span>
+                    <button class="admin-install-button" type="button" data-pwa-install hidden aria-label="Instalar aplicación Go Creative">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v11m0 0 4-4m-4 4-4-4M5 15v4h14v-4"/></svg>
+                        <span>Instalar</span>
+                    </button>
+                </div>
+                <div class="dropdown">
                     <button class="admin-profile" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <span class="admin-avatar"><?= e(initials($currentAdmin['name'])) ?></span>
                         <span class="admin-profile__copy"><strong><?= e($currentAdmin['name']) ?></strong><small><?= e($currentAdmin['role_name']) ?></small></span>
