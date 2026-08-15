@@ -67,7 +67,7 @@ $flashes = pull_flashes();
     <link rel="apple-touch-icon" href="<?= e(admin_url('assets/img/app-icon-180.png')) ?>">
     <link rel="manifest" href="<?= e(admin_url('manifest.webmanifest?v=2.0.0')) ?>">
     <link rel="stylesheet" href="<?= e(admin_url('assets/vendor/bootstrap/css/bootstrap.min.css')) ?>">
-    <link rel="stylesheet" href="<?= e(admin_url('assets/css/admin.css?v=2.0.0')) ?>">
+    <link rel="stylesheet" href="<?= e(admin_url('assets/css/admin.css?v=2.1.0')) ?>">
     <?php if ($recaptchaRequired): ?>
         <link rel="preconnect" href="https://www.google.com">
         <link rel="preconnect" href="https://www.gstatic.com" crossorigin>

@@ -1,11 +1,11 @@
 'use strict';
 
-const CACHE_VERSION = 'gc-admin-static-v2.0.0';
+const CACHE_VERSION = 'gc-admin-static-v2.1.0';
 const APP_SCOPE = new URL('./', self.location.href);
 const STATIC_ASSETS = [
   'offline.html',
   'manifest.webmanifest',
-  'assets/css/admin.css?v=2.0.0',
+  'assets/css/admin.css?v=2.1.0',
   'assets/js/admin.js?v=2.0.0',
   'assets/vendor/bootstrap/css/bootstrap.min.css',
   'assets/vendor/bootstrap/js/bootstrap.bundle.min.js',
