@@ -166,6 +166,24 @@ function quote_public_url(array $quote): string
     return canonical('/cotizacion/?codigo=' . rawurlencode((string) $quote['public_key']));
 }
 
+function quote_delete(int $quoteId): void
+{
+    db()->beginTransaction();
+    try {
+        $statement = db()->prepare('DELETE FROM quotes WHERE id = :id');
+        $statement->execute(['id' => $quoteId]);
+        if ($statement->rowCount() !== 1) {
+            throw new RuntimeException('La cotización no existe o ya fue eliminada.');
+        }
+        db()->commit();
+    } catch (Throwable $exception) {
+        if (db()->inTransaction()) {
+            db()->rollBack();
+        }
+        throw $exception;
+    }
+}
+
 function quote_send(array $quote): int
 {
     $items = quote_items((int) $quote['id']);

@@ -32,7 +32,7 @@ a { color: inherit; }
   --bs-offcanvas-width: var(--gc-sidebar);
   position: fixed;
   inset: 0 auto 0 0;
-  z-index: 1040;
+  z-index: 1045;
   width: var(--gc-sidebar);
   color: #dfe7e5;
   background:
@@ -166,6 +166,26 @@ a { color: inherit; }
 }
 
 .admin-menu-button span { display: block; height: 2px; margin: 4px 0; background: #fff; }
+
+.quote-table-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+  min-width: 224px;
+}
+
+.quote-table-actions form { margin: 0; }
+
+.admin-sidebar-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1040;
+  background: rgba(3, 9, 16, .62);
+  backdrop-filter: blur(2px);
+}
+
+.admin-sidebar-backdrop[hidden] { display: none !important; }
+body.admin-menu-open { overflow: hidden; }
 
 .admin-profile {
   display: flex;
@@ -586,8 +606,16 @@ a { color: inherit; }
 .login-visual p { max-width: 510px; margin: 18px 0 0; color: #c3cecf; line-height: 1.6; }
 
 @media (max-width: 991.98px) {
-  .admin-sidebar { position: fixed; width: var(--gc-sidebar); }
-  .admin-sidebar__inner { min-height: calc(100vh - 58px); }
+  .admin-sidebar {
+    position: fixed;
+    width: min(var(--gc-sidebar), calc(100vw - 38px));
+    visibility: hidden;
+    transform: translateX(-100%);
+    transition: transform .24s ease, visibility .24s ease;
+  }
+  .admin-sidebar.is-open { visibility: visible; transform: translateX(0); }
+  .admin-sidebar .offcanvas-header { min-height: 58px; border-bottom: 1px solid rgba(255, 255, 255, .1); }
+  .admin-sidebar__inner { height: calc(100vh - 58px); height: calc(100dvh - 58px); min-height: 0; }
   .admin-content { margin-left: 0; }
   .admin-menu-button { display: block; }
   .login-shell { grid-template-columns: 1fr; }

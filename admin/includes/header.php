@@ -16,14 +16,14 @@ $flashes = pull_flashes();
     <link rel="icon" href="<?= e(site_path('/assets/img/favicon-32x32.png')) ?>" type="image/png" sizes="32x32">
     <link rel="shortcut icon" href="<?= e(site_path('/favicon.ico')) ?>">
     <link rel="stylesheet" href="<?= e(admin_url('assets/vendor/bootstrap/css/bootstrap.min.css')) ?>">
-    <link rel="stylesheet" href="<?= e(admin_url('assets/css/admin.css?v=1.8.0')) ?>">
+    <link rel="stylesheet" href="<?= e(admin_url('assets/css/admin.css?v=1.9.0')) ?>">
 </head>
 <body class="admin-body">
 <div class="admin-shell">
     <?php require __DIR__ . '/sidebar.php'; ?>
     <div class="admin-content">
         <header class="admin-topbar">
-            <button class="admin-menu-button" type="button" data-bs-toggle="offcanvas" data-bs-target="#adminSidebar" aria-controls="adminSidebar" aria-label="Abrir navegación">
+            <button class="admin-menu-button" type="button" data-admin-menu-toggle aria-expanded="false" aria-controls="adminSidebar" aria-label="Abrir navegación">
                 <span></span><span></span><span></span>
             </button>
             <div>

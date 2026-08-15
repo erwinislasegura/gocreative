@@ -1,7 +1,7 @@
-<aside class="admin-sidebar offcanvas-lg offcanvas-start" tabindex="-1" id="adminSidebar" aria-label="Navegación administrativa">
+<aside class="admin-sidebar" tabindex="-1" id="adminSidebar" data-admin-sidebar aria-label="Navegación administrativa">
     <div class="offcanvas-header d-lg-none">
         <span class="text-white fw-bold">Navegación</span>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" data-bs-target="#adminSidebar" aria-label="Cerrar"></button>
+        <button type="button" class="btn-close btn-close-white" data-admin-menu-close aria-label="Cerrar navegación"></button>
     </div>
     <div class="admin-sidebar__inner">
         <a class="admin-brand" href="<?= e(admin_url()) ?>" aria-label="Go Creative, panel de control">
@@ -36,3 +36,4 @@
         </div>
     </div>
 </aside>
+<div class="admin-sidebar-backdrop" data-admin-menu-backdrop hidden aria-hidden="true"></div>

@@ -5,21 +5,41 @@
   const progress = document.querySelector('[data-scroll-progress]');
 
   if (toggle && nav) {
-    const closeMenu = () => {
-      toggle.setAttribute('aria-expanded', 'false');
-      nav.classList.remove('is-open');
-      document.body.classList.remove('nav-open');
+    const mobileNavigation = window.matchMedia('(max-width: 1100px)');
+    const toggleLabel = toggle.querySelector('[data-nav-toggle-label]');
+
+    const setMenuState = (open, restoreFocus = false) => {
+      const shouldOpen = open && mobileNavigation.matches;
+      toggle.setAttribute('aria-expanded', String(shouldOpen));
+      toggle.setAttribute('aria-label', shouldOpen ? 'Cerrar menú' : 'Abrir menú');
+      if (toggleLabel) toggleLabel.textContent = shouldOpen ? 'Cerrar menú' : 'Abrir menú';
+      nav.classList.toggle('is-open', shouldOpen);
+      document.body.classList.toggle('nav-open', shouldOpen);
+
+      if (mobileNavigation.matches) nav.setAttribute('aria-hidden', String(!shouldOpen));
+      else nav.removeAttribute('aria-hidden');
+
+      if (!shouldOpen && restoreFocus && mobileNavigation.matches) toggle.focus({ preventScroll: true });
     };
 
     toggle.addEventListener('click', () => {
-      const open = toggle.getAttribute('aria-expanded') === 'true';
-      toggle.setAttribute('aria-expanded', String(!open));
-      nav.classList.toggle('is-open', !open);
-      document.body.classList.toggle('nav-open', !open);
+      setMenuState(toggle.getAttribute('aria-expanded') !== 'true');
     });
 
-    nav.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
-    document.addEventListener('keydown', (event) => event.key === 'Escape' && closeMenu());
+    nav.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setMenuState(false)));
+    document.addEventListener('click', (event) => {
+      if (toggle.getAttribute('aria-expanded') === 'true' && !nav.contains(event.target) && !toggle.contains(event.target)) {
+        setMenuState(false);
+      }
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') setMenuState(false, true);
+    });
+
+    const syncNavigationMode = () => setMenuState(false);
+    if (typeof mobileNavigation.addEventListener === 'function') mobileNavigation.addEventListener('change', syncNavigationMode);
+    else mobileNavigation.addListener(syncNavigationMode);
+    syncNavigationMode();
   }
 
   const syncScrollUi = () => {

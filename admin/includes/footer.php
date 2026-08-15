@@ -6,7 +6,7 @@
     </div>
 </div>
 <script src="<?= e(admin_url('assets/vendor/bootstrap/js/bootstrap.bundle.min.js')) ?>"></script>
-<script src="<?= e(admin_url('assets/js/admin.js?v=1.1.0')) ?>"></script>
+<script src="<?= e(admin_url('assets/js/admin.js?v=1.2.0')) ?>"></script>
 <?php foreach (($pageScripts ?? []) as $pageScript): ?>
 <script src="<?= e(admin_url('assets/js/' . ltrim((string) $pageScript, '/'))) ?>"></script>
 <?php endforeach; ?>

@@ -229,13 +229,13 @@ $navItems = [
     <link rel="shortcut icon" href="/favicon.ico">
     <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png" sizes="180x180">
     <link rel="manifest" href="/site.webmanifest">
-    <link rel="preload" href="/assets/css/main.css?v=2.3.0" as="style">
+    <link rel="preload" href="/assets/css/main.css?v=2.4.0" as="style">
     <?php if ($meta['path'] === '/'): ?>
     <link rel="preload" href="/assets/img/agency-web-design-v2.webp" as="image" type="image/webp" fetchpriority="high">
     <?php elseif ($visualScene !== null): ?>
     <link rel="preload" href="<?= e($visualScene['hero_image'] ?? $visualScene['image']) ?>" as="image" type="image/webp" fetchpriority="high">
     <?php endif; ?>
-    <link rel="stylesheet" href="/assets/css/main.css?v=2.3.0">
+    <link rel="stylesheet" href="/assets/css/main.css?v=2.4.0">
     <meta property="og:locale" content="es_CL">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Go Creative Chile">
@@ -292,8 +292,8 @@ $navItems = [
         <a class="brand" href="/" aria-label="Go Creative, inicio">
             <img src="/assets/img/logo.webp" width="620" height="224" alt="Go Creative Chile" fetchpriority="high">
         </a>
-        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-navigation" data-nav-toggle>
-            <span></span><span></span><span></span><span class="sr-only">Abrir menú</span>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-navigation" aria-label="Abrir menú" data-nav-toggle>
+            <span></span><span></span><span></span><span class="sr-only" data-nav-toggle-label>Abrir menú</span>
         </button>
         <nav class="main-nav" id="main-navigation" aria-label="Navegación principal" data-nav>
             <?php foreach ($navItems as $key => [$label, $href]): ?>
