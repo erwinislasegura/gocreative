@@ -20,8 +20,8 @@ $flashes = pull_flashes();
     <link rel="icon" href="<?= e(site_path('/assets/img/favicon.svg')) ?>" type="image/svg+xml">
     <link rel="icon" href="<?= e(site_path('/assets/img/favicon-32x32.png')) ?>" type="image/png" sizes="32x32">
     <link rel="shortcut icon" href="<?= e(site_path('/favicon.ico')) ?>">
-    <link rel="apple-touch-icon" href="<?= e(admin_url('assets/img/app-icon-180.png')) ?>">
-    <link rel="manifest" href="<?= e(admin_url('manifest.webmanifest?v=2.0.0')) ?>">
+    <link rel="apple-touch-icon" href="<?= e(admin_url('assets/img/app-icon-180.png?v=2.2.0')) ?>">
+    <link rel="manifest" href="<?= e(admin_url('manifest.webmanifest?v=2.2.0')) ?>">
     <link rel="stylesheet" href="<?= e(admin_url('assets/vendor/bootstrap/css/bootstrap.min.css')) ?>">
     <link rel="stylesheet" href="<?= e(admin_url('assets/css/admin.css?v=2.1.0')) ?>">
 </head>

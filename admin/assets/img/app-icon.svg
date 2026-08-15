@@ -1,7 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <rect width="512" height="512" rx="92" fill="#07111f"/>
-  <path fill="#8bea38" d="M96 96h320v320H96z"/>
-  <path fill="#07111f" d="M135 135h242v242H135z"/>
-  <path fill="#2bd9c5" d="M135 343h242v34H135z"/>
-  <text x="250" y="315" fill="#fbfdfb" font-family="Arial, sans-serif" font-size="160" font-weight="900" letter-spacing="-14" text-anchor="middle">GC</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title">
+  <title id="title">Logo Go Creative</title>
+  <rect width="512" height="512" fill="#07111f"/>
+  <circle cx="184" cy="256" r="136" fill="none" stroke="#f7faf8" stroke-width="24"/>
+  <circle cx="328" cy="256" r="136" fill="none" stroke="#f7faf8" stroke-width="24"/>
+  <text x="76" y="312" fill="#f7faf8" font-family="Arial,Helvetica,sans-serif" font-size="160" font-weight="800" letter-spacing="-13">GO</text>
+  <circle cx="308" cy="188" r="34" fill="#8bea38"/>
+  <circle cx="308" cy="188" r="14" fill="#07111f"/>
 </svg>

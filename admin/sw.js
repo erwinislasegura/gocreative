@@ -1,18 +1,18 @@
 'use strict';
 
-const CACHE_VERSION = 'gc-admin-static-v2.1.0';
+const CACHE_VERSION = 'gc-admin-static-v2.2.0';
 const APP_SCOPE = new URL('./', self.location.href);
 const STATIC_ASSETS = [
   'offline.html',
-  'manifest.webmanifest',
+  'manifest.webmanifest?v=2.2.0',
   'assets/css/admin.css?v=2.1.0',
   'assets/js/admin.js?v=2.0.0',
   'assets/vendor/bootstrap/css/bootstrap.min.css',
   'assets/vendor/bootstrap/js/bootstrap.bundle.min.js',
-  'assets/img/app-icon-180.png',
-  'assets/img/app-icon-192.png',
-  'assets/img/app-icon-512.png',
-  'assets/img/app-icon-maskable-512.png'
+  'assets/img/app-icon-180.png?v=2.2.0',
+  'assets/img/app-icon-192.png?v=2.2.0',
+  'assets/img/app-icon-512.png?v=2.2.0',
+  'assets/img/app-icon-maskable-512.png?v=2.2.0'
 ].map((path) => new URL(path, APP_SCOPE).href);
 
 self.addEventListener('install', (event) => {
