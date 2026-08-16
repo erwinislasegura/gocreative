@@ -54,6 +54,13 @@
     });
   });
 
+  document.querySelectorAll('button[data-confirm]').forEach((button) => {
+    button.addEventListener('click', (event) => {
+      const message = button.dataset.confirm || '¿Confirmas esta acción?';
+      if (!window.confirm(message)) event.preventDefault();
+    });
+  });
+
   document.querySelectorAll('[data-password-toggle]').forEach((button) => {
     button.addEventListener('click', () => {
       const input = document.getElementById(button.dataset.passwordToggle);

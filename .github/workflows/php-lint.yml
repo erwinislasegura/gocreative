@@ -1,0 +1,19 @@
+name: PHP lint
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Show PHP version
+        run: php --version
+      - name: Check PHP syntax
+        run: find . -type f -name '*.php' -not -path './vendor/*' -print0 | xargs -0 -n1 php -l

@@ -25,6 +25,12 @@
             <span>Hosting</span>
         </a>
     <?php endif; ?>
+    <?php if (can('whatsapp.view')): ?>
+        <a class="<?= $activeMenu === 'whatsapp' ? 'is-active' : '' ?>" href="<?= e(admin_url('whatsapp/')) ?>">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11.5a8 8 0 0 1-11.8 7L4 20l1.5-4A8 8 0 1 1 20 11.5Z"/></svg>
+            <span>WhatsApp</span>
+        </a>
+    <?php endif; ?>
     <button type="button" data-admin-menu-toggle aria-expanded="false" aria-controls="adminSidebar" aria-label="Abrir menú completo">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M5 12h14M5 17h14"/></svg>
         <span>Menú</span>

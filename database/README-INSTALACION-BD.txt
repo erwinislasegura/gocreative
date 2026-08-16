@@ -31,6 +31,7 @@ funcionan con nombres que tengan prefijo de cPanel.
 2. database/migrations/2026_08_11_comercial.sql
 3. database/migrations/2026_08_11_settings.sql
 4. database/migrations/2026_08_11_hosting_delete.sql
+5. database/migrations/2026_08_15_whatsapp.sql
 
 La primera migración crea la infraestructura interna del checkout Flow, sin
 menú ni permisos propios. La segunda agrega clientes, hosting, avisos, catálogo
@@ -40,6 +41,9 @@ Analytics, reCAPTCHA v2 y Correo SMTP; por seguridad se asigna solo al
 Superadministrador.
 La cuarta agrega el permiso independiente para eliminar servicios de Hosting
 y lo asigna inicialmente solo al Superadministrador. No elimina registros.
+La quinta crea contactos, conversaciones, mensajes, oportunidades y respuestas
+de WhatsApp. También agrega permisos de lectura y gestión, inicialmente solo
+para el Superadministrador.
 La migración comercial es reejecutable: si un intento anterior se interrumpió
 por una columna o tabla existente, descarga la versión actual y vuelve a
 importarla completa. No elimina registros ni duplica el catálogo inicial.
@@ -76,6 +80,7 @@ Seguridad incluida
 - Confirmación Flow verificada consultando la API firmada.
 - Enlaces públicos de cotización con claves aleatorias de 256 bits.
 - Respuesta de cotizaciones protegida con sesión y token CSRF.
+- Webhook de WhatsApp autenticado con firma HMAC y mensajes deduplicados.
 
 Importante
 ----------

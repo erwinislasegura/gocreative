@@ -22,7 +22,8 @@ Instalación
 9. Copia config/flow/flow.example.php como config/flow/flow.local.php y agrega
    tus credenciales. Comienza siempre con environment = sandbox.
 10. Ingresa al panel y configura Analytics, reCAPTCHA y Correo SMTP.
-11. Prueba la portada, todas las páginas, /admin/ y el formulario de contacto.
+11. Si usarás automatización, configura WhatsApp desde el panel y registra el webhook en Meta.
+12. Prueba la portada, todas las páginas, /admin/ y el formulario de contacto.
 
 Configuración central
 ---------------------
@@ -90,6 +91,11 @@ CSRF, auditoría, renovaciones de hosting con checkout Flow y cotizaciones con
 PDF. Flow no agrega un módulo separado al menú. Revisa
 database/README-INSTALACION-BD.txt antes de importar.
 
+El módulo WhatsApp agrega conversaciones, respuestas automáticas, calificación
+de oportunidades y derivación a asesores. Sus secretos se guardan en
+config/whatsapp/whatsapp.local.php. La guía completa está en
+README-WHATSAPP.md.
+
 Checkout Flow.cl para Hosting
 -----------------------------
 Configuración privada:
@@ -138,6 +144,7 @@ asignado por cPanel.
 2. database/migrations/2026_08_11_comercial.sql
 3. database/migrations/2026_08_11_settings.sql
 4. database/migrations/2026_08_11_hosting_delete.sql
+5. database/migrations/2026_08_15_whatsapp.sql
 
 La segunda migración crea clientes, hosting, avisos, catálogo y cotizaciones.
 No guarda datos de tarjetas. El botón de cada aviso lleva al checkout seguro
@@ -197,6 +204,7 @@ Después de publicar
 7. Ejecuta una renovación de Hosting en sandbox y verifica el checkout, la
    confirmación y la nueva fecha de vencimiento.
 8. Envía un aviso de prueba y una cotización a un correo controlado por ti.
-9. Vacía caché de LiteSpeed/cPanel si todavía aparece la versión anterior.
+9. Envía un WhatsApp de prueba y completa el flujo hasta que aparezca una oportunidad.
+10. Vacía caché de LiteSpeed/cPanel si todavía aparece la versión anterior.
 
-Versión: 3.8.2 — agosto de 2026
+Versión: 3.9.0 — agosto de 2026
