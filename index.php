@@ -54,6 +54,22 @@ require __DIR__ . '/includes/header.php';
     </div>
 </section>
 
+<section class="section section--mist plans-section">
+    <div class="container">
+        <div class="section-heading section-heading--center" data-reveal>
+            <p class="eyebrow eyebrow--dark"><span></span> Planes de desarrollo web</p>
+            <h2>Una base profesional para comenzar a captar más clientes.</h2>
+            <p>Valores referenciales con pago único. El alcance final se confirma después de revisar tu proyecto.</p>
+        </div>
+        <div class="plan-grid">
+            <article class="plan-card" data-reveal><span class="plan-card__tag">Para comenzar rápido</span><h3>One Page Express</h3><p>Una página compacta para presentar tu negocio y recibir consultas.</p><div class="price"><small>desde</small><strong>$55.000</strong><span>pago único</span></div><ul><li>Diseño responsive</li><li>Hasta 5 bloques de contenido</li><li>WhatsApp y formulario</li><li>SEO técnico inicial</li></ul><a class="button button--outline" href="<?= e(whatsapp_url('Hola, quiero consultar por la One Page Express.')) ?>" target="_blank" rel="noopener">Consultar disponibilidad</a></article>
+            <article class="plan-card" data-reveal><span class="plan-card__tag">Para negocios en crecimiento</span><h3>Web Pyme</h3><p>Sitio corporativo multipágina para presentar tus servicios, generar confianza y recibir nuevas consultas.</p><div class="price"><small>desde</small><strong>$160.000</strong><span>pago único</span></div><ul><li>Diseño responsive adaptado a tu marca</li><li>Hasta 4 páginas internas</li><li>WhatsApp y formulario de contacto</li><li>SEO técnico inicial</li></ul><a class="button button--outline" href="<?= e(whatsapp_url('Hola, quiero cotizar una Web Pyme.')) ?>" target="_blank" rel="noopener">Cotizar Web Pyme</a></article>
+            <article class="plan-card plan-card--featured" data-reveal><span class="plan-card__tag">Más solicitado</span><h3>Web Profesional</h3><p>Sitio informativo para empresas de servicios que quieren destacar.</p><div class="price"><small>desde</small><strong>$220.000</strong><span>pago único</span></div><ul><li>Diseño personalizado</li><li>Páginas internas</li><li>Autoadministrable</li><li>SEO base y capacitación</li></ul><a class="button button--lime" href="<?= e(whatsapp_url('Hola, quiero cotizar una Web Profesional.')) ?>" target="_blank" rel="noopener">Cotizar mi web</a></article>
+            <article class="plan-card" data-reveal><span class="plan-card__tag plan-card__tag--sale">Oferta especial</span><h3>Tienda Online</h3><p>Ecommerce completo con catálogo, carrito, pagos y pedidos.</p><div class="price price--sale"><small>precio oferta <del>$560.000</del></small><strong>$260.000</strong><span>pago único</span></div><ul><li>Productos y categorías</li><li>Carrito y checkout</li><li>Pagos y métodos de envío</li><li>Panel y capacitación</li></ul><a class="button button--outline" href="<?= e(whatsapp_url('Hola, quiero cotizar la Tienda Online en oferta a $260.000.')) ?>" target="_blank" rel="noopener">Cotizar ecommerce</a></article>
+        </div>
+    </div>
+</section>
+
 <section class="section section--light services-showcase" id="servicios">
     <div class="container">
         <div class="section-heading section-heading--split" data-reveal>
@@ -206,21 +222,7 @@ require __DIR__ . '/includes/header.php';
     </div>
 </section>
 
-<section class="section section--mist plans-section">
-    <div class="container">
-        <div class="section-heading section-heading--center" data-reveal>
-            <p class="eyebrow eyebrow--dark"><span></span> Planes de desarrollo web</p>
-            <h2>Una base profesional para comenzar a captar más clientes.</h2>
-            <p>Valores referenciales con pago único. El alcance final se confirma después de revisar tu proyecto.</p>
-        </div>
-        <div class="plan-grid">
-            <article class="plan-card" data-reveal><span class="plan-card__tag">Para comenzar rápido</span><h3>One Page Express</h3><p>Una página compacta para presentar tu negocio y recibir consultas.</p><div class="price"><small>desde</small><strong>$55.000</strong><span>pago único</span></div><ul><li>Diseño responsive</li><li>Hasta 5 bloques de contenido</li><li>WhatsApp y formulario</li><li>SEO técnico inicial</li></ul><a class="button button--outline" href="<?= e(whatsapp_url('Hola, quiero consultar por la One Page Express.')) ?>" target="_blank" rel="noopener">Consultar disponibilidad</a></article>
-            <article class="plan-card" data-reveal><span class="plan-card__tag">Para negocios en crecimiento</span><h3>Web Pyme</h3><p>Sitio corporativo multipágina para presentar tus servicios, generar confianza y recibir nuevas consultas.</p><div class="price"><small>desde</small><strong>$160.000</strong><span>pago único</span></div><ul><li>Diseño responsive adaptado a tu marca</li><li>Hasta 4 páginas internas</li><li>WhatsApp y formulario de contacto</li><li>SEO técnico inicial</li></ul><a class="button button--outline" href="<?= e(whatsapp_url('Hola, quiero cotizar una Web Pyme.')) ?>" target="_blank" rel="noopener">Cotizar Web Pyme</a></article>
-            <article class="plan-card plan-card--featured" data-reveal><span class="plan-card__tag">Más solicitado</span><h3>Web Profesional</h3><p>Sitio informativo para empresas de servicios que quieren destacar.</p><div class="price"><small>desde</small><strong>$220.000</strong><span>pago único</span></div><ul><li>Diseño personalizado</li><li>Páginas internas</li><li>Autoadministrable</li><li>SEO base y capacitación</li></ul><a class="button button--lime" href="<?= e(whatsapp_url('Hola, quiero cotizar una Web Profesional.')) ?>" target="_blank" rel="noopener">Cotizar mi web</a></article>
-            <article class="plan-card" data-reveal><span class="plan-card__tag plan-card__tag--sale">Oferta especial</span><h3>Tienda Online</h3><p>Ecommerce completo con catálogo, carrito, pagos y pedidos.</p><div class="price price--sale"><small>precio oferta <del>$560.000</del></small><strong>$260.000</strong><span>pago único</span></div><ul><li>Productos y categorías</li><li>Carrito y checkout</li><li>Pagos y métodos de envío</li><li>Panel y capacitación</li></ul><a class="button button--outline" href="<?= e(whatsapp_url('Hola, quiero cotizar la Tienda Online en oferta a $260.000.')) ?>" target="_blank" rel="noopener">Cotizar ecommerce</a></article>
-        </div>
-    </div>
-</section>
+
 
 <section class="section testimonials">
     <div class="container">
