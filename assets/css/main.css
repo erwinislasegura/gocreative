@@ -164,10 +164,11 @@ ul, ol { padding: 0; margin: 0; }
 .portfolio-card:hover .portfolio-card__arrow { color: var(--ink); background: var(--lime); border-color: var(--lime); }
 .section-action { margin-top: 30px; text-align: center; }
 
-.plan-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; align-items: stretch; }
+.plan-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; align-items: stretch; }
 .plan-card { position: relative; display: flex; flex-direction: column; padding: 28px; border: 1px solid #ccd6d3; background: #fff; }
 .plan-card--featured { color: #fff; background: var(--ink); border-color: var(--ink); transform: translateY(-14px); box-shadow: var(--shadow); }
 .plan-card__tag { align-self: flex-start; padding: 5px 9px; color: var(--green); background: #e9f7ef; border-radius: 3px; font-size: .66rem; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
+.plan-card__tag--sale { color: #7b2e20; border-color: #efb7aa; background: #fff0eb; }
 .plan-card--featured .plan-card__tag { color: var(--ink); background: var(--lime); }
 .plan-card h3 { margin: 20px 0 8px; }
 .plan-card > p { min-height: 52px; margin-bottom: 22px; font-size: .9rem; }
@@ -177,6 +178,8 @@ ul, ol { padding: 0; margin: 0; }
 .price small { grid-column: 1 / -1; color: #7e8b94; font-size: .68rem; text-transform: uppercase; }
 .price strong { font-size: clamp(2rem, 3.2vw, 3rem); line-height: 1; letter-spacing: -.04em; }
 .price span { align-self: end; margin: 0 0 3px 8px; color: #809099; font-size: .68rem; }
+.price--sale small { display: flex; align-items: center; gap: 7px; }
+.price--sale del { color: #a24b3b; font-size: .72rem; font-weight: 800; letter-spacing: .02em; }
 .plan-card ul { margin-bottom: 24px; list-style: none; }
 .plan-card li { position: relative; padding: 9px 0 9px 25px; color: #57636d; border-bottom: 1px dashed #d8dfdd; font-size: .84rem; }
 .plan-card--featured li { color: #c3ced6; border-color: rgba(255,255,255,.14); }
@@ -676,6 +679,7 @@ h3 { font-size: clamp(.94rem, 1vw, 1.05rem); }
 .privacy-content h3 { font-size: 1.05rem; }
 
 @media (max-width: 1100px) {
+  .plan-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .hero__content { padding-right: 40px; }
   .service-card:nth-child(1), .service-card:nth-child(2) { grid-column: span 6; }
   .service-card:nth-child(3), .service-card:nth-child(4), .service-card:nth-child(5) { grid-column: span 4; }
