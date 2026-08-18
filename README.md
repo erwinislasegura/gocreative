@@ -70,6 +70,7 @@ este orden:
 2. `database/migrations/2026_08_11_comercial.sql`
 3. `database/migrations/2026_08_11_settings.sql`
 4. `database/migrations/2026_08_11_hosting_delete.sql`
+5. `database/migrations/2026_08_15_whatsapp.sql`
 
 Las migraciones no contienen `USE gocreative`, por lo que aceptan directamente
 el nombre con prefijo asignado por cPanel.
@@ -90,6 +91,19 @@ conectarse a `localhost`.
 
 Los correos utilizan el transporte elegido en el módulo Correo SMTP. Configura
 un buzón real del dominio y ejecuta la prueba antes de enviar avisos a clientes.
+
+## Automatización de WhatsApp
+
+El módulo de WhatsApp Cloud API recibe mensajes mediante un webhook firmado,
+registra conversaciones y califica oportunidades (servicio, presupuesto, plazo
+y nombre). Incluye respuestas por palabras clave, horario, baja voluntaria,
+derivación a una persona, estados de entrega y panel para responder dentro de
+la ventana de atención de 24 horas.
+
+Las credenciales viven únicamente en el archivo ignorado
+`config/whatsapp/whatsapp.local.php` o en variables `GC_WHATSAPP_*`. Para una
+instalación existente importa `database/migrations/2026_08_15_whatsapp.sql` y
+sigue [README-WHATSAPP.md](README-WHATSAPP.md).
 
 Consulta [README-INSTALACION.txt](README-INSTALACION.txt) y
 [database/README-INSTALACION-BD.txt](database/README-INSTALACION-BD.txt) para

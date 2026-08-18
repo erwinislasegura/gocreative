@@ -24,10 +24,16 @@
             <?php if (can('quotes.view')): ?>
                 <a class="<?= $activeMenu === 'quotes' ? 'is-active' : '' ?>" href="<?= e(admin_url('cotizaciones/')) ?>"><span>05</span>Cotizaciones</a>
             <?php endif; ?>
+            <?php if (can('whatsapp.view')): ?>
+                <a class="<?= $activeMenu === 'whatsapp' ? 'is-active' : '' ?>" href="<?= e(admin_url('whatsapp/')) ?>"><span>06</span>WhatsApp</a>
+            <?php endif; ?>
             <?php if (can('settings.manage')): ?>
-                <a class="<?= $activeMenu === 'analytics' ? 'is-active' : '' ?>" href="<?= e(admin_url('configuracion/analytics.php')) ?>"><span>06</span>Google Analytics</a>
-                <a class="<?= $activeMenu === 'recaptcha' ? 'is-active' : '' ?>" href="<?= e(admin_url('configuracion/recaptcha.php')) ?>"><span>07</span>reCAPTCHA v2</a>
-                <a class="<?= $activeMenu === 'mail' ? 'is-active' : '' ?>" href="<?= e(admin_url('configuracion/correo.php')) ?>"><span>08</span>Correo SMTP</a>
+                <a class="<?= $activeMenu === 'analytics' ? 'is-active' : '' ?>" href="<?= e(admin_url('configuracion/analytics.php')) ?>"><span>07</span>Google Analytics</a>
+                <a class="<?= $activeMenu === 'recaptcha' ? 'is-active' : '' ?>" href="<?= e(admin_url('configuracion/recaptcha.php')) ?>"><span>08</span>reCAPTCHA v2</a>
+                <a class="<?= $activeMenu === 'mail' ? 'is-active' : '' ?>" href="<?= e(admin_url('configuracion/correo.php')) ?>"><span>09</span>Correo SMTP</a>
+            <?php endif; ?>
+            <?php if (can('whatsapp.manage')): ?>
+                <a class="<?= $activeMenu === 'whatsapp-settings' ? 'is-active' : '' ?>" href="<?= e(admin_url('whatsapp/configuracion.php')) ?>"><span>10</span>Configurar WhatsApp</a>
             <?php endif; ?>
         </nav>
         <div class="admin-sidebar__footer">
