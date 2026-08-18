@@ -70,47 +70,7 @@ require __DIR__ . '/includes/header.php';
     </div>
 </section>
 
-<section class="section section--light services-showcase" id="servicios">
-    <div class="container">
-        <div class="section-heading section-heading--split" data-reveal>
-            <div><p class="eyebrow eyebrow--dark"><span></span> Lo que hacemos</p><h2>Una agencia para pensar, construir y hacer crecer.</h2></div>
-            <div class="services-showcase__intro">
-                <p>No vendemos piezas aisladas. Conectamos marca, experiencia, tecnología y adquisición para resolver el problema completo.</p>
-                <div><span>Estrategia</span><span>Experiencia</span><span>Resultados</span></div>
-            </div>
-        </div>
-        <div class="service-grid">
-            <a class="service-card service-card--featured service-card--visual" href="/diseno-web-chile/" data-reveal="up">
-                <span class="service-card__media" aria-hidden="true"><img src="/assets/img/agency-web-design-v2.webp" alt="" width="1939" height="811" loading="lazy" decoding="async"></span>
-                <span class="service-card__top"><span class="service-card__number">01 / WEB</span><span class="service-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="1"/><path d="M3 9h18M7 6.5h.01M10 6.5h.01"/></svg></span></span>
-                <span class="service-card__body"><h3>Diseño y desarrollo web</h3><p>Sitios corporativos y landing pages con una experiencia visual que genera confianza y convierte.</p></span>
-                <strong>Explorar servicio <span>↗</span></strong>
-            </a>
-            <a class="service-card service-card--commerce" href="/tiendas-online/" data-reveal="up">
-                <span class="service-card__top"><span class="service-card__number">02 / COMMERCE</span><span class="service-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5h2l2 10h9l2-7H7M9 19h.01M17 19h.01"/></svg></span></span>
-                <span class="service-card__body"><h3>Tiendas online</h3><p>Compra rápida, pagos, envíos y una administración simple.</p></span><strong>Explorar <span>↗</span></strong>
-            </a>
-            <a class="service-card service-card--system" href="/software-a-medida/" data-reveal="up">
-                <span class="service-card__top"><span class="service-card__number">03 / SYSTEM</span><span class="service-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m9 6-5 6 5 6M15 6l5 6-5 6M13 4l-2 16"/></svg></span></span>
-                <span class="service-card__body"><h3>Software a medida</h3><p>Plataformas, usuarios, reportes y control adaptados a tu operación.</p></span><strong>Explorar <span>↗</span></strong>
-            </a>
-            <a class="service-card service-card--automation" href="/automatizacion/" data-reveal="up">
-                <span class="service-card__top"><span class="service-card__number">04 / FLOW</span><span class="service-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M8 6h8M7 8l4 8M17 8l-4 8"/></svg></span></span>
-                <span class="service-card__body"><h3>Automatización</h3><p>Procesos conectados para reducir errores y recuperar horas.</p></span><strong>Explorar <span>↗</span></strong>
-            </a>
-            <a class="service-card service-card--visual service-card--growth" href="/meta-ads/" data-reveal="up">
-                <span class="service-card__media" aria-hidden="true"><img src="/assets/img/agency-marketing-v2.webp" alt="" width="1983" height="793" loading="lazy" decoding="async"></span>
-                <span class="service-card__top"><span class="service-card__number">05 / GROWTH</span><span class="service-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M15 9l5-5M17 4h3v3"/></svg></span></span>
-                <span class="service-card__body"><h3>Campañas Meta Ads</h3><p>Publicidad medible para transformar atención en oportunidades.</p></span><strong>Explorar <span>↗</span></strong>
-            </a>
-            <a class="service-card service-card--visual service-card--brand" href="/diseno-creativo-digital/" data-reveal="up">
-                <span class="service-card__media" aria-hidden="true"><img src="/assets/img/agency-branding-v2.webp" alt="" width="1918" height="820" loading="lazy" decoding="async"></span>
-                <span class="service-card__top"><span class="service-card__number">06 / BRAND</span><span class="service-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m12 3 1.7 5.3L19 10l-5.3 1.7L12 17l-1.7-5.3L5 10l5.3-1.7L12 3Z"/><path d="m19 16 .8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8L19 16Z"/></svg></span></span>
-                <span class="service-card__body"><h3>Diseño creativo digital</h3><p>Identidad y contenido visual para construir una marca reconocible.</p></span><strong>Explorar <span>↗</span></strong>
-            </a>
-        </div>
-    </div>
-</section>
+
 
 <section class="parallax-band parallax-band--left parallax-band--home"
          aria-labelledby="home-parallax-title"
@@ -219,6 +179,48 @@ require __DIR__ . '/includes/header.php';
             <?php endforeach; ?>
         </div>
         <div class="section-action"><a class="button button--dark" href="/portafolio/">Ver portafolio completo <span>→</span></a></div>
+    </div>
+</section>
+
+<section class="section section--light services-showcase" id="servicios">
+    <div class="container">
+        <div class="section-heading section-heading--split" data-reveal>
+            <div><p class="eyebrow eyebrow--dark"><span></span> Lo que hacemos</p><h2>Una agencia para pensar, construir y hacer crecer.</h2></div>
+            <div class="services-showcase__intro">
+                <p>No vendemos piezas aisladas. Conectamos marca, experiencia, tecnología y adquisición para resolver el problema completo.</p>
+                <div><span>Estrategia</span><span>Experiencia</span><span>Resultados</span></div>
+            </div>
+        </div>
+        <div class="service-grid">
+            <a class="service-card service-card--featured service-card--visual" href="/diseno-web-chile/" data-reveal="up">
+                <span class="service-card__media" aria-hidden="true"><img src="/assets/img/agency-web-design-v2.webp" alt="" width="1939" height="811" loading="lazy" decoding="async"></span>
+                <span class="service-card__top"><span class="service-card__number">01 / WEB</span><span class="service-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="1"/><path d="M3 9h18M7 6.5h.01M10 6.5h.01"/></svg></span></span>
+                <span class="service-card__body"><h3>Diseño y desarrollo web</h3><p>Sitios corporativos y landing pages con una experiencia visual que genera confianza y convierte.</p></span>
+                <strong>Explorar servicio <span>↗</span></strong>
+            </a>
+            <a class="service-card service-card--commerce" href="/tiendas-online/" data-reveal="up">
+                <span class="service-card__top"><span class="service-card__number">02 / COMMERCE</span><span class="service-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5h2l2 10h9l2-7H7M9 19h.01M17 19h.01"/></svg></span></span>
+                <span class="service-card__body"><h3>Tiendas online</h3><p>Compra rápida, pagos, envíos y una administración simple.</p></span><strong>Explorar <span>↗</span></strong>
+            </a>
+            <a class="service-card service-card--system" href="/software-a-medida/" data-reveal="up">
+                <span class="service-card__top"><span class="service-card__number">03 / SYSTEM</span><span class="service-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m9 6-5 6 5 6M15 6l5 6-5 6M13 4l-2 16"/></svg></span></span>
+                <span class="service-card__body"><h3>Software a medida</h3><p>Plataformas, usuarios, reportes y control adaptados a tu operación.</p></span><strong>Explorar <span>↗</span></strong>
+            </a>
+            <a class="service-card service-card--automation" href="/automatizacion/" data-reveal="up">
+                <span class="service-card__top"><span class="service-card__number">04 / FLOW</span><span class="service-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M8 6h8M7 8l4 8M17 8l-4 8"/></svg></span></span>
+                <span class="service-card__body"><h3>Automatización</h3><p>Procesos conectados para reducir errores y recuperar horas.</p></span><strong>Explorar <span>↗</span></strong>
+            </a>
+            <a class="service-card service-card--visual service-card--growth" href="/meta-ads/" data-reveal="up">
+                <span class="service-card__media" aria-hidden="true"><img src="/assets/img/agency-marketing-v2.webp" alt="" width="1983" height="793" loading="lazy" decoding="async"></span>
+                <span class="service-card__top"><span class="service-card__number">05 / GROWTH</span><span class="service-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M15 9l5-5M17 4h3v3"/></svg></span></span>
+                <span class="service-card__body"><h3>Campañas Meta Ads</h3><p>Publicidad medible para transformar atención en oportunidades.</p></span><strong>Explorar <span>↗</span></strong>
+            </a>
+            <a class="service-card service-card--visual service-card--brand" href="/diseno-creativo-digital/" data-reveal="up">
+                <span class="service-card__media" aria-hidden="true"><img src="/assets/img/agency-branding-v2.webp" alt="" width="1918" height="820" loading="lazy" decoding="async"></span>
+                <span class="service-card__top"><span class="service-card__number">06 / BRAND</span><span class="service-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m12 3 1.7 5.3L19 10l-5.3 1.7L12 17l-1.7-5.3L5 10l5.3-1.7L12 3Z"/><path d="m19 16 .8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8L19 16Z"/></svg></span></span>
+                <span class="service-card__body"><h3>Diseño creativo digital</h3><p>Identidad y contenido visual para construir una marca reconocible.</p></span><strong>Explorar <span>↗</span></strong>
+            </a>
+        </div>
     </div>
 </section>
 
