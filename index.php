@@ -70,23 +70,7 @@ require __DIR__ . '/includes/header.php';
     </div>
 </section>
 
-<section class="section portfolio-preview">
-    <div class="container">
-        <div class="section-heading section-heading--split" data-reveal>
-            <div><p class="eyebrow eyebrow--dark"><span></span> Trabajo reciente</p><h2>Marcas mejor presentadas. Experiencias que se sienten profesionales.</h2></div>
-            <p>Cada proyecto combina una navegación simple, mensajes concretos y una identidad visual pensada para el mercado de cada cliente.</p>
-        </div>
-        <div class="portfolio-grid">
-            <?php foreach (array_slice($portfolioItems, 0, 6) as $index => $item): ?>
-            <article class="portfolio-card <?= $index === 0 ? 'portfolio-card--wide' : '' ?>" data-reveal>
-                <div class="portfolio-card__image"><img src="/assets/img/portfolio/<?= e($item['image']) ?>" alt="Proyecto web <?= e($item['name']) ?>" width="960" height="515" loading="lazy" decoding="async"></div>
-                <div class="portfolio-card__body"><div><span><?= e($item['type']) ?></span><h3><?= e($item['name']) ?></h3></div><span class="portfolio-card__arrow">↗</span></div>
-            </article>
-            <?php endforeach; ?>
-        </div>
-        <div class="section-action"><a class="button button--dark" href="/portafolio/">Ver portafolio completo <span>→</span></a></div>
-    </div>
-</section>
+
 
 <section class="section section--light services-showcase" id="servicios">
     <div class="container">
@@ -241,6 +225,24 @@ require __DIR__ . '/includes/header.php';
 </section>
 
 
+
+<section class="section portfolio-preview">
+    <div class="container">
+        <div class="section-heading section-heading--split" data-reveal>
+            <div><p class="eyebrow eyebrow--dark"><span></span> Trabajo reciente</p><h2>Marcas mejor presentadas. Experiencias que se sienten profesionales.</h2></div>
+            <p>Cada proyecto combina una navegación simple, mensajes concretos y una identidad visual pensada para el mercado de cada cliente.</p>
+        </div>
+        <div class="portfolio-grid">
+            <?php foreach (array_slice($portfolioItems, 0, 6) as $index => $item): ?>
+            <article class="portfolio-card <?= $index === 0 ? 'portfolio-card--wide' : '' ?>" data-reveal>
+                <div class="portfolio-card__image"><img src="/assets/img/portfolio/<?= e($item['image']) ?>" alt="Proyecto web <?= e($item['name']) ?>" width="960" height="515" loading="lazy" decoding="async"></div>
+                <div class="portfolio-card__body"><div><span><?= e($item['type']) ?></span><h3><?= e($item['name']) ?></h3></div><span class="portfolio-card__arrow">↗</span></div>
+            </article>
+            <?php endforeach; ?>
+        </div>
+        <div class="section-action"><a class="button button--dark" href="/portafolio/">Ver portafolio completo <span>→</span></a></div>
+    </div>
+</section>
 
 <section class="section faq-section">
     <div class="container faq-layout">
